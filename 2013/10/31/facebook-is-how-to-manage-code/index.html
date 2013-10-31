@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ITman.cc</title>
+  <title>Facebook 是如何管理代码的 | ITman.cc</title>
   <meta name="author" content="L.S">
+  
+  <meta name="description" content="我对facebook的运转着迷。这是一个很独特的环境，不容易被复制（他们的体系并不适合所有的公司，即使他们努力尝试过）。下面是我和facebook的朋友们关于他们如何开发和管理项目的记录。
+现在距离我收集的这些信息又过去6个月了，我相信facebook肯定又对他们的项目开发实践进行了改进。所以这些记">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Facebook 是如何管理代码的"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -41,8 +44,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -52,7 +54,7 @@
       
       
   
-    <h1 class="title"><a href="/2013/10/31/facebook-is-how-to-manage-code/">Facebook 是如何管理代码的</a></h1>
+    <h1 class="title">Facebook 是如何管理代码的</h1>
   
 
     </header>
@@ -115,7 +117,31 @@
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/News/">News</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/facebook/">facebook</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
       
       <div class="clearfix"></div>
     </footer>
@@ -123,81 +149,26 @@
 </article>
 
 
+<section id="comment">
+  <h1 class="title">Comments</h1>
 
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-10-31T12:17:31.000Z"><a href="/2013/10/31/figure-learn-python/">Oct 31 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/10/31/figure-learn-python/">看图学Python</a></h1>
-  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 
-    </header>
-    <div class="entry">
-      
-        <p><img src="http://farm3.staticflickr.com/2884/10590380855_1231532771_z.jpg" alt="python"></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-10-31T11:50:48.000Z"><a href="/2013/10/31/install-vmesxi-server/">Oct 31 2013</a></time>
-      
+<div class="fb-comments" data-href="http://littlesuper.github.io/2013/10/31/facebook-is-how-to-manage-code/" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
-    <h1 class="title"><a href="/2013/10/31/install-vmesxi-server/">搭建VMware Esxi虚拟化服务器</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h4>1、安装VMware ESXi</h4>
-<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
-<h4>2、安装VMware vSphere Client</h4>
-<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
-<p><img src="http://farm6.staticflickr.com/5476/10589970086_596719c30a_z.jpg" alt="VM Esxi"></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-<nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+</section>
+</div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
