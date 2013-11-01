@@ -4,13 +4,47 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://littlesuper.github.io/atom.xml" rel="self"/>
   <link href="http://littlesuper.github.io"/>
-  <updated>2013-11-01T03:04:40.613Z</updated>
+  <updated>2013-11-01T15:12:51.971Z</updated>
   <id>http://littlesuper.github.io/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[CentOS PHP 5.2.x 链接Oracle数据库]]></title>
+    <link href="http://littlesuper.github.io/2013/11/01/centos-php-5-2-connect-to-oracle/"/>
+    <id>http://littlesuper.github.io/2013/11/01/centos-php-5-2-connect-to-oracle/</id>
+    <published>2013-11-01T03:31:20.000Z</published>
+    <updated>2013-11-01T03:34:42.000Z</updated>
+    <content type="html"><![CDATA[<p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
+<p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
+<p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
+<p>2、安装Oracle即时客户端程序包</p>
+<pre><code>rpm -ivh oracle-instantclient11<span class="number">.2</span>-basic-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-devel-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-sqlplus-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span>
+echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<span class="keyword">ld</span><span class="preprocessor">.so</span><span class="preprocessor">.conf</span><span class="preprocessor">.d</span>/oracle_client<span class="preprocessor">.conf</span>
+/sbin/ldconfig</code></pre>
+<p>3、安装OCI8 PHP扩展（使用PHP自带的OCI8，假设PHP程序安装在/usr/local/webserver/php/）</p>
+<pre><code><span class="title">yum</span> install libaio
+<span class="title">wget</span> http://pecl.php.net/get/oci8-<span class="number">1.4</span><span class="number">.4</span>.tgz
+<span class="title">cd</span> oci8-<span class="number">1.4</span><span class="number">.4</span>/
+/usr/local/webserver/php/bin/phpize <span class="type">CFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span> <span class="type">CXXFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span>
+./configure <span class="comment">--with-php-config=/usr/local/webserver/php/bin/php-config --with-oci8=/usr/lib/oracle/11.2/client/</span>
+<span class="title">make</span>
+<span class="title">make</span> install</code></pre>
+<p>make oci8出错的话，用这个编译试试</p>
+<pre><code>.<span class="regexp">/configure --with-php-config=/usr</span><span class="regexp">/local/webserver</span><span class="regexp">/php/bin</span><span class="regexp">/php-config --with-oci8=instantclient,/usr</span><span class="regexp">/lib/oracle</span><span class="regexp">/11.2/client</span><span class="regexp">/lib/</span></code></pre>
+<p>4、修改PHP配置文件（/usr/local/webserver/php/etc/php.ini）<br>在extension_dir = “/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/”后增加一行：</p>
+<pre><code><span class="setting">extension = <span class="value"><span class="string">"oci8.so"</span></span></span></code></pre>
+<p>5、重启PHP</p>
+<p>6、创建一个phpinfo.php文件（内容如下）并通过Web访问，如果有“oci8”这一项，则表明安装成功。</p>
+<pre><code><span class="preprocessor">&lt;?php</span>
+phpinfo();
+<span class="preprocessor">?&gt;</span></code></pre>
+]]></content>
+    <category scheme="http://littlesuper.github.io/tags/oracle, centos, php/" term="oracle, centos, php"/>
+    <category scheme="http://littlesuper.github.io/categories/Oracle/" term="Oracle"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[CentOS5 搭建L2TP VPN]]></title>
     <link href="http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/"/>
