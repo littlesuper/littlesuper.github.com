@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[ITman.cc]]></title>
+  <subtitle><![CDATA[关注互联网发展...]]></subtitle>
+  <link href="http://littlesuper.github.io/atom.xml" rel="self"/>
+  <link href="http://littlesuper.github.io"/>
+  <updated>2013-11-01T01:58:38.063Z</updated>
+  <id>http://littlesuper.github.io/</id>
+  <author>
+    <name><![CDATA[L.S]]></name>
+    <email><![CDATA[littlesuper@gmail.com]]></email>
+  </author>
+  <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[CentOS5 搭建L2TP VPN]]></title>
+    <link href="http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/"/>
+    <id>http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/</id>
+    <published>2013-11-01T01:34:11.000Z</published>
+    <updated>2013-11-01T01:45:40.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a><br>分享个一键搭建L2TP VPN 的脚本</p>
+<pre><code>#!/bin/bash
+
+if [ $(id -u) != "0" ]; then
+printf "Error: You must be root to run this tool!\n"
+exit 1
+fi
+clear
+printf "
+####################################################
+#                                                  #
+# This is a Shell-Based tool of l2tp installation  #
+#                                                  #
+####################################################
+"
+vpsip=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk 'NR==1 { print $1}'`
+
+iprange="10.0.99"
+echo "Please input IP-Range:"
+read -p "(Default Range: 10.0.99):" iprange
+if [ "$iprange" = "" ]; then
+iprange="10.0.99"
+fi
+
+mypsk="itman.cc"
+echo "Please input PSK:"
+read -p "(Default PSK: itman.cc):" mypsk
+if [ "$mypsk" = "" ]; then
+mypsk="itman.cc"
+fi
+
+clear
+get_char()
+{
+SAVEDSTTY=`stty -g`
+stty -echo
+stty cbreak
+dd if=/dev/tty bs=1 count=1 2&gt; /dev/null
+stty -raw
+stty echo
+stty $SAVEDSTTY
+}
+echo ""
+echo "ServerIP:"
+echo "$vpsip"
+echo ""
+echo "Server Local IP:"
+echo "$iprange.1"
+echo ""
+echo "Client Remote IP Range:"
+echo "$iprange.2-$iprange.254"
+echo ""
+echo "PSK:"
+echo "$mypsk"
+echo ""
+echo "Press any key to start..."
+char=`get_char`
+clear
+
+apt-get -y update
+apt-get -y upgrade
+apt-get -y install libgmp3-dev bison flex libpcap-dev ppp iptables make gcc lsof vim
+mkdir /ztmp
+mkdir /ztmp/l2tp
+cd /ztmp/l2tp
+wget http://www.openswan.org/download/openswan-2.6.24.tar.gz
+tar zxvf openswan-2.6.24.tar.gz
+cd openswan-2.6.24
+make programs install
+rm -rf /etc/ipsec.conf
+touch /etc/ipsec.conf
+cat &gt;&gt;/etc/ipsec.conf<span class="tag">&lt;<span class="title">&lt;EOF
+config</span> <span class="attribute">setup</span>
+<span class="attribute">nat_traversal</span>=<span class="value">yes</span>
+<span class="attribute">virtual_private</span>=<span class="value">%v4:10.0.0.0</span>/<span class="attribute">8</span>,%<span class="attribute">v4:192.168.0.0</span>/<span class="attribute">16</span>,%<span class="attribute">v4:172.16.0.0</span>/<span class="attribute">12</span>
+<span class="attribute">oe</span>=<span class="value">off</span>
+<span class="attribute">protostack</span>=<span class="value">netkey</span>
+
+<span class="attribute">conn</span> <span class="attribute">L2TP-PSK-NAT</span>
+<span class="attribute">rightsubnet</span>=<span class="value">vhost:%priv</span>
+<span class="attribute">also</span>=<span class="value">L2TP-PSK-noNAT</span>
+
+<span class="attribute">conn</span> <span class="attribute">L2TP-PSK-noNAT</span>
+<span class="attribute">authby</span>=<span class="value">secret</span>
+<span class="attribute">pfs</span>=<span class="value">no</span>
+<span class="attribute">auto</span>=<span class="value">add</span>
+<span class="attribute">keyingtries</span>=<span class="value">3</span>
+<span class="attribute">rekey</span>=<span class="value">no</span>
+<span class="attribute">ikelifetime</span>=<span class="value">8h</span>
+<span class="attribute">keylife</span>=<span class="value">1h</span>
+<span class="attribute">type</span>=<span class="value">transport</span>
+<span class="attribute">left</span>=<span class="value">$vpsip</span>
+<span class="attribute">leftprotoport</span>=<span class="value">17</span>/<span class="attribute">1701</span>
+<span class="attribute">right</span>=<span class="value">%any</span>
+<span class="attribute">rightprotoport</span>=<span class="value">17</span>/%<span class="attribute">any</span>
+<span class="attribute">EOF</span>
+<span class="attribute">cat</span> &gt;</span>&gt;/etc/ipsec.secrets<span class="tag">&lt;<span class="title">&lt;EOF
+$vpsip</span> %<span class="attribute">any:</span> <span class="attribute">PSK</span> "$<span class="attribute">mypsk</span>"
+<span class="attribute">EOF</span>
+<span class="attribute">sed</span> <span class="attribute">-i</span> '<span class="attribute">s</span>/#<span class="attribute">net.ipv4.ip_forward</span>=<span class="value">1</span>/<span class="attribute">net.ipv4.ip_forward</span>=<span class="value">1</span>/<span class="attribute">g</span>' /<span class="attribute">etc</span>/<span class="attribute">sysctl.conf</span>
+<span class="attribute">sed</span> <span class="attribute">-i</span> '<span class="attribute">s</span>/#<span class="attribute">net.ipv6.conf.all.forwarding</span>=<span class="value">1</span>/<span class="attribute">net.ipv6.conf.all.forwarding</span>=<span class="value">1</span>/<span class="attribute">g</span>' /<span class="attribute">etc</span>/<span class="attribute">sysctl.conf</span>
+<span class="attribute">sysctl</span> <span class="attribute">-p</span>
+<span class="attribute">iptables</span> <span class="attribute">--table</span> <span class="attribute">nat</span> <span class="attribute">--append</span> <span class="attribute">POSTROUTING</span> <span class="attribute">--jump</span> <span class="attribute">MASQUERADE</span>
+<span class="attribute">for</span> <span class="attribute">each</span> <span class="attribute">in</span> /<span class="attribute">proc</span>/<span class="attribute">sys</span>/<span class="attribute">net</span>/<span class="attribute">ipv4</span>/<span class="attribute">conf</span>/*
+<span class="attribute">do</span>
+<span class="attribute">echo</span> <span class="attribute">0</span> &gt;</span> $each/accept_redirects
+echo 0 &gt; $each/send_redirects
+done
+/etc/init.d/ipsec restart
+ipsec verify
+cd /ztmp/l2tp
+wget http://nchc.dl.sourceforge.net/project/rp-l2tp/rp-l2tp/0.4/rp-l2tp-0.4.tar.gz
+tar zxvf rp-l2tp-0.4.tar.gz
+cd rp-l2tp-0.4
+./configure
+make
+cp handlers/l2tp-control /usr/local/sbin/
+mkdir /var/run/xl2tpd/
+ln -s /usr/local/sbin/l2tp-control /var/run/xl2tpd/l2tp-control
+cd /ztmp/l2tp
+wget http://www.xelerance.com/wp-content/uploads/software/xl2tpd/xl2tpd-1.2.8.tar.gz
+tar zxvf xl2tpd-1.2.8.tar.gz
+cd xl2tpd-1.2.8
+make install
+mkdir /etc/xl2tpd
+rm -rf /etc/xl2tpd/xl2tpd.conf
+touch /etc/xl2tpd/xl2tpd.conf
+cat &gt;&gt;/etc/xl2tpd/xl2tpd.conf<span class="tag">&lt;<span class="title">&lt;EOF
+[global]
+ipsec</span> <span class="attribute">saref</span> = <span class="attribute">yes</span>
+[<span class="attribute">lns</span> <span class="attribute">default</span>]
+<span class="attribute">ip</span> <span class="attribute">range</span> = $<span class="attribute">iprange.2-</span>$<span class="attribute">iprange.254</span>
+<span class="attribute">local</span> <span class="attribute">ip</span> = $<span class="attribute">iprange.1</span>
+<span class="attribute">refuse</span> <span class="attribute">chap</span> = <span class="attribute">yes</span>
+<span class="attribute">refuse</span> <span class="attribute">pap</span> = <span class="attribute">yes</span>
+<span class="attribute">require</span> <span class="attribute">authentication</span> = <span class="attribute">yes</span>
+<span class="attribute">ppp</span> <span class="attribute">debug</span> = <span class="attribute">yes</span>
+<span class="attribute">pppoptfile</span> = /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
+<span class="attribute">length</span> <span class="attribute">bit</span> = <span class="attribute">yes</span>
+<span class="attribute">EOF</span>
+<span class="attribute">rm</span> <span class="attribute">-rf</span> /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
+<span class="attribute">touch</span> /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
+<span class="attribute">cat</span> &gt;</span>&gt;/etc/ppp/options.xl2tpd<span class="tag">&lt;<span class="title">&lt;EOF
+require-mschap-v2
+ms-dns</span> <span class="attribute">8.8.8.8</span>
+<span class="attribute">ms-dns</span> <span class="attribute">8.8.4.4</span>
+<span class="attribute">asyncmap</span> <span class="attribute">0</span>
+<span class="attribute">auth</span>
+<span class="attribute">crtscts</span>
+<span class="attribute">lock</span>
+<span class="attribute">hide-password</span>
+<span class="attribute">modem</span>
+<span class="attribute">debug</span>
+<span class="attribute">name</span> <span class="attribute">l2tpd</span>
+<span class="attribute">proxyarp</span>
+<span class="attribute">lcp-echo-interval</span> <span class="attribute">30</span>
+<span class="attribute">lcp-echo-failure</span> <span class="attribute">4</span>
+<span class="attribute">EOF</span>
+<span class="attribute">cat</span> &gt;</span>&gt;/etc/ppp/chap-secrets<span class="tag">&lt;<span class="title">&lt;EOF
+test</span> <span class="attribute">l2tpd</span> <span class="attribute">test123</span> *
+<span class="attribute">EOF</span>
+<span class="attribute">touch</span> /<span class="attribute">usr</span>/<span class="attribute">bin</span>/<span class="attribute">zl2tpset</span>
+<span class="attribute">echo</span> "#/<span class="attribute">bin</span>/<span class="attribute">bash</span>" &gt;</span>&gt;/usr/bin/zl2tpset
+echo "for each in /proc/sys/net/ipv4/conf/*" &gt;&gt;/usr/bin/zl2tpset
+echo "do" &gt;&gt;/usr/bin/zl2tpset
+echo "echo 0 &gt; \$each/accept_redirects" &gt;&gt;/usr/bin/zl2tpset
+echo "echo 0 &gt; \$each/send_redirects" &gt;&gt;/usr/bin/zl2tpset
+echo "done" &gt;&gt;/usr/bin/zl2tpset
+chmod +x /usr/bin/zl2tpset
+iptables --table nat --append POSTROUTING --jump MASQUERADE
+zl2tpset
+xl2tpd
+cat &gt;&gt;/etc/rc.local<span class="tag">&lt;<span class="title">&lt;EOF
+iptables</span> <span class="attribute">--table</span> <span class="attribute">nat</span> <span class="attribute">--append</span> <span class="attribute">POSTROUTING</span> <span class="attribute">--jump</span> <span class="attribute">MASQUERADE</span>
+/<span class="attribute">etc</span>/<span class="attribute">init.d</span>/<span class="attribute">ipsec</span> <span class="attribute">restart</span>
+/<span class="attribute">usr</span>/<span class="attribute">bin</span>/<span class="attribute">zl2tpset</span>
+/<span class="attribute">usr</span>/<span class="attribute">local</span>/<span class="attribute">sbin</span>/<span class="attribute">xl2tpd</span>
+<span class="attribute">EOF</span>
+<span class="attribute">clear</span>
+<span class="attribute">ipsec</span> <span class="attribute">verify</span>
+<span class="attribute">printf</span> "
+####################################################
+#                                                  #
+# <span class="attribute">This</span> <span class="attribute">is</span> <span class="attribute">a</span> <span class="attribute">Shell-Based</span> <span class="attribute">tool</span> <span class="attribute">of</span> <span class="attribute">l2tp</span> <span class="attribute">installation</span>  #
+#                                                  #
+####################################################
+<span class="attribute">if</span> <span class="attribute">there</span> <span class="attribute">are</span> <span class="attribute">no</span> [<span class="attribute">FAILED</span>] <span class="attribute">above</span>, <span class="attribute">then</span> <span class="attribute">you</span> <span class="attribute">can</span>
+<span class="attribute">connect</span> <span class="attribute">to</span> <span class="attribute">your</span> <span class="attribute">L2TP</span> <span class="attribute">VPN</span> <span class="attribute">Server</span> <span class="attribute">with</span> <span class="attribute">the</span> <span class="attribute">default</span>
+<span class="attribute">user</span>/<span class="attribute">pass</span> <span class="attribute">below:</span>
+
+<span class="attribute">ServerIP:</span>$<span class="attribute">vpsip</span>
+<span class="attribute">username:test</span>
+<span class="attribute">password:test123</span>
+<span class="attribute">PSK:</span>$<span class="attribute">mypsk</span>
+
+"</code></pre>
+]]></content>
+    <category scheme="http://littlesuper.github.io/tags/l2tp vpn/" term="l2tp vpn"/>
+    <category scheme="http://littlesuper.github.io/categories/Linux/" term="Linux"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Chrome各版本下载集合]]></title>
+    <link href="http://littlesuper.github.io/2013/10/31/chrome-download/"/>
+    <id>http://littlesuper.github.io/2013/10/31/chrome-download/</id>
+    <published>2013-10-31T13:03:16.000Z</published>
+    <updated>2013-11-01T01:58:36.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7419/10591121975_345d1b93d5_q.jpg" alt=""></p>
+<h3>Windows平台：</h3>
+<ul>
+<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
+<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/eula.html?extra=betachannel" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/eula.html?extra=devchannel" target="_blank">【点击这里】</a></li>
+<li><em>最新金丝雀版（Canary build）Chrome在线安装：</em> <a href="http://tools.google.com/dlpage/chromesxs" target="_blank">【点击这里】</a>（new）</li>
+<li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-xp/?O=D" target="_blank">【点击这里】</a></li>
+</ul>
+<p><a id="more"></a><br>附离线版Chrome下载方法：</p>
+<pre><code><span class="label">http:</span>//dl<span class="preprocessor">.google</span><span class="preprocessor">.com</span>/chrome/install/[版本号后两位]/chrome_installer<span class="preprocessor">.exe</span></code></pre>
+<p>也就是说要想下载离线版Chrome，必须要知道你要下载的版本号，取版本号第二个小数点的数字。比如4.0.266.0的下载地址就是：<br><a href="http://dl.google.com/chrome/install/266.0/chrome_installer.exe" target="_blank">http://dl.google.com/chrome/install/266.0/chrome_installer.exe</a></p>
+<p>同理比如3.0.195.38的下载地址就是：<br><a href="http://dl.google.com/chrome/install/195.38/chrome_installer.exe" target="_blank">http://dl.google.com/chrome/install/195.38/chrome_installer.exe</a></p>
+<p>注：离线版Chrome可能不会自动更新。</p>
+<h3>Linux平台：</h3>
+<ul>
+<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
+<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/intl/en/landing/chrome/beta/" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装(32bit)：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=unstable_i386_deb" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装(64bit)：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=unstable_amd64_deb" target="_blank">【点击这里】</a></li>
+<li><em>最新Chromium下载地址(32bit):</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-linux/?C=M;O=D" target="_blank">【点击这里】</a></li>
+<li><em>最新Chromium下载地址(64bit):</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-linux-64/?C=M;O=D" target="_blank">【点击这里】</a></li>
+</ul>
+<h3>Mac OS平台：</h3>
+<ul>
+<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
+<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/intl/en/landing/chrome/beta/" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=mac" target="_blank">【点击这里】</a></li>
+<li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-mac/?C=M;O=D" target="_blank">【点击这里】</a></li>
+</ul>
+]]></content>
+    <category scheme="http://littlesuper.github.io/tags/chrome/" term="chrome"/>
+    <category scheme="http://littlesuper.github.io/categories/News/" term="News"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Facebook 是如何管理代码的]]></title>
+    <link href="http://littlesuper.github.io/2013/10/31/facebook-is-how-to-manage-code/"/>
+    <id>http://littlesuper.github.io/2013/10/31/facebook-is-how-to-manage-code/</id>
+    <published>2013-10-31T12:27:39.000Z</published>
+    <updated>2013-10-31T13:19:42.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2830/10590834376_851441e32e.jpg" alt=""><br>我对facebook的运转着迷。这是一个很独特的环境，不容易被复制（他们的体系并不适合所有的公司，即使他们努力尝试过）。下面是我和facebook的朋友们关于他们如何开发和管理项目的记录。</p>
+<p>现在距离我收集的这些信息又过去6个月了，我相信facebook肯定又对他们的项目开发实践进行了改进。所以这些记录可能会有点过时。同时facebook的工程师驱动文化也越来越为大众所知。非常感谢那些帮助我整理这篇文章的facebook的朋友们。</p>
+<a id="more"></a>
+
+<p>记录：</p>
+<ul>
+<li>截止到 2010 年 6 月，facebook 有将近 2000 名员工，10 个月前只有 1100 名，一年之间差不多翻了一番。</li>
+<li>两个最大的部门是工程师和运维，每个部门大概都是 400 – 500 人。这两个部门人数大约占了公司的一半。</li>
+<li>产品经理与工程师的比例大约为 1 – 7 到 1 – 10 。</li>
+<li>每个工程师入职时，都要接收4-6周的培训，通过修补bugs和听高级开发工程师的课程来熟悉facebook。</li>
+<li>培训结束后，每个工程师都可以接触线上的数据库(更大的权力意味着更大的责任，也有一份”勿做清单”，不然可能会被开，比如共享用户的隐私数据)。</li>
+<li>有非常牢靠的安全体系，以免有人不小心/故意做了些不好的事。</li>
+<li>每个工程师可以修改facebook的任何代码，随时可以迁入。</li>
+<li>浓厚的工程师驱动文化。”产品经理基本可以被忽略”，这是facebook一名员工的话。工程师可以修改流程的细节，重新安排工作任务，随时植入自己的想法。</li>
+<li>在每月的跨部门会议上，由工程师来汇报工作进度，市场部和产品经理会出席会议，也可以做些简短的发言，但如果说得太多，很可能就会被打小报告。他们确实想让工程师来主导产品的开发，对自己的产品负责。<ul>
+<li>项目需要的资源都是自愿的。</li>
+<li>一个产品经理把工程师们召集到一起，让他们对他的想法产生兴趣。</li>
+<li>工程师们决定开发那些让他们感兴趣的特性。</li>
+<li>工程师跟他们的经理说：”我下周想开发这5个新特性”。</li>
+<li>经理会让工程师独立开发，可能有时会让他优先完成一些特性。</li>
+<li>工程师独立完成所有的特性——前端/后端/数据库，等等所有相关的部分。如果需要得到设计人员的帮助，需要先让设计人员对你的想法产生兴趣。其他如架构之类的也一样。但总体来说，工程师要独立完成所有的任务。</li>
+</ul>
+</li>
+<li>对于某个特性是否值得开发的争论，通常是这么解决的：花一个星期的时间完成他，并在小部分人群中(如1%)进行测试。</li>
+<li>工程师常常希望解决难题，这能获得声望和尊敬。他们很难对前端项目或UI设计产生太大的兴趣。这跟其他公司可能正好相反。在facebook，后端任务，比如新的feed算法，广告投放算法，memcache优化等等，是工程师真正感兴趣的。</li>
+<li>所有的代码修改都要进行审核(通过一个或多个工程师)，但News Feed是个例外，因为太重要了，Zuckerberg会亲自review。<br>所有的修改至少要被一个人审核，而且这个系统可以让任何人很方便地审核其他人的代码，即使你没有邀请他。</li>
+<li>工程师负责测试，代码修复，和维护自己的项目。</li>
+<li>每个办公室或通过VPN连接的员工会使用下一版的facebook，这个版本的facebook会经常更新，通常比公开的早1-12小时。所有的员工被强烈建议提交bugs，而且通常会很快被修复。</li>
+<li>很奇怪只有很少的QA或自动测试——”大部分工程师都能写出基本没有bug的代码，只是在其他公司他们不需要这么做。如果有QA部门，他们只要把代码写完，扔给他们就行了”</li>
+<li>[针对上一条]我们有自动测试，代码发布前必须要通过测试。我们不相信”所有的工程师都能写出没有bug的代码”，毕竟这是一个商业公司。<br>很奇怪，缺少产品经理的影响和控制——产品经理是很独立的和自由的。产生影响力的关键是与工程师和工程师的领导们们搞好关系。需要大致了解技术，不要提一些愚蠢的想法。</li>
+<li>所有提交的代码每周二打包一次。</li>
+<li>只要多一分努力，终于一天会发生改变。</li>
+<li>星期二的代码发布，需要所有的提交过代码的工程师在场。</li>
+<li>代码打包前，工程师必须在一个特殊的IRC channel上。</li>
+<li>运维执行打包过程：<ul>
+<li>facebook有大约60000台服务器</li>
+<li>有9个代码发布级别</li>
+<li>最小的级别只有6台服务器</li>
+<li>星期二的代码发布会先发布到6台服务器上，运维组会检测这6台服务器的反应，保证代码正常工作，然后再提交到下一级</li>
+<li>如果发布出现了一些问题（如报错等等），那么就停止下一级的部署，提交出错代码的工程师负责修复问题，然后从头继续发布。</li>
+<li>所以一次发布可能会经历几次重复：1-2-3-fix. 回到1. 1-2-3-4-5-fix. 回到1. 1-2-3-4-5-6-7-8-9</li>
+</ul>
+</li>
+<li>运维组是受过严格训练，倍受尊敬，而且有商业意识的。他们的工作包括分析错误日志，负载和内存状态等等。还包括用户行为。</li>
+<li>代码发布期间，运维组使用IRC-based页面系统，可以通过facebook/email/irc/im/sms ping每一个工程师，如果需要他们注意的话。对运维组不做回应是一件很羞愧的事。</li>
+<li>代码一旦发布到第9级，并且稳定运行，就算发布成功了。</li>
+<li>如果一个特性没有按时完成，也没什么大不了的，下次完成时一并发布即可。</li>
+<li>如果被svn-blamed,public shamed或工作经常疏忽就很可能被开除。”这是一个高效的文化”。不够高效或者不够聪明的员工会被剔除。管理层会在6个月的时间里观察你表现，如果不合格，只能说再见。每一级都是这个待遇，即使是C级别和VP级别，如果不够高效，也会被开除。</li>
+<li>被责骂不会导致解雇。我们特别尊重别人，原谅别人。大部分高级工程师都或多或少犯过一些严重的错误，包括我。但没有人因此被解雇。</li>
+<li>我也没有遇到过因为上面提到过的犯错误而被解雇。有些人犯了错，他们会非常努力地去修复，也让其他人得到了学习。</li>
+</ul>
+<p>看facebook开发文化如何随着时间演化是件非常有趣的事。特别是当公司发展壮大到数千用户时，这种文化是否还能适应呢？</p>
+<p>你的想法如何？在你公司里，开发驱动文化是否可行？</p>
+]]></content>
+    <category scheme="http://littlesuper.github.io/tags/facebook/" term="facebook"/>
+    <category scheme="http://littlesuper.github.io/categories/News/" term="News"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[看图学Python]]></title>
+    <link href="http://littlesuper.github.io/2013/10/31/figure-learn-python/"/>
+    <id>http://littlesuper.github.io/2013/10/31/figure-learn-python/</id>
+    <published>2013-10-31T12:17:31.000Z</published>
+    <updated>2013-11-01T01:30:21.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2884/10590380855_cc7289432f_o.png" alt=""></p>
+]]></content>
+    <category scheme="http://littlesuper.github.io/tags/python/" term="python"/>
+    <category scheme="http://littlesuper.github.io/categories/Python/" term="Python"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[搭建VMware Esxi虚拟化服务器]]></title>
+    <link href="http://littlesuper.github.io/2013/10/31/install-vmesxi-server/"/>
+    <id>http://littlesuper.github.io/2013/10/31/install-vmesxi-server/</id>
+    <published>2013-10-31T11:50:48.000Z</published>
+    <updated>2013-11-01T01:30:02.000Z</updated>
+    <content type="html"><![CDATA[<h4>1、安装VMware ESXi</h4>
+<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
+<h4>2、安装VMware vSphere Client</h4>
+<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
+<p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
+]]></content>
+    <category scheme="http://littlesuper.github.io/tags/vm esxi/" term="vm esxi"/>
+    <category scheme="http://littlesuper.github.io/categories/Virtaulization/" term="Virtaulization"/>
+  </entry>
+</feed>
