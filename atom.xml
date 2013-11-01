@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://littlesuper.github.io/atom.xml" rel="self"/>
   <link href="http://littlesuper.github.io"/>
-  <updated>2013-11-01T01:58:38.063Z</updated>
+  <updated>2013-11-01T03:04:40.613Z</updated>
   <id>http://littlesuper.github.io/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -16,203 +16,400 @@
     <link href="http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/"/>
     <id>http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/</id>
     <published>2013-11-01T01:34:11.000Z</published>
-    <updated>2013-11-01T01:45:40.000Z</updated>
-    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a><br>分享个一键搭建L2TP VPN 的脚本</p>
-<pre><code>#!/bin/bash
+    <updated>2013-11-01T03:04:37.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a></p>
+<figure class="highlight lang-shell"><figcaption><span>一键搭建L2TP脚本</span><a href="/upload/l2tp.sh">Download</a></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+</pre></td><td class="code"><pre>    #!/bin/bash
 
-if [ $(id -u) != "0" ]; then
-printf "Error: You must be root to run this tool!\n"
-exit 1
-fi
-clear
-printf "
-####################################################
-#                                                  #
-# This is a Shell-Based tool of l2tp installation  #
-#                                                  #
-####################################################
-"
-vpsip=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk 'NR==1 { print $1}'`
+    if [ $(id -u) != "0" ]; then
+    printf "Error: You must be root to run this tool!\n"
+    exit 1
+    fi
+    clear
+    printf "
+    ####################################################
+    #                                                  #
+    # This is a Shell-Based tool of l2tp installation  #
+    #                                                  #
+    ####################################################
+    "
+    vpsip=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk 'NR==1 { print $1}'`
 
-iprange="10.0.99"
-echo "Please input IP-Range:"
-read -p "(Default Range: 10.0.99):" iprange
-if [ "$iprange" = "" ]; then
-iprange="10.0.99"
-fi
+    iprange="10.0.99"
+    echo "Please input IP-Range:"
+    read -p "(Default Range: 10.0.99):" iprange
+    if [ "$iprange" = "" ]; then
+    iprange="10.0.99"
+    fi
 
-mypsk="itman.cc"
-echo "Please input PSK:"
-read -p "(Default PSK: itman.cc):" mypsk
-if [ "$mypsk" = "" ]; then
-mypsk="itman.cc"
-fi
+    mypsk="itman.cc"
+    echo "Please input PSK:"
+    read -p "(Default PSK: itman.cc):" mypsk
+    if [ "$mypsk" = "" ]; then
+    mypsk="itman.cc"
+    fi
 
-clear
-get_char()
-{
-SAVEDSTTY=`stty -g`
-stty -echo
-stty cbreak
-dd if=/dev/tty bs=1 count=1 2&gt; /dev/null
-stty -raw
-stty echo
-stty $SAVEDSTTY
-}
-echo ""
-echo "ServerIP:"
-echo "$vpsip"
-echo ""
-echo "Server Local IP:"
-echo "$iprange.1"
-echo ""
-echo "Client Remote IP Range:"
-echo "$iprange.2-$iprange.254"
-echo ""
-echo "PSK:"
-echo "$mypsk"
-echo ""
-echo "Press any key to start..."
-char=`get_char`
-clear
+    clear
+    get_char()
+    {
+    SAVEDSTTY=`stty -g`
+    stty -echo
+    stty cbreak
+    dd if=/dev/tty bs=1 count=1 2&gt; /dev/null
+    stty -raw
+    stty echo
+    stty $SAVEDSTTY
+    }
+    echo ""
+    echo "ServerIP:"
+    echo "$vpsip"
+    echo ""
+    echo "Server Local IP:"
+    echo "$iprange.1"
+    echo ""
+    echo "Client Remote IP Range:"
+    echo "$iprange.2-$iprange.254"
+    echo ""
+    echo "PSK:"
+    echo "$mypsk"
+    echo ""
+    echo "Press any key to start..."
+    char=`get_char`
+    clear
 
-apt-get -y update
-apt-get -y upgrade
-apt-get -y install libgmp3-dev bison flex libpcap-dev ppp iptables make gcc lsof vim
-mkdir /ztmp
-mkdir /ztmp/l2tp
-cd /ztmp/l2tp
-wget http://www.openswan.org/download/openswan-2.6.24.tar.gz
-tar zxvf openswan-2.6.24.tar.gz
-cd openswan-2.6.24
-make programs install
-rm -rf /etc/ipsec.conf
-touch /etc/ipsec.conf
-cat &gt;&gt;/etc/ipsec.conf<span class="tag">&lt;<span class="title">&lt;EOF
-config</span> <span class="attribute">setup</span>
-<span class="attribute">nat_traversal</span>=<span class="value">yes</span>
-<span class="attribute">virtual_private</span>=<span class="value">%v4:10.0.0.0</span>/<span class="attribute">8</span>,%<span class="attribute">v4:192.168.0.0</span>/<span class="attribute">16</span>,%<span class="attribute">v4:172.16.0.0</span>/<span class="attribute">12</span>
-<span class="attribute">oe</span>=<span class="value">off</span>
-<span class="attribute">protostack</span>=<span class="value">netkey</span>
+    apt-get -y update
+    apt-get -y upgrade
+    apt-get -y install libgmp3-dev bison flex libpcap-dev ppp iptables make gcc lsof vim
+    mkdir /ztmp
+    mkdir /ztmp/l2tp
+    cd /ztmp/l2tp
+    wget http://www.openswan.org/download/openswan-2.6.24.tar.gz
+    tar zxvf openswan-2.6.24.tar.gz
+    cd openswan-2.6.24
+    make programs install
+    rm -rf /etc/ipsec.conf
+    touch /etc/ipsec.conf
+    cat &gt;&gt;/etc/ipsec.conf<span class="tag">&lt;<span class="title">&lt;EOF
+</span>    <span class="attribute">config</span> <span class="attribute">setup</span>
+    <span class="attribute">nat_traversal</span>=<span class="value">yes</span>
+    <span class="attribute">virtual_private</span>=<span class="value">%v4:10.0.0.0</span>/<span class="attribute">8</span>,%<span class="attribute">v4:192.168.0.0</span>/<span class="attribute">16</span>,%<span class="attribute">v4:172.16.0.0</span>/<span class="attribute">12</span>
+    <span class="attribute">oe</span>=<span class="value">off</span>
+    <span class="attribute">protostack</span>=<span class="value">netkey</span>
 
-<span class="attribute">conn</span> <span class="attribute">L2TP-PSK-NAT</span>
-<span class="attribute">rightsubnet</span>=<span class="value">vhost:%priv</span>
-<span class="attribute">also</span>=<span class="value">L2TP-PSK-noNAT</span>
+    <span class="attribute">conn</span> <span class="attribute">L2TP-PSK-NAT</span>
+    <span class="attribute">rightsubnet</span>=<span class="value">vhost:%priv</span>
+    <span class="attribute">also</span>=<span class="value">L2TP-PSK-noNAT</span>
 
-<span class="attribute">conn</span> <span class="attribute">L2TP-PSK-noNAT</span>
-<span class="attribute">authby</span>=<span class="value">secret</span>
-<span class="attribute">pfs</span>=<span class="value">no</span>
-<span class="attribute">auto</span>=<span class="value">add</span>
-<span class="attribute">keyingtries</span>=<span class="value">3</span>
-<span class="attribute">rekey</span>=<span class="value">no</span>
-<span class="attribute">ikelifetime</span>=<span class="value">8h</span>
-<span class="attribute">keylife</span>=<span class="value">1h</span>
-<span class="attribute">type</span>=<span class="value">transport</span>
-<span class="attribute">left</span>=<span class="value">$vpsip</span>
-<span class="attribute">leftprotoport</span>=<span class="value">17</span>/<span class="attribute">1701</span>
-<span class="attribute">right</span>=<span class="value">%any</span>
-<span class="attribute">rightprotoport</span>=<span class="value">17</span>/%<span class="attribute">any</span>
-<span class="attribute">EOF</span>
-<span class="attribute">cat</span> &gt;</span>&gt;/etc/ipsec.secrets<span class="tag">&lt;<span class="title">&lt;EOF
-$vpsip</span> %<span class="attribute">any:</span> <span class="attribute">PSK</span> "$<span class="attribute">mypsk</span>"
-<span class="attribute">EOF</span>
-<span class="attribute">sed</span> <span class="attribute">-i</span> '<span class="attribute">s</span>/#<span class="attribute">net.ipv4.ip_forward</span>=<span class="value">1</span>/<span class="attribute">net.ipv4.ip_forward</span>=<span class="value">1</span>/<span class="attribute">g</span>' /<span class="attribute">etc</span>/<span class="attribute">sysctl.conf</span>
-<span class="attribute">sed</span> <span class="attribute">-i</span> '<span class="attribute">s</span>/#<span class="attribute">net.ipv6.conf.all.forwarding</span>=<span class="value">1</span>/<span class="attribute">net.ipv6.conf.all.forwarding</span>=<span class="value">1</span>/<span class="attribute">g</span>' /<span class="attribute">etc</span>/<span class="attribute">sysctl.conf</span>
-<span class="attribute">sysctl</span> <span class="attribute">-p</span>
-<span class="attribute">iptables</span> <span class="attribute">--table</span> <span class="attribute">nat</span> <span class="attribute">--append</span> <span class="attribute">POSTROUTING</span> <span class="attribute">--jump</span> <span class="attribute">MASQUERADE</span>
-<span class="attribute">for</span> <span class="attribute">each</span> <span class="attribute">in</span> /<span class="attribute">proc</span>/<span class="attribute">sys</span>/<span class="attribute">net</span>/<span class="attribute">ipv4</span>/<span class="attribute">conf</span>/*
-<span class="attribute">do</span>
-<span class="attribute">echo</span> <span class="attribute">0</span> &gt;</span> $each/accept_redirects
-echo 0 &gt; $each/send_redirects
-done
-/etc/init.d/ipsec restart
-ipsec verify
-cd /ztmp/l2tp
-wget http://nchc.dl.sourceforge.net/project/rp-l2tp/rp-l2tp/0.4/rp-l2tp-0.4.tar.gz
-tar zxvf rp-l2tp-0.4.tar.gz
-cd rp-l2tp-0.4
-./configure
-make
-cp handlers/l2tp-control /usr/local/sbin/
-mkdir /var/run/xl2tpd/
-ln -s /usr/local/sbin/l2tp-control /var/run/xl2tpd/l2tp-control
-cd /ztmp/l2tp
-wget http://www.xelerance.com/wp-content/uploads/software/xl2tpd/xl2tpd-1.2.8.tar.gz
-tar zxvf xl2tpd-1.2.8.tar.gz
-cd xl2tpd-1.2.8
-make install
-mkdir /etc/xl2tpd
-rm -rf /etc/xl2tpd/xl2tpd.conf
-touch /etc/xl2tpd/xl2tpd.conf
-cat &gt;&gt;/etc/xl2tpd/xl2tpd.conf<span class="tag">&lt;<span class="title">&lt;EOF
-[global]
-ipsec</span> <span class="attribute">saref</span> = <span class="attribute">yes</span>
-[<span class="attribute">lns</span> <span class="attribute">default</span>]
-<span class="attribute">ip</span> <span class="attribute">range</span> = $<span class="attribute">iprange.2-</span>$<span class="attribute">iprange.254</span>
-<span class="attribute">local</span> <span class="attribute">ip</span> = $<span class="attribute">iprange.1</span>
-<span class="attribute">refuse</span> <span class="attribute">chap</span> = <span class="attribute">yes</span>
-<span class="attribute">refuse</span> <span class="attribute">pap</span> = <span class="attribute">yes</span>
-<span class="attribute">require</span> <span class="attribute">authentication</span> = <span class="attribute">yes</span>
-<span class="attribute">ppp</span> <span class="attribute">debug</span> = <span class="attribute">yes</span>
-<span class="attribute">pppoptfile</span> = /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
-<span class="attribute">length</span> <span class="attribute">bit</span> = <span class="attribute">yes</span>
-<span class="attribute">EOF</span>
-<span class="attribute">rm</span> <span class="attribute">-rf</span> /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
-<span class="attribute">touch</span> /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
-<span class="attribute">cat</span> &gt;</span>&gt;/etc/ppp/options.xl2tpd<span class="tag">&lt;<span class="title">&lt;EOF
-require-mschap-v2
-ms-dns</span> <span class="attribute">8.8.8.8</span>
-<span class="attribute">ms-dns</span> <span class="attribute">8.8.4.4</span>
-<span class="attribute">asyncmap</span> <span class="attribute">0</span>
-<span class="attribute">auth</span>
-<span class="attribute">crtscts</span>
-<span class="attribute">lock</span>
-<span class="attribute">hide-password</span>
-<span class="attribute">modem</span>
-<span class="attribute">debug</span>
-<span class="attribute">name</span> <span class="attribute">l2tpd</span>
-<span class="attribute">proxyarp</span>
-<span class="attribute">lcp-echo-interval</span> <span class="attribute">30</span>
-<span class="attribute">lcp-echo-failure</span> <span class="attribute">4</span>
-<span class="attribute">EOF</span>
-<span class="attribute">cat</span> &gt;</span>&gt;/etc/ppp/chap-secrets<span class="tag">&lt;<span class="title">&lt;EOF
-test</span> <span class="attribute">l2tpd</span> <span class="attribute">test123</span> *
-<span class="attribute">EOF</span>
-<span class="attribute">touch</span> /<span class="attribute">usr</span>/<span class="attribute">bin</span>/<span class="attribute">zl2tpset</span>
-<span class="attribute">echo</span> "#/<span class="attribute">bin</span>/<span class="attribute">bash</span>" &gt;</span>&gt;/usr/bin/zl2tpset
-echo "for each in /proc/sys/net/ipv4/conf/*" &gt;&gt;/usr/bin/zl2tpset
-echo "do" &gt;&gt;/usr/bin/zl2tpset
-echo "echo 0 &gt; \$each/accept_redirects" &gt;&gt;/usr/bin/zl2tpset
-echo "echo 0 &gt; \$each/send_redirects" &gt;&gt;/usr/bin/zl2tpset
-echo "done" &gt;&gt;/usr/bin/zl2tpset
-chmod +x /usr/bin/zl2tpset
-iptables --table nat --append POSTROUTING --jump MASQUERADE
-zl2tpset
-xl2tpd
-cat &gt;&gt;/etc/rc.local<span class="tag">&lt;<span class="title">&lt;EOF
-iptables</span> <span class="attribute">--table</span> <span class="attribute">nat</span> <span class="attribute">--append</span> <span class="attribute">POSTROUTING</span> <span class="attribute">--jump</span> <span class="attribute">MASQUERADE</span>
-/<span class="attribute">etc</span>/<span class="attribute">init.d</span>/<span class="attribute">ipsec</span> <span class="attribute">restart</span>
-/<span class="attribute">usr</span>/<span class="attribute">bin</span>/<span class="attribute">zl2tpset</span>
-/<span class="attribute">usr</span>/<span class="attribute">local</span>/<span class="attribute">sbin</span>/<span class="attribute">xl2tpd</span>
-<span class="attribute">EOF</span>
-<span class="attribute">clear</span>
-<span class="attribute">ipsec</span> <span class="attribute">verify</span>
-<span class="attribute">printf</span> "
-####################################################
-#                                                  #
-# <span class="attribute">This</span> <span class="attribute">is</span> <span class="attribute">a</span> <span class="attribute">Shell-Based</span> <span class="attribute">tool</span> <span class="attribute">of</span> <span class="attribute">l2tp</span> <span class="attribute">installation</span>  #
-#                                                  #
-####################################################
-<span class="attribute">if</span> <span class="attribute">there</span> <span class="attribute">are</span> <span class="attribute">no</span> [<span class="attribute">FAILED</span>] <span class="attribute">above</span>, <span class="attribute">then</span> <span class="attribute">you</span> <span class="attribute">can</span>
-<span class="attribute">connect</span> <span class="attribute">to</span> <span class="attribute">your</span> <span class="attribute">L2TP</span> <span class="attribute">VPN</span> <span class="attribute">Server</span> <span class="attribute">with</span> <span class="attribute">the</span> <span class="attribute">default</span>
-<span class="attribute">user</span>/<span class="attribute">pass</span> <span class="attribute">below:</span>
+    <span class="attribute">conn</span> <span class="attribute">L2TP-PSK-noNAT</span>
+    <span class="attribute">authby</span>=<span class="value">secret</span>
+    <span class="attribute">pfs</span>=<span class="value">no</span>
+    <span class="attribute">auto</span>=<span class="value">add</span>
+    <span class="attribute">keyingtries</span>=<span class="value">3</span>
+    <span class="attribute">rekey</span>=<span class="value">no</span>
+    <span class="attribute">ikelifetime</span>=<span class="value">8h</span>
+    <span class="attribute">keylife</span>=<span class="value">1h</span>
+    <span class="attribute">type</span>=<span class="value">transport</span>
+    <span class="attribute">left</span>=<span class="value">$vpsip</span>
+    <span class="attribute">leftprotoport</span>=<span class="value">17</span>/<span class="attribute">1701</span>
+    <span class="attribute">right</span>=<span class="value">%any</span>
+    <span class="attribute">rightprotoport</span>=<span class="value">17</span>/%<span class="attribute">any</span>
+    <span class="attribute">EOF</span>
+    <span class="attribute">cat</span> &gt;</span>&gt;/etc/ipsec.secrets<span class="tag">&lt;<span class="title">&lt;EOF
+</span>    $<span class="attribute">vpsip</span> %<span class="attribute">any:</span> <span class="attribute">PSK</span> "$<span class="attribute">mypsk</span>"
+    <span class="attribute">EOF</span>
+    <span class="attribute">sed</span> <span class="attribute">-i</span> '<span class="attribute">s</span>/#<span class="attribute">net.ipv4.ip_forward</span>=<span class="value">1</span>/<span class="attribute">net.ipv4.ip_forward</span>=<span class="value">1</span>/<span class="attribute">g</span>' /<span class="attribute">etc</span>/<span class="attribute">sysctl.conf</span>
+    <span class="attribute">sed</span> <span class="attribute">-i</span> '<span class="attribute">s</span>/#<span class="attribute">net.ipv6.conf.all.forwarding</span>=<span class="value">1</span>/<span class="attribute">net.ipv6.conf.all.forwarding</span>=<span class="value">1</span>/<span class="attribute">g</span>' /<span class="attribute">etc</span>/<span class="attribute">sysctl.conf</span>
+    <span class="attribute">sysctl</span> <span class="attribute">-p</span>
+    <span class="attribute">iptables</span> <span class="attribute">--table</span> <span class="attribute">nat</span> <span class="attribute">--append</span> <span class="attribute">POSTROUTING</span> <span class="attribute">--jump</span> <span class="attribute">MASQUERADE</span>
+    <span class="attribute">for</span> <span class="attribute">each</span> <span class="attribute">in</span> /<span class="attribute">proc</span>/<span class="attribute">sys</span>/<span class="attribute">net</span>/<span class="attribute">ipv4</span>/<span class="attribute">conf</span>/*
+    <span class="attribute">do</span>
+    <span class="attribute">echo</span> <span class="attribute">0</span> &gt;</span> $each/accept_redirects
+    echo 0 &gt; $each/send_redirects
+    done
+    /etc/init.d/ipsec restart
+    ipsec verify
+    cd /ztmp/l2tp
+    wget http://nchc.dl.sourceforge.net/project/rp-l2tp/rp-l2tp/0.4/rp-l2tp-0.4.tar.gz
+    tar zxvf rp-l2tp-0.4.tar.gz
+    cd rp-l2tp-0.4
+    ./configure
+    make
+    cp handlers/l2tp-control /usr/local/sbin/
+    mkdir /var/run/xl2tpd/
+    ln -s /usr/local/sbin/l2tp-control /var/run/xl2tpd/l2tp-control
+    cd /ztmp/l2tp
+    wget http://www.xelerance.com/wp-content/uploads/software/xl2tpd/xl2tpd-1.2.8.tar.gz
+    tar zxvf xl2tpd-1.2.8.tar.gz
+    cd xl2tpd-1.2.8
+    make install
+    mkdir /etc/xl2tpd
+    rm -rf /etc/xl2tpd/xl2tpd.conf
+    touch /etc/xl2tpd/xl2tpd.conf
+    cat &gt;&gt;/etc/xl2tpd/xl2tpd.conf<span class="tag">&lt;<span class="title">&lt;EOF
+</span>    [<span class="attribute">global</span>]
+    <span class="attribute">ipsec</span> <span class="attribute">saref</span> = <span class="attribute">yes</span>
+    [<span class="attribute">lns</span> <span class="attribute">default</span>]
+    <span class="attribute">ip</span> <span class="attribute">range</span> = $<span class="attribute">iprange.2-</span>$<span class="attribute">iprange.254</span>
+    <span class="attribute">local</span> <span class="attribute">ip</span> = $<span class="attribute">iprange.1</span>
+    <span class="attribute">refuse</span> <span class="attribute">chap</span> = <span class="attribute">yes</span>
+    <span class="attribute">refuse</span> <span class="attribute">pap</span> = <span class="attribute">yes</span>
+    <span class="attribute">require</span> <span class="attribute">authentication</span> = <span class="attribute">yes</span>
+    <span class="attribute">ppp</span> <span class="attribute">debug</span> = <span class="attribute">yes</span>
+    <span class="attribute">pppoptfile</span> = /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
+    <span class="attribute">length</span> <span class="attribute">bit</span> = <span class="attribute">yes</span>
+    <span class="attribute">EOF</span>
+    <span class="attribute">rm</span> <span class="attribute">-rf</span> /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
+    <span class="attribute">touch</span> /<span class="attribute">etc</span>/<span class="attribute">ppp</span>/<span class="attribute">options.xl2tpd</span>
+    <span class="attribute">cat</span> &gt;</span>&gt;/etc/ppp/options.xl2tpd<span class="tag">&lt;<span class="title">&lt;EOF
+</span>    <span class="attribute">require-mschap-v2</span>
+    <span class="attribute">ms-dns</span> <span class="attribute">8.8.8.8</span>
+    <span class="attribute">ms-dns</span> <span class="attribute">8.8.4.4</span>
+    <span class="attribute">asyncmap</span> <span class="attribute">0</span>
+    <span class="attribute">auth</span>
+    <span class="attribute">crtscts</span>
+    <span class="attribute">lock</span>
+    <span class="attribute">hide-password</span>
+    <span class="attribute">modem</span>
+    <span class="attribute">debug</span>
+    <span class="attribute">name</span> <span class="attribute">l2tpd</span>
+    <span class="attribute">proxyarp</span>
+    <span class="attribute">lcp-echo-interval</span> <span class="attribute">30</span>
+    <span class="attribute">lcp-echo-failure</span> <span class="attribute">4</span>
+    <span class="attribute">EOF</span>
+    <span class="attribute">cat</span> &gt;</span>&gt;/etc/ppp/chap-secrets<span class="tag">&lt;<span class="title">&lt;EOF
+</span>    <span class="attribute">test</span> <span class="attribute">l2tpd</span> <span class="attribute">test123</span> *
+    <span class="attribute">EOF</span>
+    <span class="attribute">touch</span> /<span class="attribute">usr</span>/<span class="attribute">bin</span>/<span class="attribute">zl2tpset</span>
+    <span class="attribute">echo</span> "#/<span class="attribute">bin</span>/<span class="attribute">bash</span>" &gt;</span>&gt;/usr/bin/zl2tpset
+    echo "for each in /proc/sys/net/ipv4/conf/*" &gt;&gt;/usr/bin/zl2tpset
+    echo "do" &gt;&gt;/usr/bin/zl2tpset
+    echo "echo 0 &gt; \$each/accept_redirects" &gt;&gt;/usr/bin/zl2tpset
+    echo "echo 0 &gt; \$each/send_redirects" &gt;&gt;/usr/bin/zl2tpset
+    echo "done" &gt;&gt;/usr/bin/zl2tpset
+    chmod +x /usr/bin/zl2tpset
+    iptables --table nat --append POSTROUTING --jump MASQUERADE
+    zl2tpset
+    xl2tpd
+    cat &gt;&gt;/etc/rc.local<span class="tag">&lt;<span class="title">&lt;EOF
+</span>    <span class="attribute">iptables</span> <span class="attribute">--table</span> <span class="attribute">nat</span> <span class="attribute">--append</span> <span class="attribute">POSTROUTING</span> <span class="attribute">--jump</span> <span class="attribute">MASQUERADE</span>
+    /<span class="attribute">etc</span>/<span class="attribute">init.d</span>/<span class="attribute">ipsec</span> <span class="attribute">restart</span>
+    /<span class="attribute">usr</span>/<span class="attribute">bin</span>/<span class="attribute">zl2tpset</span>
+    /<span class="attribute">usr</span>/<span class="attribute">local</span>/<span class="attribute">sbin</span>/<span class="attribute">xl2tpd</span>
+    <span class="attribute">EOF</span>
+    <span class="attribute">clear</span>
+    <span class="attribute">ipsec</span> <span class="attribute">verify</span>
+    <span class="attribute">printf</span> "
+    ####################################################
+    #                                                  #
+    # <span class="attribute">This</span> <span class="attribute">is</span> <span class="attribute">a</span> <span class="attribute">Shell-Based</span> <span class="attribute">tool</span> <span class="attribute">of</span> <span class="attribute">l2tp</span> <span class="attribute">installation</span>  #
+    #                                                  #
+    ####################################################
+    <span class="attribute">if</span> <span class="attribute">there</span> <span class="attribute">are</span> <span class="attribute">no</span> [<span class="attribute">FAILED</span>] <span class="attribute">above</span>, <span class="attribute">then</span> <span class="attribute">you</span> <span class="attribute">can</span>
+    <span class="attribute">connect</span> <span class="attribute">to</span> <span class="attribute">your</span> <span class="attribute">L2TP</span> <span class="attribute">VPN</span> <span class="attribute">Server</span> <span class="attribute">with</span> <span class="attribute">the</span> <span class="attribute">default</span>
+    <span class="attribute">user</span>/<span class="attribute">pass</span> <span class="attribute">below:</span>
 
-<span class="attribute">ServerIP:</span>$<span class="attribute">vpsip</span>
-<span class="attribute">username:test</span>
-<span class="attribute">password:test123</span>
-<span class="attribute">PSK:</span>$<span class="attribute">mypsk</span>
+    <span class="attribute">ServerIP:</span>$<span class="attribute">vpsip</span>
+    <span class="attribute">username:test</span>
+    <span class="attribute">password:test123</span>
+    <span class="attribute">PSK:</span>$<span class="attribute">mypsk</span>
 
-"</code></pre>
+    "
+</pre></td></tr></table></figure>
+
 ]]></content>
     <category scheme="http://littlesuper.github.io/tags/l2tp vpn/" term="l2tp vpn"/>
     <category scheme="http://littlesuper.github.io/categories/Linux/" term="Linux"/>
