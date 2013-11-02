@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-02T16:29:43.162Z</updated>
+  <updated>2013-11-02T16:36:59.733Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -340,7 +340,7 @@ DBCC INPUTBUFFER (@bl )
     <link href="http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/"/>
     <id>http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/</id>
     <published>2013-11-01T03:31:20.000Z</published>
-    <updated>2013-11-02T12:55:33.000Z</updated>
+    <updated>2013-11-02T16:35:38.000Z</updated>
     <content type="html"><![CDATA[<p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
 <p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
 <p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
@@ -366,7 +366,9 @@ echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<s
 phpinfo();
 <span class="preprocessor">?&gt;</span></code></pre>
 ]]></content>
-    <category scheme="http://itman.cc/tags/oracle, centos, php/" term="oracle, centos, php"/>
+    <category scheme="http://itman.cc/tags/oracle/" term="oracle"/>
+    <category scheme="http://itman.cc/tags/centos/" term="centos"/>
+    <category scheme="http://itman.cc/tags/php/" term="php"/>
     <category scheme="http://itman.cc/categories/Oracle/" term="Oracle"/>
   </entry>
   <entry>
@@ -374,7 +376,7 @@ phpinfo();
     <link href="http://itman.cc/2013/11/01/centos5-setup-l2tp/"/>
     <id>http://itman.cc/2013/11/01/centos5-setup-l2tp/</id>
     <published>2013-11-01T01:34:11.000Z</published>
-    <updated>2013-11-01T03:04:37.000Z</updated>
+    <updated>2013-11-02T16:36:41.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a></p>
 <figure class="highlight lang-shell"><figcaption><span>一键搭建L2TP脚本</span><a href="/upload/l2tp.sh">Download</a></figcaption><table><tr><td class="gutter"><pre>1
 2
@@ -769,7 +771,8 @@ phpinfo();
 </pre></td></tr></table></figure>
 
 ]]></content>
-    <category scheme="http://itman.cc/tags/l2tp vpn/" term="l2tp vpn"/>
+    <category scheme="http://itman.cc/tags/l2tp/" term="l2tp"/>
+    <category scheme="http://itman.cc/tags/vpn/" term="vpn"/>
     <category scheme="http://itman.cc/categories/Linux/" term="Linux"/>
   </entry>
   <entry>

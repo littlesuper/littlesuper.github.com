@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://itman.cc/2013/11/01/centos5-setup-l2tp/</loc>
+    <lastmod>2013-11-02T16:36:41.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/</loc>
+    <lastmod>2013-11-02T16:35:38.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://itman.cc/google9a9205bb4f34a33c.html</loc>
     <lastmod>2013-11-02T15:48:48.000Z</lastmod>
   </url>
@@ -31,14 +39,6 @@
   <url>
     <loc>http://itman.cc/2013/11/02/sqlserver-find-deadlock-script/</loc>
     <lastmod>2013-11-02T14:16:32.000Z</lastmod>
-  </url>
-  <url>
-    <loc>http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/</loc>
-    <lastmod>2013-11-02T12:55:33.000Z</lastmod>
-  </url>
-  <url>
-    <loc>http://itman.cc/2013/11/01/centos5-setup-l2tp/</loc>
-    <lastmod>2013-11-01T03:04:37.000Z</lastmod>
   </url>
   <url>
     <loc>http://itman.cc/2013/10/31/chrome-download/</loc>
