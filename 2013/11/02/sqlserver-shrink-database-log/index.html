@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>搭建VMware Esxi虚拟化服务器 | ITman.cc</title>
+  <title>MsSQL 收缩数据库日志 | ITman.cc</title>
   <meta name="author" content="L.S">
   
-  <meta name="description" content="1、安装VMware ESXi
-　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。
-2、安装VMware vSphere Client
-　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi">
+  <meta name="description" content="SQL20051
+2
+3
+4
+USE [master]
+DUMP TRANSACTION [DB_Samples] WITH NO_LOG
+BACKUP LOG [DB_Samples] WITH NO_LOG
+DBCC SHRINKDATABASE([DB_Samples])">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="搭建VMware Esxi虚拟化服务器"/>
+  <meta property="og:title" content="MsSQL 收缩数据库日志"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -54,21 +58,63 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-10-31T11:50:48.000Z"><a href="/2013/10/31/install-vmesxi-server/">Oct 31 2013</a></time>
+        <time datetime="2013-11-02T14:32:04.000Z"><a href="/2013/11/02/sqlserver-shrink-database-log/">Nov 2 2013</a></time>
       
       
   
-    <h1 class="title">搭建VMware Esxi虚拟化服务器</h1>
+    <h1 class="title">MsSQL 收缩数据库日志</h1>
   
 
     </header>
     <div class="entry">
       
-        <h4>1、安装VMware ESXi</h4>
-<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
-<h4>2、安装VMware vSphere Client</h4>
-<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
-<p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
+        <figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>USE [master]
+DUMP TRANSACTION [DB_Samples] WITH NO_LOG
+BACKUP LOG [DB_Samples] WITH NO_LOG
+DBCC SHRINKDATABASE([DB_Samples])
+</pre></td></tr></table></figure>
+
+<p><a id="more"></a><br>    <figure class="highlight lang-sql"><figcaption><span>SQL2008</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="code"><pre>USE [master]
+GO
+<span class="operator"><span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE <span class="keyword">WITH</span> NO_WAIT
+<span class="keyword">GO</span>
+<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE
+<span class="keyword">GO</span>
+ 
+USE [DB_Samples]
+<span class="keyword">GO</span>
+DBCC SHRINKFILE (N <span class="string">'DB_Samples_log'</span> , <span class="number">0</span>, TRUNCATEONLY)
+<span class="keyword">GO</span>
+ 
+USE [master]
+<span class="keyword">GO</span>
+<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span> <span class="keyword">WITH</span> NO_WAIT
+<span class="keyword">GO</span>
+<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span>
+<span class="keyword">GO</span>
+</pre></td></tr></table></figure></p>
 
       
     </div>
@@ -77,15 +123,10 @@
         
   
   <div class="categories">
-    <a href="/categories/Virtaulization/">Virtaulization</a>
+    <a href="/categories/MsSQL/">MsSQL</a>
   </div>
 
         
-  
-  <div class="tags">
-    <a href="/tags/vm esxi/">vm esxi</a>
-  </div>
-
         
   <div class="addthis addthis_toolbox addthis_default_style">
     

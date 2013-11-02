@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-64bit-configuration/</loc>
+    <lastmod>2013-11-02T15:17:41.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-2005-setup-mirror/</loc>
+    <lastmod>2013-11-02T15:11:26.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-change-users-login/</loc>
+    <lastmod>2013-11-02T14:55:09.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-current-connections/</loc>
+    <lastmod>2013-11-02T14:49:48.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-shrink-database-log/</loc>
+    <lastmod>2013-11-02T14:43:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-tables-index-fragment/</loc>
+    <lastmod>2013-11-02T14:30:41.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://littlesuper.github.io/2013/11/02/sqlserver-find-deadlock-script/</loc>
+    <lastmod>2013-11-02T14:16:32.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://littlesuper.github.io/2013/11/01/centos-php-5-2-connect-to-oracle/</loc>
-    <lastmod>2013-11-01T03:34:42.000Z</lastmod>
+    <lastmod>2013-11-02T12:55:33.000Z</lastmod>
   </url>
   <url>
     <loc>http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/</loc>

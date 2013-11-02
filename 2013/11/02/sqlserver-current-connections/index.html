@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>搭建VMware Esxi虚拟化服务器 | ITman.cc</title>
+  <title>MsSQL 查看当前连接数 | ITman.cc</title>
   <meta name="author" content="L.S">
   
-  <meta name="description" content="1、安装VMware ESXi
-　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。
-2、安装VMware vSphere Client
-　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi">
+  <meta name="description" content="SQL:
+select hostname,count(*) hostconncount from master.dbo.sysprocesses
+group by hostname order by count(*) desc">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="搭建VMware Esxi虚拟化服务器"/>
+  <meta property="og:title" content="MsSQL 查看当前连接数"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -54,21 +53,19 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-10-31T11:50:48.000Z"><a href="/2013/10/31/install-vmesxi-server/">Oct 31 2013</a></time>
+        <time datetime="2013-11-02T14:45:39.000Z"><a href="/2013/11/02/sqlserver-current-connections/">Nov 2 2013</a></time>
       
       
   
-    <h1 class="title">搭建VMware Esxi虚拟化服务器</h1>
+    <h1 class="title">MsSQL 查看当前连接数</h1>
   
 
     </header>
     <div class="entry">
       
-        <h4>1、安装VMware ESXi</h4>
-<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
-<h4>2、安装VMware vSphere Client</h4>
-<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
-<p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
+        <h4>SQL:</h4>
+<pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
+<span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
 
       
     </div>
@@ -77,15 +74,10 @@
         
   
   <div class="categories">
-    <a href="/categories/Virtaulization/">Virtaulization</a>
+    <a href="/categories/MsSQL/">MsSQL</a>
   </div>
 
         
-  
-  <div class="tags">
-    <a href="/tags/vm esxi/">vm esxi</a>
-  </div>
-
         
   <div class="addthis addthis_toolbox addthis_default_style">
     
