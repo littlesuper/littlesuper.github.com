@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[ITman.cc]]></title>
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
-  <link href="http://littlesuper.github.io/atom.xml" rel="self"/>
-  <link href="http://littlesuper.github.io"/>
-  <updated>2013-11-02T15:48:54.294Z</updated>
-  <id>http://littlesuper.github.io/</id>
+  <link href="http://itman.cc/atom.xml" rel="self"/>
+  <link href="http://itman.cc"/>
+  <updated>2013-11-02T16:29:43.162Z</updated>
+  <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
@@ -13,8 +13,8 @@
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
   <entry>
     <title type="html"><![CDATA[MsSQL 64位配置方法]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-64bit-configuration/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-64bit-configuration/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-64bit-configuration/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-64bit-configuration/</id>
     <published>2013-11-02T15:12:46.000Z</published>
     <updated>2013-11-02T15:45:42.000Z</updated>
     <content type="html"><![CDATA[<p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
@@ -23,12 +23,12 @@
 <p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
 <p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 2005 数据库镜像的搭建与维护]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-2005-setup-mirror/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-2005-setup-mirror/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-2005-setup-mirror/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-2005-setup-mirror/</id>
     <published>2013-11-02T15:02:27.000Z</published>
     <updated>2013-11-02T15:11:26.000Z</updated>
     <content type="html"><![CDATA[<p>数据库镜像大大提高了可用性，并为故障转移群集或日志传送提供了一种易于管理的替代方案或补充方案。同步数据库镜像会话时，数据库镜像提供了热备用服务器，可支持在已提交事务不丢失数据的情况下进行快速故障转移。在一般的镜像会话期间，如果生产服务器出现故障，客户端应用程序可以通过重新连接到备用服务器来快速进行恢复。<br><a id="more"></a></p>
@@ -141,13 +141,13 @@ go
 <p>然后在MIR-B上用下面的语句创建登录名tom</p>
 <pre><code><span class="title">sp_addlogin</span> <span class="variable">@loginame</span> = <span class="string">'tom'</span>, <span class="variable">@passwd</span> = <span class="string">'password'</span>, <span class="variable">@sid</span> = 0xD6AABCC8F83E3243A6C3C97F28A4CB55</code></pre>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/镜像/" term="镜像"/>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/镜像/" term="镜像"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 备份文件还原后引起的孤立用户解决方法]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-change-users-login/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-change-users-login/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-change-users-login/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-change-users-login/</id>
     <published>2013-11-02T14:52:03.000Z</published>
     <updated>2013-11-02T14:55:09.000Z</updated>
     <content type="html"><![CDATA[<p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
@@ -158,24 +158,24 @@ go
 <li>仅适用于SQLSERVER 2005 或以上版本；</li>
 </ul>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 查看当前连接数]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-current-connections/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-current-connections/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-current-connections/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-current-connections/</id>
     <published>2013-11-02T14:45:39.000Z</published>
     <updated>2013-11-02T14:49:48.000Z</updated>
     <content type="html"><![CDATA[<h4>SQL:</h4>
 <pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
 <span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 收缩数据库日志]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-shrink-database-log/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-shrink-database-log/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-shrink-database-log/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-shrink-database-log/</id>
     <published>2013-11-02T14:32:04.000Z</published>
     <updated>2013-11-02T14:43:32.000Z</updated>
     <content type="html"><![CDATA[<figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
@@ -226,12 +226,12 @@ USE [master]
 <span class="keyword">GO</span>
 </pre></td></tr></table></figure></p>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 2005 查看表的索引碎片状态]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-tables-index-fragment/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-tables-index-fragment/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-tables-index-fragment/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-tables-index-fragment/</id>
     <published>2013-11-02T14:25:13.000Z</published>
     <updated>2013-11-02T14:30:41.000Z</updated>
     <content type="html"><![CDATA[<p>MSSQL 2005 提供了一个动态管理函数 sys.dm_db_index_physical_stats<br>通过调用这个函数，可以方便直观地查看到指定表或视图的数据和索引的大小和碎片信息。<br>下面这条语句，就可以查看当前数据库中所有索引的碎片情况</p>
@@ -274,13 +274,13 @@ USE [master]
 </ul>
 <p>如果表包含 LOB 数据类型，但这些列中没有任何列在索引定义中用作键列或非键列，则可以联机重新生成非聚集索引。</p>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/碎片/" term="碎片"/>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/碎片/" term="碎片"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 查找死锁脚本]]></title>
-    <link href="http://littlesuper.github.io/2013/11/02/sqlserver-find-deadlock-script/"/>
-    <id>http://littlesuper.github.io/2013/11/02/sqlserver-find-deadlock-script/</id>
+    <link href="http://itman.cc/2013/11/02/sqlserver-find-deadlock-script/"/>
+    <id>http://itman.cc/2013/11/02/sqlserver-find-deadlock-script/</id>
     <published>2013-11-02T14:10:17.000Z</published>
     <updated>2013-11-02T14:16:32.000Z</updated>
     <content type="html"><![CDATA[<figure class="highlight lang-脚本"><table><tr><td class="gutter"><pre>1
@@ -332,13 +332,13 @@ DBCC INPUTBUFFER (@bl )
 <h4>查看spid</h4>
 <pre><code><span class="title">exec</span> sp_who2</code></pre>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/死锁/" term="死锁"/>
-    <category scheme="http://littlesuper.github.io/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/死锁/" term="死锁"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[CentOS PHP 5.2.x 链接Oracle数据库]]></title>
-    <link href="http://littlesuper.github.io/2013/11/01/centos-php-5-2-connect-to-oracle/"/>
-    <id>http://littlesuper.github.io/2013/11/01/centos-php-5-2-connect-to-oracle/</id>
+    <link href="http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/"/>
+    <id>http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/</id>
     <published>2013-11-01T03:31:20.000Z</published>
     <updated>2013-11-02T12:55:33.000Z</updated>
     <content type="html"><![CDATA[<p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
@@ -366,13 +366,13 @@ echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<s
 phpinfo();
 <span class="preprocessor">?&gt;</span></code></pre>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/oracle, centos, php/" term="oracle, centos, php"/>
-    <category scheme="http://littlesuper.github.io/categories/Oracle/" term="Oracle"/>
+    <category scheme="http://itman.cc/tags/oracle, centos, php/" term="oracle, centos, php"/>
+    <category scheme="http://itman.cc/categories/Oracle/" term="Oracle"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[CentOS5 搭建L2TP VPN]]></title>
-    <link href="http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/"/>
-    <id>http://littlesuper.github.io/2013/11/01/centos5-setup-l2tp/</id>
+    <link href="http://itman.cc/2013/11/01/centos5-setup-l2tp/"/>
+    <id>http://itman.cc/2013/11/01/centos5-setup-l2tp/</id>
     <published>2013-11-01T01:34:11.000Z</published>
     <updated>2013-11-01T03:04:37.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a></p>
@@ -769,13 +769,13 @@ phpinfo();
 </pre></td></tr></table></figure>
 
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/l2tp vpn/" term="l2tp vpn"/>
-    <category scheme="http://littlesuper.github.io/categories/Linux/" term="Linux"/>
+    <category scheme="http://itman.cc/tags/l2tp vpn/" term="l2tp vpn"/>
+    <category scheme="http://itman.cc/categories/Linux/" term="Linux"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Chrome各版本下载集合]]></title>
-    <link href="http://littlesuper.github.io/2013/10/31/chrome-download/"/>
-    <id>http://littlesuper.github.io/2013/10/31/chrome-download/</id>
+    <link href="http://itman.cc/2013/10/31/chrome-download/"/>
+    <id>http://itman.cc/2013/10/31/chrome-download/</id>
     <published>2013-10-31T13:03:16.000Z</published>
     <updated>2013-11-01T01:58:36.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7419/10591121975_345d1b93d5_q.jpg" alt=""></p>
@@ -809,13 +809,13 @@ phpinfo();
 <li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-mac/?C=M;O=D" target="_blank">【点击这里】</a></li>
 </ul>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/chrome/" term="chrome"/>
-    <category scheme="http://littlesuper.github.io/categories/News/" term="News"/>
+    <category scheme="http://itman.cc/tags/chrome/" term="chrome"/>
+    <category scheme="http://itman.cc/categories/News/" term="News"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Facebook 是如何管理代码的]]></title>
-    <link href="http://littlesuper.github.io/2013/10/31/facebook-is-how-to-manage-code/"/>
-    <id>http://littlesuper.github.io/2013/10/31/facebook-is-how-to-manage-code/</id>
+    <link href="http://itman.cc/2013/10/31/facebook-is-how-to-manage-code/"/>
+    <id>http://itman.cc/2013/10/31/facebook-is-how-to-manage-code/</id>
     <published>2013-10-31T12:27:39.000Z</published>
     <updated>2013-10-31T13:19:42.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2830/10590834376_851441e32e.jpg" alt=""><br>我对facebook的运转着迷。这是一个很独特的环境，不容易被复制（他们的体系并不适合所有的公司，即使他们努力尝试过）。下面是我和facebook的朋友们关于他们如何开发和管理项目的记录。</p>
@@ -872,24 +872,24 @@ phpinfo();
 <p>看facebook开发文化如何随着时间演化是件非常有趣的事。特别是当公司发展壮大到数千用户时，这种文化是否还能适应呢？</p>
 <p>你的想法如何？在你公司里，开发驱动文化是否可行？</p>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/facebook/" term="facebook"/>
-    <category scheme="http://littlesuper.github.io/categories/News/" term="News"/>
+    <category scheme="http://itman.cc/tags/facebook/" term="facebook"/>
+    <category scheme="http://itman.cc/categories/News/" term="News"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[看图学Python]]></title>
-    <link href="http://littlesuper.github.io/2013/10/31/figure-learn-python/"/>
-    <id>http://littlesuper.github.io/2013/10/31/figure-learn-python/</id>
+    <link href="http://itman.cc/2013/10/31/figure-learn-python/"/>
+    <id>http://itman.cc/2013/10/31/figure-learn-python/</id>
     <published>2013-10-31T12:17:31.000Z</published>
     <updated>2013-11-01T01:30:21.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2884/10590380855_cc7289432f_o.png" alt=""></p>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/python/" term="python"/>
-    <category scheme="http://littlesuper.github.io/categories/Python/" term="Python"/>
+    <category scheme="http://itman.cc/tags/python/" term="python"/>
+    <category scheme="http://itman.cc/categories/Python/" term="Python"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[搭建VMware Esxi虚拟化服务器]]></title>
-    <link href="http://littlesuper.github.io/2013/10/31/install-vmesxi-server/"/>
-    <id>http://littlesuper.github.io/2013/10/31/install-vmesxi-server/</id>
+    <link href="http://itman.cc/2013/10/31/install-vmesxi-server/"/>
+    <id>http://itman.cc/2013/10/31/install-vmesxi-server/</id>
     <published>2013-10-31T11:50:48.000Z</published>
     <updated>2013-11-01T01:30:02.000Z</updated>
     <content type="html"><![CDATA[<h4>1、安装VMware ESXi</h4>
@@ -898,7 +898,7 @@ phpinfo();
 <p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
 <p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
 ]]></content>
-    <category scheme="http://littlesuper.github.io/tags/vm esxi/" term="vm esxi"/>
-    <category scheme="http://littlesuper.github.io/categories/Virtaulization/" term="Virtaulization"/>
+    <category scheme="http://itman.cc/tags/vm esxi/" term="vm esxi"/>
+    <category scheme="http://itman.cc/categories/Virtaulization/" term="Virtaulization"/>
   </entry>
 </feed>
