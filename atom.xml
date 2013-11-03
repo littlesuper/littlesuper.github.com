@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-03T13:33:44.417Z</updated>
+  <updated>2013-11-03T15:33:14.561Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -12,11 +12,66 @@
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
   <entry>
+    <title type="html"><![CDATA[智能路由：第一代极路由]]></title>
+    <link href="http://itman.cc/2013/10/28/hiwifi-hc6361/"/>
+    <id>http://itman.cc/2013/10/28/hiwifi-hc6361/</id>
+    <published>2013-10-28T14:10:33.000Z</published>
+    <updated>2013-11-03T15:09:59.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2885/10647249776_32e5174bef_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm8.staticflickr.com/7366/10645862103_0fee1c02a5_z.jpg" alt=""><br><img src="http://farm8.staticflickr.com/7297/10645659916_5784d265de_z.jpg" alt=""><br><img src="http://farm8.staticflickr.com/7326/10647187705_075d4b863d_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3714/10645657904_5a8f95cc64_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5507/10645873613_8b8c1feca7_z.jpg" alt=""></p>
+<p>随着第二代极路由发布会的逼近（11月6日），第一代极路￥99疯狂促销（原价￥199），特地抢了一台来体验一下。大概用了一周左右时间才到货。</p>
+<ul>
+<li>磨砂金属机身，用料上乘，无论是造工还是手感都不错，高端大气上档次</li>
+<li>配置界面的交互和设计都比传统高几个档次，简单明了，估计能解决不少小白</li>
+<li>插件是极路由的一大亮点<ul>
+<li>手机远程管理：通过很简单的操作，即可绑定，用于远程查看和管理路由器，虽然日常作用不大，但可以为日后提供一个扩展的平台</li>
+<li>屏蔽视频广告：随着现在视频网站播放广告的时间越来越长，这功能对于普通用户来说，不的不说“赞”，但同时也为视频网站广告部叫苦。如果国内的视频网站可以向youtube学习一下，也许我还是能接受广告的</li>
+<li>[智能] 翻墙（大家懂的）：使用起来觉得不太给力，通过VPN或者超级SSH均或多或少地出现一些问题，最后不得不放弃。懂技术的，还是自己折腾好了。</li>
+</ul>
+</li>
+<li>无线：即使开了 [穿墙模式] 但信号也没预期的好，与普通200块以内的差异不大；稳定性还不错，3天没重启都没问题（之前TP-LINK的24小时通电，基本每2天得重启）</li>
+<li>USB供电：这只能说是一个噱头，除非极路由能把MODEM也集成在里头（这点我非常期望，毕竟桌面可以又少了一个设备），不然MODEM都断电了，路由器还有啥意义呢</li>
+<li>保修：网站写着3年保修，但保修卡上只写1年，哪个为准？</li>
+<li>吐槽：无USB接口，降低了扩展性；对于GEEK来说，无千兆网卡与双频WIFI也是一大遗憾。也许这也是第二代我们所期待的，回归到￥99抢购价，还是超值的！</li>
+</ul>
+<p>期待王总为我们带来第二代极路由！<br>p.s：第二代产品的发布，为每位到场的嘉宾（300人）提供￥1500的交通住宿报销，相当厚道！</p>
+]]></content>
+    <category scheme="http://itman.cc/tags/3c/" term="3c"/>
+    <category scheme="http://itman.cc/tags/极路由/" term="极路由"/>
+    <category scheme="http://itman.cc/tags/hiwifi/" term="hiwifi"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Apple 免费大餐来了： Mavericks + iWork + iLife]]></title>
+    <link href="http://itman.cc/2013/10/24/apple-free-mavericks-iwork-ilife/"/>
+    <id>http://itman.cc/2013/10/24/apple-free-mavericks-iwork-ilife/</id>
+    <published>2013-10-24T15:03:55.000Z</published>
+    <updated>2013-11-03T15:33:11.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm4.staticflickr.com/3803/10647723563_1f2def4e0f_z.jpg" alt=""><br><a id="more"></a></p>
+<p><img src="http://farm6.staticflickr.com/5502/10647494214_aa9391be14_z.jpg" alt=""><br><img src="http://farm3.staticflickr.com/2886/10647722163_bbe09b6e9d_z.jpg" alt=""></p>
+<p>随着Mac OS X 10.9 Mavericks正式版的发布，将免费向用户提供。重拾旧路的原因也很简单：尽快普及，带动硬件销量的提升。伴随着一同免费到来的还有iWork &amp; iLife，日常个人办公软件。</p>
+<p>这次的免费，无疑给微软带来一定的压力。最近半年，很多公司都被微软上门“追债”，今后大家看来可以建议老板们都购买苹果产品了 :)</p>
+<h3>Mavericks 亮点：</h3>
+<ul>
+<li>重写底层：降低对硬件的消耗以及提高效率，这也是促进我升级最重要的原因</li>
+<li>多屏显示的改进：之前的版本一直是鸡肋，比Windows差远了，这次总算扳回一局</li>
+<li>加入苹果地图：以后外出之前，可以先在笔记本上规划好路径，并自动同步到iPhone上</li>
+<li>新的通知中心：系统在睡眠状态下也可以接收通知消息<br>……</li>
+</ul>
+<h3>吐槽：</h3>
+<ul>
+<li>homebrew 对新系统的支持还不是特别完善，重度依赖的同学请慎重</li>
+</ul>
+]]></content>
+    <category scheme="http://itman.cc/tags/apple/" term="apple"/>
+    <category scheme="http://itman.cc/tags/mavericks/" term="mavericks"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
+  </entry>
+  <entry>
     <title type="html"><![CDATA[小米电视首发开箱]]></title>
     <link href="http://itman.cc/2013/10/17/xiaomi-tv/"/>
     <id>http://itman.cc/2013/10/17/xiaomi-tv/</id>
     <published>2013-10-17T13:17:38.000Z</published>
-    <updated>2013-11-03T13:33:41.000Z</updated>
+    <updated>2013-11-03T15:08:38.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2814/10645266626_cda43a57e8_z.jpg" alt=""></p>
 <p><a id="more"></a><br><img src="http://farm6.staticflickr.com/5511/10645095565_376a71111e_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3777/10645116264_48c000037c_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3695/10645133696_387605a3e5_z.jpg" alt=""></p>
 <h3>开箱首批小米电视。</h3>
@@ -40,15 +95,17 @@
 <li>偏振式3D成像</li>
 </ul>
 ]]></content>
+    <category scheme="http://itman.cc/tags/3c/" term="3c"/>
     <category scheme="http://itman.cc/tags/小米/" term="小米"/>
-    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
+    <category scheme="http://itman.cc/tags/电视/" term="电视"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[红米初体验]]></title>
     <link href="http://itman.cc/2013/10/08/xiaomi-hongmi/"/>
     <id>http://itman.cc/2013/10/08/xiaomi-hongmi/</id>
     <published>2013-10-08T10:05:01.000Z</published>
-    <updated>2013-11-03T10:24:36.000Z</updated>
+    <updated>2013-11-03T15:08:56.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm6.staticflickr.com/5497/10642709376_e47621d497_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm3.staticflickr.com/2847/10642623914_3a917d7ab7_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5503/10642603725_99d9f12dab_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5543/10642640196_5f59af2368_z.jpg" alt=""><br><img src="http://farm8.staticflickr.com/7397/10642633394_2138cd0a96_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3812/10642856183_56af84a839_z.jpg" alt=""><br><img src="http://farm3.staticflickr.com/2870/10642642564_8f7ecda64d_c.jpg" alt=""><br><img src="http://farm3.staticflickr.com/2892/10642621695_2b9ca75cc3_z.jpg" alt=""></p>
 <h3>红米初体验</h3>
 <ul>
@@ -63,15 +120,16 @@
 <p>总而言之，￥799双卡双待无论是送父母，还是作为备用机，你都值得拥有～</p>
 <p><img src="http://farm4.staticflickr.com/3812/10642856183_56af84a839_z.jpg" alt=""><br>贴膜真是一门技术活。3张小米的膜贴上后，在日常使用中都发现了走位现象。郁闷~</p>
 ]]></content>
+    <category scheme="http://itman.cc/tags/3c/" term="3c"/>
     <category scheme="http://itman.cc/tags/小米/" term="小米"/>
-    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[小米盒子2初体验]]></title>
     <link href="http://itman.cc/2013/09/30/xiaomi-box2/"/>
     <id>http://itman.cc/2013/09/30/xiaomi-box2/</id>
     <published>2013-09-30T09:36:51.000Z</published>
-    <updated>2013-11-03T12:03:53.000Z</updated>
+    <updated>2013-11-03T15:09:15.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7301/10644084464_833d486fd5_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm3.staticflickr.com/2893/10642391173_af10e13dd5_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5505/10642173384_4546706533_z.jpg" alt=""><br><img src="http://farm8.staticflickr.com/7315/10642150155_04d31dec45_z.jpg" alt=""></p>
 <h4>新小米盒子开箱感受</h4>
 <ul>
@@ -98,15 +156,16 @@
 <li>网络：RJ45 10M/100M；802.11b/g，支持2.4GHz/5GHz（双频）</li>
 </ul>
 ]]></content>
+    <category scheme="http://itman.cc/tags/3c/" term="3c"/>
     <category scheme="http://itman.cc/tags/小米/" term="小米"/>
-    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Apple iPhone5s 初体验]]></title>
     <link href="http://itman.cc/2013/09/25/apple-iphone5s/"/>
     <id>http://itman.cc/2013/09/25/apple-iphone5s/</id>
     <published>2013-09-25T12:05:51.000Z</published>
-    <updated>2013-11-03T12:17:45.000Z</updated>
+    <updated>2013-11-03T15:07:56.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm6.staticflickr.com/5544/10644285865_abc2edddf0_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm8.staticflickr.com/7315/10643548744_340d720250_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3728/10643771833_e60355b4df_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5498/10643774403_54a9c5c018_z.jpg" alt=""></p>
 <h3>4s vs 5s:</h3>
 <h4>亮点：</h4>
@@ -118,12 +177,14 @@
 <ul>
 <li>上手感觉轻太多了，不太习惯</li>
 <li>为了解决黑色掉漆问题，背面颜色也换了，不如iPhone5的好看</li>
-<li>陀螺仪BUG</li>
+<li>陀螺仪BUG（最终在iOS 7.0.3中得到解决）</li>
 </ul>
 <p>p.s：联通套餐送的礼品还真不少</p>
 ]]></content>
+    <category scheme="http://itman.cc/tags/3c/" term="3c"/>
+    <category scheme="http://itman.cc/tags/apple/" term="apple"/>
     <category scheme="http://itman.cc/tags/iPhone/" term="iPhone"/>
-    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Chrome各版本下载集合]]></title>
