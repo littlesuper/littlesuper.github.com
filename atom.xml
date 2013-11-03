@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-03T01:40:45.157Z</updated>
+  <updated>2013-11-03T12:24:08.327Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -12,371 +12,133 @@
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
   <entry>
-    <title type="html"><![CDATA[MsSQL 64位配置方法]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-64bit-configuration/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-64bit-configuration/</id>
-    <published>2013-11-02T15:12:46.000Z</published>
-    <updated>2013-11-02T15:45:42.000Z</updated>
-    <content type="html"><![CDATA[<p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
-<p>1、安装WINDOWS2003 64位 + SP</p>
-<p>2、安装MsSQL 2005 64位 + SP</p>
-<p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
-<p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
-]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 2005 数据库镜像的搭建与维护]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-2005-setup-mirror/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-2005-setup-mirror/</id>
-    <published>2013-11-02T15:02:27.000Z</published>
-    <updated>2013-11-02T15:11:26.000Z</updated>
-    <content type="html"><![CDATA[<p>数据库镜像大大提高了可用性，并为故障转移群集或日志传送提供了一种易于管理的替代方案或补充方案。同步数据库镜像会话时，数据库镜像提供了热备用服务器，可支持在已提交事务不丢失数据的情况下进行快速故障转移。在一般的镜像会话期间，如果生产服务器出现故障，客户端应用程序可以通过重新连接到备用服务器来快速进行恢复。<br><a id="more"></a></p>
-<h3>一、准备工作</h3>
-<h4>(一) 安装三个实例,分别为:</h4>
-<p>SZDXBAK\SQLSERVER(默认实例), 作为主体服务器<br>SZDXBAK\SQL2 作为镜像服务器<br>SZDXBAK\WITNESS 作为鉴证服务器<br>注: 所有实例服务使用SQLService账户启动</p>
-<h4>(二) 数据库准备</h4>
-<p>1、在主体服务上创建测试数据库 RecoveryDb<br>并创建一个完全备份</p>
-<p>2、在镜像服务上使用NORECOVERY选项恢复数据库,<br>恢复后数据库状态为’正在还原’</p>
-<h3>二、创建数据库镜像端点</h3>
-<p>1、在主体数据库(SQLSERVER实例)上创建端点,用于伙伴通讯</p>
-<pre><code><span class="operator"><span class="keyword">CREATE</span> ENDPOINT DbMirroring
- STATE=STARTED
- <span class="keyword">AS</span> TCP(LISTENER_PORT=<span class="number">5022</span>)
- <span class="keyword">FOR</span> DATABASE_MIRRORING(ROLE=PARTNER,ENCRYPTION=SUPPORTED)
-<span class="keyword">GO</span></code></pre>
-<p>2、在镜像数据库(SQL2实例)上创建端点,用于伙伴通讯</p>
-<pre><code><span class="operator"><span class="keyword">CREATE</span> ENDPOINT DbMirroring
- STATE=STARTED
- <span class="keyword">AS</span> TCP(LISTENER_PORT=<span class="number">5033</span>)
- <span class="keyword">FOR</span> DATABASE_MIRRORING(ROLE=PARTNER,ENCRYPTION=SUPPORTED)
-<span class="keyword">GO</span></code></pre>
-<p>3、在鉴证服务器(WITNESS实例)上创建端点,用于鉴证通讯</p>
-<pre><code><span class="operator"><span class="keyword">CREATE</span> ENDPOINT DbMirroring
- STATE=STARTED
- <span class="keyword">AS</span> TCP(LISTENER_PORT=<span class="number">5022</span>)
- <span class="keyword">FOR</span> DATABASE_MIRRORING(ROLE=WITNESS,ENCRYPTION=SUPPORTED)
-<span class="keyword">GO</span>
-
-<span class="keyword">ALTER</span> ENDPOINT DbMirroring STATE=STARTED
-<span class="keyword">GO</span></code></pre>
-<p>4、检查端点配置,可分别在不同服务器上运行以下查询</p>
-<pre><code><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> sys.database_mirroring_endpoints</code></pre>
-<h3>三、配置数据库镜像安全性</h3>
-<p>1、主体数据库(SQLSERVER实例)</p>
-<pre><code>use master
-go
-<span class="operator"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> ENDPOINT::<span class="string">"DbMirroring"</span> <span class="keyword">TO</span> <span class="string">"SZDXBAK\SQLService"</span>
-<span class="keyword">go</span></code></pre>
-<p>2、镜像数据库(SQL2实例)</p>
-<pre><code>use master
-go
-<span class="operator"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> ENDPOINT::<span class="string">"DbMirroring"</span> <span class="keyword">TO</span> <span class="string">"SZDXBAK\SQLService"</span>
-<span class="keyword">go</span></code></pre>
-<p>3、鉴证服务器(WITNESS实例)</p>
-<pre><code>use master
-go
-<span class="operator"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> ENDPOINT::<span class="string">"DbMirroring"</span> <span class="keyword">TO</span> <span class="string">"SZDXBAK\SQLService"</span>
-<span class="keyword">go</span></code></pre>
-<h3>四、启动数据库镜像</h3>
-<p>注意配置顺序<br>1、在镜像数据库(SQL2实例)上,指定到主体服务器(SQLSERVER实例)的伙伴端点</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb
-<span class="keyword">SET</span> PARTNER=N<span class="string">'TCP://SZDXBAK:5022'</span>
-<span class="keyword">go</span></code></pre>
-<p>2、在主数据库(SQLSERVER实例)上,指定到镜像服务器(SQL2实例)的伙伴端点</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb
-<span class="keyword">SET</span> PARTNER=N<span class="string">'TCP://SZDXBAK:5033'</span>
-<span class="keyword">go</span></code></pre>
-<p>注: 以上两步完成后,已经配置为高保护级别性模式</p>
-<p>3、如果要创建高可用性模式:在主数据库上(SQLSERVER实例),指定鉴证服务器端点</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb
-<span class="keyword">SET</span> WITNESS=N<span class="string">'TCP://SZDXBAK:5044'</span>
-<span class="keyword">go</span></code></pre>
-<p>4、在高可用性模式下:配置数据库镜像事务安全级别</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> SAFETY <span class="keyword">FULL</span>
-<span class="keyword">go</span></code></pre>
-<h3>五、查看数据库镜像的配置状态</h3>
-<p>1、通过Management Studio 对象资源管理器,查看主体数据库,镜像数据库状态<br>2、通过Management Studio 对象资源管理器中的数据库属性查看状态<br>3、通过系统目录视图查看数据库镜像配置情况</p>
-<pre><code><span class="type">SELECT</span> * <span class="type">FROM</span> sys.<span class="typedef">database_mirroring_endpoints</span>
-<span class="type">SELECT</span> * <span class="type">FROM</span> sys.<span class="typedef">database_mirroring_endpoints</span>
-<span class="type">WHERE</span> <span class="typedef">database_id = <span class="container">(<span class="type">SELECT</span> <span class="title">database_id</span> <span class="type">FROM</span> <span class="title">sys</span>.<span class="title">database</span>
-<span class="type">WHERE</span> <span class="title">name</span>='<span class="type">RecoveryDb</span>')</span></span></code></pre>
-<p>以上配置完成后,主体数据库的状态为:主体,已同步<br>镜像数据库的状态为:镜像,已同步/正在还原..</p>
-<h3>六、服务器角色切换测试</h3>
-<p>预备知识<br>数据库镜像角色切换<br>自动故障转移<br>只针对高可用性模式<br>SAFETY=FULL<br>手动故障转移<br>针对高可用性模式和高保护级别性模式<br>SAFETY=FULL<br>强制服务<br>只针对高性能模式<br>SAFETY=OFF</p>
-<h4>(一) 自动故障转移</h4>
-<p>在主体服务器上,断开网络连接,通过数据库资源管理器查看主体/镜像服务器上数据库的状态</p>
-<p>镜像服务器状态: 主体,已断开连接</p>
-<p>恢复主体服务器</p>
-<p>此时原来主体服务器(SQLSERVER实例)变为镜像服务器 状态为:镜像,已同步/正在还原..</p>
-<p>原来镜像服务器(SQL2实例)变为主体服务器 状态:主体,已同步</p>
-<h4>(二) 手动故障转移</h4>
-<p>–主体服务器上执行故障转移过程</p>
-<pre><code>USE MASTER
-go
-<span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> PARTNER FAILOVER
-<span class="keyword">go</span></code></pre>
-<p>执行完后主体服务器状态变为: 镜像,已同步/正在还原..<br>镜像服务器状态变为 主体,已同步</p>
-<h4>(三) 强制服务,有可能造成数据丢失</h4>
-<p>1) 在镜像服务器上,取消对鉴证服务器的配置</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> WINTESS OFF</code></pre>
-<p>2) 在镜像服务器上,配置事务安全性为OFF</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> SAFETY OFF</code></pre>
-<p>3) 断开主体服务器,在镜像服务器上,强制服务 进行角色切换</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> PARTNER FORCE_SERVICE_ALLOW_DATA_LOSS</code></pre>
-<p>完成后数据库状态为 主体,已断开连接</p>
-<h3>七、如何查询镜像服务器上的数据: 在镜像服务器上创建数据库快照</h3>
-<p>1、在镜像服务器上,创建数据库快照</p>
-<pre><code><span class="operator"><span class="keyword">CREATE</span> DATABASE ReconveryDb_snap_1
- <span class="keyword">ON</span> (NAME=RecoveryDb,FILENAM=<span class="string">'H:\seconddb\recovery_snap1.ss'</span>)
- <span class="keyword">AS</span> SNAPSHOT <span class="keyword">OF</span> RecoveryDb</code></pre>
-<p>2、访问镜像数据库</p>
-<pre><code>USE ReconveryDb_snap_1
-go
-<span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> test</code></pre>
-<h3>八、镜像数据库之间的用户问题</h3>
-<p>假设有镜像的服务器是MIR-A和MI-B，要访问镜像数据库的登录账号是tom，使用下面这个方法就可以在MIR-A上创建登录名tom，然后在镜像数据库中创建数据库用户tom并映射到登录名tom<br>执行下列语句取回tom的sid</p>
-<pre><code><span class="operator"><span class="keyword">select</span> [name], sid <span class="keyword">from</span> syslogins <span class="keyword">where</span> [name] = <span class="string">'tom'</span></code></pre>
-<p>—————————————————–<br>tom 0xD6AABCC8F83E3243A6C3C97F28A4CB55</p>
-<p>然后在MIR-B上用下面的语句创建登录名tom</p>
-<pre><code><span class="title">sp_addlogin</span> <span class="variable">@loginame</span> = <span class="string">'tom'</span>, <span class="variable">@passwd</span> = <span class="string">'password'</span>, <span class="variable">@sid</span> = 0xD6AABCC8F83E3243A6C3C97F28A4CB55</code></pre>
-]]></content>
-    <category scheme="http://itman.cc/tags/镜像/" term="镜像"/>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 备份文件还原后引起的孤立用户解决方法]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-change-users-login/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-change-users-login/</id>
-    <published>2013-11-02T14:52:03.000Z</published>
-    <updated>2013-11-02T14:55:09.000Z</updated>
-    <content type="html"><![CDATA[<p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
-<pre><code><span class="title">exec</span> sp_change_users_login <span class="string">'update_one'</span>,<span class="string">'没有登陆名的数据库用户'</span>, <span class="string">'新的登陆名'</span></code></pre>
-<p>但由于SQL SERVER 2005采用了架构，所以在删除用户是会出现一些错误，因此在这里把我在强制还原后的一些处理方法介绍给大家以作参照。</p>
+    <title type="html"><![CDATA[红米初体验]]></title>
+    <link href="http://itman.cc/2013/10/08/xiaomi-hongmi/"/>
+    <id>http://itman.cc/2013/10/08/xiaomi-hongmi/</id>
+    <published>2013-10-08T10:05:01.000Z</published>
+    <updated>2013-11-03T10:24:36.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm6.staticflickr.com/5497/10642709376_e47621d497_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm3.staticflickr.com/2847/10642623914_3a917d7ab7_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5503/10642603725_99d9f12dab_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5543/10642640196_5f59af2368_z.jpg" alt=""><br><img src="http://farm8.staticflickr.com/7397/10642633394_2138cd0a96_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3812/10642856183_56af84a839_z.jpg" alt=""><br><img src="http://farm3.staticflickr.com/2870/10642642564_8f7ecda64d_c.jpg" alt=""><br><img src="http://farm3.staticflickr.com/2892/10642621695_2b9ca75cc3_z.jpg" alt=""></p>
+<h3>红米初体验</h3>
 <ul>
-<li>适用于远程服务器数据库备份后，下载到本地并在本地SQL服务器上还原引的狐立用户问题；</li>
-<li>仅适用于SQLSERVER 2005 或以上版本；</li>
+<li>第一感觉4.7寸屏幕真够大，IPS屏色彩还原尚可</li>
+<li>后盖磨砂手感不错，整机有点偏重</li>
+<li>久违了的miui，5.0版本界面设计和交互体验进步蛮大，给红米加分不少</li>
+<li>虽然CPU使用的是MTK 四核1.5GHz，但MIUI系统的流畅度还是没法与iOS抗衡，真心建议针对红米出一个简化版</li>
+<li>相机凑合，请看最后一张样张（最后一张为5s）。</li>
+<li>对于一款老人机来说，以上配置也足以</li>
+<li>吐槽：耳机真是渣，真心不推荐购买。宁愿在appletuan买一个￥128元的earpods</li>
+</ul>
+<p>总而言之，￥799双卡双待无论是送父母，还是作为备用机，你都值得拥有～</p>
+<p><img src="http://farm4.staticflickr.com/3812/10642856183_56af84a839_z.jpg" alt=""><br>贴膜真是一门技术活。3张小米的膜贴上后，在日常使用中都发现了走位现象。郁闷~</p>
+]]></content>
+    <category scheme="http://itman.cc/tags/小米/" term="小米"/>
+    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[小米盒子2初体验]]></title>
+    <link href="http://itman.cc/2013/09/30/xiaomi-box2/"/>
+    <id>http://itman.cc/2013/09/30/xiaomi-box2/</id>
+    <published>2013-09-30T09:36:51.000Z</published>
+    <updated>2013-11-03T12:03:53.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7301/10644084464_833d486fd5_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm3.staticflickr.com/2893/10642391173_af10e13dd5_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5505/10642173384_4546706533_z.jpg" alt=""><br><img src="http://farm8.staticflickr.com/7315/10642150155_04d31dec45_z.jpg" alt=""></p>
+<h4>新小米盒子开箱感受</h4>
+<ul>
+<li>主机手感和造工继续保持水准</li>
+<li>新遥控器简洁了，但按键的反馈手感较差，造工稍微欠缺</li>
+<li>连显示器得另外买音频线（淘宝￥25有交易）</li>
+<li>蓝光体验区电影的画质不错，需6M带宽支持</li>
+<li>最吐槽的是，里面的TVB电视剧没有粤语（后附解决方法）</li>
+</ul>
+<p>总体来说，￥299的定价在整个行业中只能说是中规中矩，跟小米其他产品线比起来，感觉缺乏核心价值（这也好解释，为什么小米盒子是相对其他小米产品容易抢道的）。</p>
+<h4>[粤语问题] 解决篇</h4>
+<ul>
+<li>通过手机助手连接盒子</li>
+<li>安装 [小米桌面]</li>
+<li>然后就可以安装 [优酷TV] 等app</li>
+<li>重启盒子后选择 [小米桌面]，进入桌面后点击 [优酷TV]，粤语视频就在你面前</li>
+</ul>
+<p>p.s：自从安装了 [小米桌面] 后，原声的桌面进入的时候经常崩溃，尚未解决，因为一般只用它来看优酷。 </p>
+<h4>附：配置</h4>
+<ul>
+<li>处理器：Cortext-A9, 1.5GHz（双核）</li>
+<li>内存：1GB DDR3-1066 SDRAM</li>
+<li>接口：可通过OTG线连U盘或移动硬盘；Micro-USB；</li>
+<li>网络：RJ45 10M/100M；802.11b/g，支持2.4GHz/5GHz（双频）</li>
 </ul>
 ]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/小米/" term="小米"/>
+    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[MsSQL 查看当前连接数]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-current-connections/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-current-connections/</id>
-    <published>2013-11-02T14:45:39.000Z</published>
-    <updated>2013-11-02T14:49:48.000Z</updated>
-    <content type="html"><![CDATA[<h4>SQL:</h4>
-<pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
-<span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
-]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 收缩数据库日志]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-shrink-database-log/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-shrink-database-log/</id>
-    <published>2013-11-02T14:32:04.000Z</published>
-    <updated>2013-11-02T14:43:32.000Z</updated>
-    <content type="html"><![CDATA[<figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre>USE [master]
-DUMP TRANSACTION [DB_Samples] WITH NO_LOG
-BACKUP LOG [DB_Samples] WITH NO_LOG
-DBCC SHRINKDATABASE([DB_Samples])
-</pre></td></tr></table></figure>
-
-<p><a id="more"></a><br>    <figure class="highlight lang-sql"><figcaption><span>SQL2008</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="code"><pre>USE [master]
-GO
-<span class="operator"><span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE <span class="keyword">WITH</span> NO_WAIT
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE
-<span class="keyword">GO</span>
- 
-USE [DB_Samples]
-<span class="keyword">GO</span>
-DBCC SHRINKFILE (N <span class="string">'DB_Samples_log'</span> , <span class="number">0</span>, TRUNCATEONLY)
-<span class="keyword">GO</span>
- 
-USE [master]
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span> <span class="keyword">WITH</span> NO_WAIT
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span>
-<span class="keyword">GO</span>
-</pre></td></tr></table></figure></p>
-]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 2005 查看表的索引碎片状态]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-tables-index-fragment/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-tables-index-fragment/</id>
-    <published>2013-11-02T14:25:13.000Z</published>
-    <updated>2013-11-02T14:30:41.000Z</updated>
-    <content type="html"><![CDATA[<p>MSSQL 2005 提供了一个动态管理函数 sys.dm_db_index_physical_stats<br>通过调用这个函数，可以方便直观地查看到指定表或视图的数据和索引的大小和碎片信息。<br>下面这条语句，就可以查看当前数据库中所有索引的碎片情况</p>
-<pre><code><span class="operator"><span class="keyword">SELECT</span>
- object_name(a.object_id) [TableName]
- ,a.index_id
- ,name [IndexName]
- ,avg_fragmentation_in_percent
-<span class="keyword">FROM</span> sys.dm_db_index_physical_stats
- (
- DB_ID()
- , <span class="keyword">NULL</span>
- , <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>
-) <span class="keyword">AS</span> a
-<span class="keyword">JOIN</span> sys.indexes <span class="keyword">AS</span> b
-<span class="keyword">ON</span> a.object_id = b.object_id <span class="keyword">AND</span> a.index_id = b.index_id;</span></code></pre>
-<p><a id="more"></a><br>如果 avg_fragmentation_in_percent 一项的值在 10.0 – 30.0 建议使用 ALTER INDEX .. REORGANIZE 语句重新组织索引</p>
-<p>如果 &gt; 30.0 建议使用 ALTER INDEX .. REBUILD 语句重建索引</p>
-<p>SQL 2005 在 ALTER INDEX 语句中提供了一个重要的参数 ONLINE，如果想重建索引的时候，不会将表锁住，需要将该参数设置为 ON。<br>例如：</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> INDEX <span class="keyword">ALL</span> <span class="keyword">ON</span> [dbo].[RecordTable]
- REBUILD <span class="keyword">WITH</span> (
- SORT_IN_TEMPDB = <span class="keyword">ON</span>
- ,STATISTICS_NORECOMPUTE = <span class="keyword">ON</span>
- ,ONLINE = <span class="keyword">ON</span>);</span></code></pre>
-<p><strong>ONLINE 参数说明如下：</strong></p>
-<p>ONLINE = { ON | OFF }</p>
-<p>指定在索引操作期间基础表和关联的索引是否可用于查询和数据修改操作。默认值为 OFF。</p>
-<p><strong>ON</strong></p>
-<p>在索引操作期间不持有长期表锁。在索引操作的主要阶段，源表上只使用意向共享 (IS) 锁。这使得能够继续对基础表和索引进行查询或更新。操作开始时，将对源对象保持极短时间的共享 (S) 锁。操作结束时，如果创建非聚集索引，将对源持有极短时间的 S 锁；当在线创建或删除聚集索引时，或者重新生成聚集或非聚集索引时，将获取 SCH-M（架构修改）锁。对本地临时表创建索引时，ONLINE 不能设置为 ON。</p>
-<p><strong>OFF</strong></p>
-<p>在索引操作期间应用表锁。创建、重新生成或删除聚集索引或者重新生成或删除非聚集索引的脱机索引操作将对表获取架构修改 (Sch-M) 锁。这样可以防止所有用户在操作期间访问基础表。创建非聚集索引的脱机索引操作将对表获取共享 (S) 锁。这样可以防止更新基础表，但允许读操作（如 SELECT 语句）。</p>
-<p>有关详细信息，请参阅联机索引操作的工作方式。有关锁的详细信息，请参阅锁模式。<br>索引（包括全局临时表中的索引）可以联机重新生成，但以下索引除外：</p>
+    <title type="html"><![CDATA[Apple iPhone5s 初体验]]></title>
+    <link href="http://itman.cc/2013/09/25/apple-iphone5s/"/>
+    <id>http://itman.cc/2013/09/25/apple-iphone5s/</id>
+    <published>2013-09-25T12:05:51.000Z</published>
+    <updated>2013-11-03T12:17:45.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm6.staticflickr.com/5544/10644285865_abc2edddf0_z.jpg" alt=""><br><a id="more"></a><br><img src="http://farm8.staticflickr.com/7315/10643548744_340d720250_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3728/10643771833_e60355b4df_z.jpg" alt=""><br><img src="http://farm6.staticflickr.com/5498/10643774403_54a9c5c018_z.jpg" alt=""></p>
+<h3>4s vs 5s:</h3>
+<h4>亮点：</h4>
 <ul>
-<li>禁用的索引</li>
-<li>XML 索引</li>
-<li>本地临时表中的索引</li>
-<li>分区索引</li>
-<li>聚集索引（如果基础表包含 LOB 数据类型）</li>
-<li>使用 LOB 数据类型列定义的非聚集索引</li>
+<li>用完5s的屏幕回去看4s的，真又点小</li>
+<li>指纹体验太棒了，基本上识别率95%以上</li>
 </ul>
-<p>如果表包含 LOB 数据类型，但这些列中没有任何列在索引定义中用作键列或非键列，则可以联机重新生成非聚集索引。</p>
+<h4>吐槽：</h4>
+<ul>
+<li>上手感觉轻太多了，不太习惯</li>
+<li>为了解决黑色掉漆问题，背面颜色也换了，不如iPhone5的好看</li>
+<li>陀螺仪BUG</li>
+</ul>
+<p>p.s：联通套餐送的礼品还真不少</p>
 ]]></content>
-    <category scheme="http://itman.cc/tags/碎片/" term="碎片"/>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/iPhone/" term="iPhone"/>
+    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[MsSQL 查找死锁脚本]]></title>
-    <link href="http://itman.cc/2013/11/02/sqlserver-find-deadlock-script/"/>
-    <id>http://itman.cc/2013/11/02/sqlserver-find-deadlock-script/</id>
-    <published>2013-11-02T14:10:17.000Z</published>
-    <updated>2013-11-02T14:16:32.000Z</updated>
-    <content type="html"><![CDATA[<figure class="highlight lang-脚本"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-</pre></td><td class="code"><pre>use master
-goG
-declare @spid int,@bl int
-DECLARE s_cur CURSOR FOR
-<span class="operator"><span class="keyword">select</span> <span class="number">0</span> ,blocked
-<span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> sysprocesses <span class="keyword">where</span> blocked&gt;<span class="number">0</span> ) a
-<span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> 	sysprocesses <span class="keyword">where</span> blocked&gt;<span class="number">0</span> ) b
-<span class="keyword">where</span> a.blocked=spid)
-<span class="keyword">union</span> <span class="keyword">select</span> spid,blocked <span class="keyword">from</span> sysprocesses <span class="keyword">where</span> blocked&gt;<span class="number">0</span>
-<span class="keyword">OPEN</span> s_cur
-<span class="keyword">FETCH</span> <span class="keyword">NEXT</span> <span class="keyword">FROM</span> s_cur <span class="keyword">INTO</span> @spid,@bl
-WHILE @@FETCH_STATUS = <span class="number">0</span>
-<span class="keyword">begin</span>
-if @spid =<span class="number">0</span>
-    	<span class="keyword">select</span> ‘引起数据库死锁的是: ‘+ <span class="keyword">CAST</span>(@bl <span class="keyword">AS</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>)) + ‘进程号,其执行的<span class="keyword">SQL</span>语法如下’
-<span class="keyword">else</span>
-    	<span class="keyword">select</span> ‘进程号SPID：’+ <span class="keyword">CAST</span>(@spid <span class="keyword">AS</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>))+ ‘被’ + ‘进程号SPID：’+ <span class="keyword">CAST</span>(@bl <span class="keyword">AS</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>)) +’阻塞,其当前    进程执行的<span class="keyword">SQL</span>语法如下’
-DBCC INPUTBUFFER (@bl )
-<span class="keyword">FETCH</span> <span class="keyword">NEXT</span> <span class="keyword">FROM</span> s_cur <span class="keyword">INTO</span> @spid,@bl
-<span class="keyword">end</span>
-<span class="keyword">CLOSE</span> s_cur
-<span class="keyword">DEALLOCATE</span> s_cur
-</pre></td></tr></table></figure>
-
-<h4>查看spid</h4>
-<pre><code><span class="title">exec</span> sp_who2</code></pre>
+    <title type="html"><![CDATA[Chrome各版本下载集合]]></title>
+    <link href="http://itman.cc/2013/09/11/chrome-download/"/>
+    <id>http://itman.cc/2013/09/11/chrome-download/</id>
+    <published>2013-09-11T13:03:16.000Z</published>
+    <updated>2013-11-03T12:24:05.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7419/10591121975_345d1b93d5_q.jpg" alt=""></p>
+<h3>Windows平台：</h3>
+<ul>
+<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
+<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/eula.html?extra=betachannel" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/eula.html?extra=devchannel" target="_blank">【点击这里】</a></li>
+<li><em>最新金丝雀版（Canary build）Chrome在线安装：</em> <a href="http://tools.google.com/dlpage/chromesxs" target="_blank">【点击这里】</a>（new）</li>
+<li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-xp/?O=D" target="_blank">【点击这里】</a></li>
+</ul>
+<p><a id="more"></a><br>附离线版Chrome下载方法：</p>
+<pre><code><span class="label">http:</span>//dl<span class="preprocessor">.google</span><span class="preprocessor">.com</span>/chrome/install/[版本号后两位]/chrome_installer<span class="preprocessor">.exe</span></code></pre>
+<p>也就是说要想下载离线版Chrome，必须要知道你要下载的版本号，取版本号第二个小数点的数字。比如4.0.266.0的下载地址就是：<br><a href="http://dl.google.com/chrome/install/266.0/chrome_installer.exe" target="_blank">http://dl.google.com/chrome/install/266.0/chrome_installer.exe</a></p>
+<p>同理比如3.0.195.38的下载地址就是：<br><a href="http://dl.google.com/chrome/install/195.38/chrome_installer.exe" target="_blank">http://dl.google.com/chrome/install/195.38/chrome_installer.exe</a></p>
+<p>注：离线版Chrome可能不会自动更新。</p>
+<h3>Linux平台：</h3>
+<ul>
+<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
+<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/intl/en/landing/chrome/beta/" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装(32bit)：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=unstable_i386_deb" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装(64bit)：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=unstable_amd64_deb" target="_blank">【点击这里】</a></li>
+<li><em>最新Chromium下载地址(32bit):</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-linux/?C=M;O=D" target="_blank">【点击这里】</a></li>
+<li><em>最新Chromium下载地址(64bit):</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-linux-64/?C=M;O=D" target="_blank">【点击这里】</a></li>
+</ul>
+<h3>Mac OS平台：</h3>
+<ul>
+<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
+<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/intl/en/landing/chrome/beta/" target="_blank">【点击这里】</a></li>
+<li><em>最新开发版（Dev Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=mac" target="_blank">【点击这里】</a></li>
+<li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-mac/?C=M;O=D" target="_blank">【点击这里】</a></li>
+</ul>
 ]]></content>
-    <category scheme="http://itman.cc/tags/死锁/" term="死锁"/>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[CentOS PHP 5.2.x 链接Oracle数据库]]></title>
-    <link href="http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/"/>
-    <id>http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/</id>
-    <published>2013-11-01T03:31:20.000Z</published>
-    <updated>2013-11-02T16:35:38.000Z</updated>
-    <content type="html"><![CDATA[<p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
-<p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
-<p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
-<p>2、安装Oracle即时客户端程序包</p>
-<pre><code>rpm -ivh oracle-instantclient11<span class="number">.2</span>-basic-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-devel-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-sqlplus-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span>
-echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<span class="keyword">ld</span><span class="preprocessor">.so</span><span class="preprocessor">.conf</span><span class="preprocessor">.d</span>/oracle_client<span class="preprocessor">.conf</span>
-/sbin/ldconfig</code></pre>
-<p>3、安装OCI8 PHP扩展（使用PHP自带的OCI8，假设PHP程序安装在/usr/local/webserver/php/）</p>
-<pre><code><span class="title">yum</span> install libaio
-<span class="title">wget</span> http://pecl.php.net/get/oci8-<span class="number">1.4</span><span class="number">.4</span>.tgz
-<span class="title">cd</span> oci8-<span class="number">1.4</span><span class="number">.4</span>/
-/usr/local/webserver/php/bin/phpize <span class="type">CFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span> <span class="type">CXXFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span>
-./configure <span class="comment">--with-php-config=/usr/local/webserver/php/bin/php-config --with-oci8=/usr/lib/oracle/11.2/client/</span>
-<span class="title">make</span>
-<span class="title">make</span> install</code></pre>
-<p>make oci8出错的话，用这个编译试试</p>
-<pre><code>.<span class="regexp">/configure --with-php-config=/usr</span><span class="regexp">/local/webserver</span><span class="regexp">/php/bin</span><span class="regexp">/php-config --with-oci8=instantclient,/usr</span><span class="regexp">/lib/oracle</span><span class="regexp">/11.2/client</span><span class="regexp">/lib/</span></code></pre>
-<p>4、修改PHP配置文件（/usr/local/webserver/php/etc/php.ini）<br>在extension_dir = “/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/”后增加一行：</p>
-<pre><code><span class="setting">extension = <span class="value"><span class="string">"oci8.so"</span></span></span></code></pre>
-<p>5、重启PHP</p>
-<p>6、创建一个phpinfo.php文件（内容如下）并通过Web访问，如果有“oci8”这一项，则表明安装成功。</p>
-<pre><code><span class="preprocessor">&lt;?php</span>
-phpinfo();
-<span class="preprocessor">?&gt;</span></code></pre>
-]]></content>
-    <category scheme="http://itman.cc/tags/oracle/" term="oracle"/>
-    <category scheme="http://itman.cc/tags/centos/" term="centos"/>
-    <category scheme="http://itman.cc/tags/php/" term="php"/>
-    <category scheme="http://itman.cc/categories/Oracle/" term="Oracle"/>
+    <category scheme="http://itman.cc/tags/chrome/" term="chrome"/>
+    <category scheme="http://itman.cc/categories/News/" term="News"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[CentOS5 搭建L2TP VPN]]></title>
-    <link href="http://itman.cc/2013/11/01/centos5-setup-l2tp/"/>
-    <id>http://itman.cc/2013/11/01/centos5-setup-l2tp/</id>
-    <published>2013-11-01T01:34:11.000Z</published>
-    <updated>2013-11-02T16:36:41.000Z</updated>
+    <link href="http://itman.cc/2013/09/04/centos5-setup-l2tp/"/>
+    <id>http://itman.cc/2013/09/04/centos5-setup-l2tp/</id>
+    <published>2013-09-04T01:34:11.000Z</published>
+    <updated>2013-11-03T12:21:50.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a></p>
 <figure class="highlight lang-shell"><figcaption><span>一键搭建L2TP脚本</span><a href="/upload/l2tp.sh">Download</a></figcaption><table><tr><td class="gutter"><pre>1
 2
@@ -776,51 +538,371 @@ phpinfo();
     <category scheme="http://itman.cc/categories/Linux/" term="Linux"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[Chrome各版本下载集合]]></title>
-    <link href="http://itman.cc/2013/10/31/chrome-download/"/>
-    <id>http://itman.cc/2013/10/31/chrome-download/</id>
-    <published>2013-10-31T13:03:16.000Z</published>
-    <updated>2013-11-01T01:58:36.000Z</updated>
-    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7419/10591121975_345d1b93d5_q.jpg" alt=""></p>
-<h3>Windows平台：</h3>
+    <title type="html"><![CDATA[CentOS PHP 5.2.x 链接Oracle数据库]]></title>
+    <link href="http://itman.cc/2013/09/03/centos-php-5-2-connect-to-oracle/"/>
+    <id>http://itman.cc/2013/09/03/centos-php-5-2-connect-to-oracle/</id>
+    <published>2013-09-03T03:31:20.000Z</published>
+    <updated>2013-11-03T12:21:25.000Z</updated>
+    <content type="html"><![CDATA[<p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
+<p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
+<p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
+<p>2、安装Oracle即时客户端程序包</p>
+<pre><code>rpm -ivh oracle-instantclient11<span class="number">.2</span>-basic-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-devel-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-sqlplus-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span>
+echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<span class="keyword">ld</span><span class="preprocessor">.so</span><span class="preprocessor">.conf</span><span class="preprocessor">.d</span>/oracle_client<span class="preprocessor">.conf</span>
+/sbin/ldconfig</code></pre>
+<p>3、安装OCI8 PHP扩展（使用PHP自带的OCI8，假设PHP程序安装在/usr/local/webserver/php/）</p>
+<pre><code><span class="title">yum</span> install libaio
+<span class="title">wget</span> http://pecl.php.net/get/oci8-<span class="number">1.4</span><span class="number">.4</span>.tgz
+<span class="title">cd</span> oci8-<span class="number">1.4</span><span class="number">.4</span>/
+/usr/local/webserver/php/bin/phpize <span class="type">CFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span> <span class="type">CXXFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span>
+./configure <span class="comment">--with-php-config=/usr/local/webserver/php/bin/php-config --with-oci8=/usr/lib/oracle/11.2/client/</span>
+<span class="title">make</span>
+<span class="title">make</span> install</code></pre>
+<p>make oci8出错的话，用这个编译试试</p>
+<pre><code>.<span class="regexp">/configure --with-php-config=/usr</span><span class="regexp">/local/webserver</span><span class="regexp">/php/bin</span><span class="regexp">/php-config --with-oci8=instantclient,/usr</span><span class="regexp">/lib/oracle</span><span class="regexp">/11.2/client</span><span class="regexp">/lib/</span></code></pre>
+<p>4、修改PHP配置文件（/usr/local/webserver/php/etc/php.ini）<br>在extension_dir = “/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/”后增加一行：</p>
+<pre><code><span class="setting">extension = <span class="value"><span class="string">"oci8.so"</span></span></span></code></pre>
+<p>5、重启PHP</p>
+<p>6、创建一个phpinfo.php文件（内容如下）并通过Web访问，如果有“oci8”这一项，则表明安装成功。</p>
+<pre><code><span class="preprocessor">&lt;?php</span>
+phpinfo();
+<span class="preprocessor">?&gt;</span></code></pre>
+]]></content>
+    <category scheme="http://itman.cc/tags/oracle/" term="oracle"/>
+    <category scheme="http://itman.cc/tags/centos/" term="centos"/>
+    <category scheme="http://itman.cc/tags/php/" term="php"/>
+    <category scheme="http://itman.cc/categories/Oracle/" term="Oracle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 64位配置方法]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-64bit-configuration/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-64bit-configuration/</id>
+    <published>2013-09-02T15:12:46.000Z</published>
+    <updated>2013-11-03T12:18:49.000Z</updated>
+    <content type="html"><![CDATA[<p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
+<p>1、安装WINDOWS2003 64位 + SP</p>
+<p>2、安装MsSQL 2005 64位 + SP</p>
+<p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
+<p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
+]]></content>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 2005 数据库镜像的搭建与维护]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-2005-setup-mirror/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-2005-setup-mirror/</id>
+    <published>2013-09-02T15:02:27.000Z</published>
+    <updated>2013-11-03T12:19:03.000Z</updated>
+    <content type="html"><![CDATA[<p>数据库镜像大大提高了可用性，并为故障转移群集或日志传送提供了一种易于管理的替代方案或补充方案。同步数据库镜像会话时，数据库镜像提供了热备用服务器，可支持在已提交事务不丢失数据的情况下进行快速故障转移。在一般的镜像会话期间，如果生产服务器出现故障，客户端应用程序可以通过重新连接到备用服务器来快速进行恢复。<br><a id="more"></a></p>
+<h3>一、准备工作</h3>
+<h4>(一) 安装三个实例,分别为:</h4>
+<p>SZDXBAK\SQLSERVER(默认实例), 作为主体服务器<br>SZDXBAK\SQL2 作为镜像服务器<br>SZDXBAK\WITNESS 作为鉴证服务器<br>注: 所有实例服务使用SQLService账户启动</p>
+<h4>(二) 数据库准备</h4>
+<p>1、在主体服务上创建测试数据库 RecoveryDb<br>并创建一个完全备份</p>
+<p>2、在镜像服务上使用NORECOVERY选项恢复数据库,<br>恢复后数据库状态为’正在还原’</p>
+<h3>二、创建数据库镜像端点</h3>
+<p>1、在主体数据库(SQLSERVER实例)上创建端点,用于伙伴通讯</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> ENDPOINT DbMirroring
+ STATE=STARTED
+ <span class="keyword">AS</span> TCP(LISTENER_PORT=<span class="number">5022</span>)
+ <span class="keyword">FOR</span> DATABASE_MIRRORING(ROLE=PARTNER,ENCRYPTION=SUPPORTED)
+<span class="keyword">GO</span></code></pre>
+<p>2、在镜像数据库(SQL2实例)上创建端点,用于伙伴通讯</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> ENDPOINT DbMirroring
+ STATE=STARTED
+ <span class="keyword">AS</span> TCP(LISTENER_PORT=<span class="number">5033</span>)
+ <span class="keyword">FOR</span> DATABASE_MIRRORING(ROLE=PARTNER,ENCRYPTION=SUPPORTED)
+<span class="keyword">GO</span></code></pre>
+<p>3、在鉴证服务器(WITNESS实例)上创建端点,用于鉴证通讯</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> ENDPOINT DbMirroring
+ STATE=STARTED
+ <span class="keyword">AS</span> TCP(LISTENER_PORT=<span class="number">5022</span>)
+ <span class="keyword">FOR</span> DATABASE_MIRRORING(ROLE=WITNESS,ENCRYPTION=SUPPORTED)
+<span class="keyword">GO</span>
+
+<span class="keyword">ALTER</span> ENDPOINT DbMirroring STATE=STARTED
+<span class="keyword">GO</span></code></pre>
+<p>4、检查端点配置,可分别在不同服务器上运行以下查询</p>
+<pre><code><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> sys.database_mirroring_endpoints</code></pre>
+<h3>三、配置数据库镜像安全性</h3>
+<p>1、主体数据库(SQLSERVER实例)</p>
+<pre><code>use master
+go
+<span class="operator"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> ENDPOINT::<span class="string">"DbMirroring"</span> <span class="keyword">TO</span> <span class="string">"SZDXBAK\SQLService"</span>
+<span class="keyword">go</span></code></pre>
+<p>2、镜像数据库(SQL2实例)</p>
+<pre><code>use master
+go
+<span class="operator"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> ENDPOINT::<span class="string">"DbMirroring"</span> <span class="keyword">TO</span> <span class="string">"SZDXBAK\SQLService"</span>
+<span class="keyword">go</span></code></pre>
+<p>3、鉴证服务器(WITNESS实例)</p>
+<pre><code>use master
+go
+<span class="operator"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> ENDPOINT::<span class="string">"DbMirroring"</span> <span class="keyword">TO</span> <span class="string">"SZDXBAK\SQLService"</span>
+<span class="keyword">go</span></code></pre>
+<h3>四、启动数据库镜像</h3>
+<p>注意配置顺序<br>1、在镜像数据库(SQL2实例)上,指定到主体服务器(SQLSERVER实例)的伙伴端点</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb
+<span class="keyword">SET</span> PARTNER=N<span class="string">'TCP://SZDXBAK:5022'</span>
+<span class="keyword">go</span></code></pre>
+<p>2、在主数据库(SQLSERVER实例)上,指定到镜像服务器(SQL2实例)的伙伴端点</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb
+<span class="keyword">SET</span> PARTNER=N<span class="string">'TCP://SZDXBAK:5033'</span>
+<span class="keyword">go</span></code></pre>
+<p>注: 以上两步完成后,已经配置为高保护级别性模式</p>
+<p>3、如果要创建高可用性模式:在主数据库上(SQLSERVER实例),指定鉴证服务器端点</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb
+<span class="keyword">SET</span> WITNESS=N<span class="string">'TCP://SZDXBAK:5044'</span>
+<span class="keyword">go</span></code></pre>
+<p>4、在高可用性模式下:配置数据库镜像事务安全级别</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> SAFETY <span class="keyword">FULL</span>
+<span class="keyword">go</span></code></pre>
+<h3>五、查看数据库镜像的配置状态</h3>
+<p>1、通过Management Studio 对象资源管理器,查看主体数据库,镜像数据库状态<br>2、通过Management Studio 对象资源管理器中的数据库属性查看状态<br>3、通过系统目录视图查看数据库镜像配置情况</p>
+<pre><code><span class="type">SELECT</span> * <span class="type">FROM</span> sys.<span class="typedef">database_mirroring_endpoints</span>
+<span class="type">SELECT</span> * <span class="type">FROM</span> sys.<span class="typedef">database_mirroring_endpoints</span>
+<span class="type">WHERE</span> <span class="typedef">database_id = <span class="container">(<span class="type">SELECT</span> <span class="title">database_id</span> <span class="type">FROM</span> <span class="title">sys</span>.<span class="title">database</span>
+<span class="type">WHERE</span> <span class="title">name</span>='<span class="type">RecoveryDb</span>')</span></span></code></pre>
+<p>以上配置完成后,主体数据库的状态为:主体,已同步<br>镜像数据库的状态为:镜像,已同步/正在还原..</p>
+<h3>六、服务器角色切换测试</h3>
+<p>预备知识<br>数据库镜像角色切换<br>自动故障转移<br>只针对高可用性模式<br>SAFETY=FULL<br>手动故障转移<br>针对高可用性模式和高保护级别性模式<br>SAFETY=FULL<br>强制服务<br>只针对高性能模式<br>SAFETY=OFF</p>
+<h4>(一) 自动故障转移</h4>
+<p>在主体服务器上,断开网络连接,通过数据库资源管理器查看主体/镜像服务器上数据库的状态</p>
+<p>镜像服务器状态: 主体,已断开连接</p>
+<p>恢复主体服务器</p>
+<p>此时原来主体服务器(SQLSERVER实例)变为镜像服务器 状态为:镜像,已同步/正在还原..</p>
+<p>原来镜像服务器(SQL2实例)变为主体服务器 状态:主体,已同步</p>
+<h4>(二) 手动故障转移</h4>
+<p>–主体服务器上执行故障转移过程</p>
+<pre><code>USE MASTER
+go
+<span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> PARTNER FAILOVER
+<span class="keyword">go</span></code></pre>
+<p>执行完后主体服务器状态变为: 镜像,已同步/正在还原..<br>镜像服务器状态变为 主体,已同步</p>
+<h4>(三) 强制服务,有可能造成数据丢失</h4>
+<p>1) 在镜像服务器上,取消对鉴证服务器的配置</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> WINTESS OFF</code></pre>
+<p>2) 在镜像服务器上,配置事务安全性为OFF</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> SAFETY OFF</code></pre>
+<p>3) 断开主体服务器,在镜像服务器上,强制服务 进行角色切换</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> DATABASE RecoveryDb <span class="keyword">SET</span> PARTNER FORCE_SERVICE_ALLOW_DATA_LOSS</code></pre>
+<p>完成后数据库状态为 主体,已断开连接</p>
+<h3>七、如何查询镜像服务器上的数据: 在镜像服务器上创建数据库快照</h3>
+<p>1、在镜像服务器上,创建数据库快照</p>
+<pre><code><span class="operator"><span class="keyword">CREATE</span> DATABASE ReconveryDb_snap_1
+ <span class="keyword">ON</span> (NAME=RecoveryDb,FILENAM=<span class="string">'H:\seconddb\recovery_snap1.ss'</span>)
+ <span class="keyword">AS</span> SNAPSHOT <span class="keyword">OF</span> RecoveryDb</code></pre>
+<p>2、访问镜像数据库</p>
+<pre><code>USE ReconveryDb_snap_1
+go
+<span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> test</code></pre>
+<h3>八、镜像数据库之间的用户问题</h3>
+<p>假设有镜像的服务器是MIR-A和MI-B，要访问镜像数据库的登录账号是tom，使用下面这个方法就可以在MIR-A上创建登录名tom，然后在镜像数据库中创建数据库用户tom并映射到登录名tom<br>执行下列语句取回tom的sid</p>
+<pre><code><span class="operator"><span class="keyword">select</span> [name], sid <span class="keyword">from</span> syslogins <span class="keyword">where</span> [name] = <span class="string">'tom'</span></code></pre>
+<p>—————————————————–<br>tom 0xD6AABCC8F83E3243A6C3C97F28A4CB55</p>
+<p>然后在MIR-B上用下面的语句创建登录名tom</p>
+<pre><code><span class="title">sp_addlogin</span> <span class="variable">@loginame</span> = <span class="string">'tom'</span>, <span class="variable">@passwd</span> = <span class="string">'password'</span>, <span class="variable">@sid</span> = 0xD6AABCC8F83E3243A6C3C97F28A4CB55</code></pre>
+]]></content>
+    <category scheme="http://itman.cc/tags/镜像/" term="镜像"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 备份文件还原后引起的孤立用户解决方法]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-change-users-login/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-change-users-login/</id>
+    <published>2013-09-02T14:52:03.000Z</published>
+    <updated>2013-11-03T12:19:57.000Z</updated>
+    <content type="html"><![CDATA[<p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
+<pre><code><span class="title">exec</span> sp_change_users_login <span class="string">'update_one'</span>,<span class="string">'没有登陆名的数据库用户'</span>, <span class="string">'新的登陆名'</span></code></pre>
+<p>但由于SQL SERVER 2005采用了架构，所以在删除用户是会出现一些错误，因此在这里把我在强制还原后的一些处理方法介绍给大家以作参照。</p>
 <ul>
-<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
-<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/eula.html?extra=betachannel" target="_blank">【点击这里】</a></li>
-<li><em>最新开发版（Dev Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/eula.html?extra=devchannel" target="_blank">【点击这里】</a></li>
-<li><em>最新金丝雀版（Canary build）Chrome在线安装：</em> <a href="http://tools.google.com/dlpage/chromesxs" target="_blank">【点击这里】</a>（new）</li>
-<li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-xp/?O=D" target="_blank">【点击这里】</a></li>
-</ul>
-<p><a id="more"></a><br>附离线版Chrome下载方法：</p>
-<pre><code><span class="label">http:</span>//dl<span class="preprocessor">.google</span><span class="preprocessor">.com</span>/chrome/install/[版本号后两位]/chrome_installer<span class="preprocessor">.exe</span></code></pre>
-<p>也就是说要想下载离线版Chrome，必须要知道你要下载的版本号，取版本号第二个小数点的数字。比如4.0.266.0的下载地址就是：<br><a href="http://dl.google.com/chrome/install/266.0/chrome_installer.exe" target="_blank">http://dl.google.com/chrome/install/266.0/chrome_installer.exe</a></p>
-<p>同理比如3.0.195.38的下载地址就是：<br><a href="http://dl.google.com/chrome/install/195.38/chrome_installer.exe" target="_blank">http://dl.google.com/chrome/install/195.38/chrome_installer.exe</a></p>
-<p>注：离线版Chrome可能不会自动更新。</p>
-<h3>Linux平台：</h3>
-<ul>
-<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
-<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/intl/en/landing/chrome/beta/" target="_blank">【点击这里】</a></li>
-<li><em>最新开发版（Dev Channel）Chrome在线安装(32bit)：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=unstable_i386_deb" target="_blank">【点击这里】</a></li>
-<li><em>最新开发版（Dev Channel）Chrome在线安装(64bit)：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=unstable_amd64_deb" target="_blank">【点击这里】</a></li>
-<li><em>最新Chromium下载地址(32bit):</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-linux/?C=M;O=D" target="_blank">【点击这里】</a></li>
-<li><em>最新Chromium下载地址(64bit):</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-linux-64/?C=M;O=D" target="_blank">【点击这里】</a></li>
-</ul>
-<h3>Mac OS平台：</h3>
-<ul>
-<li><em>最新稳定版（Stable Channel）Chrome在线安装:</em> <a href="http://www.google.com/chrome/eula.html" target="_blank">【点击这里】</a></li>
-<li><em>最新测试版（Beta Channel）Chrome在线安装：</em> <a href="http://www.google.com/intl/en/landing/chrome/beta/" target="_blank">【点击这里】</a></li>
-<li><em>最新开发版（Dev Channel）Chrome在线安装：</em> <a href="http://www.google.com/chrome/intl/en/eula_dev.html?dl=mac" target="_blank">【点击这里】</a></li>
-<li><em>最新Chromium下载地址:</em> <a href="http://build.chromium.org/buildbot/snapshots/chromium-rel-mac/?C=M;O=D" target="_blank">【点击这里】</a></li>
+<li>适用于远程服务器数据库备份后，下载到本地并在本地SQL服务器上还原引的狐立用户问题；</li>
+<li>仅适用于SQLSERVER 2005 或以上版本；</li>
 </ul>
 ]]></content>
-    <category scheme="http://itman.cc/tags/chrome/" term="chrome"/>
-    <category scheme="http://itman.cc/categories/News/" term="News"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 查看当前连接数]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-current-connections/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-current-connections/</id>
+    <published>2013-09-02T14:45:39.000Z</published>
+    <updated>2013-11-03T12:20:20.000Z</updated>
+    <content type="html"><![CDATA[<h4>SQL:</h4>
+<pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
+<span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
+]]></content>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 收缩数据库日志]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-shrink-database-log/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-shrink-database-log/</id>
+    <published>2013-09-02T14:32:04.000Z</published>
+    <updated>2013-11-03T12:19:32.000Z</updated>
+    <content type="html"><![CDATA[<figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>USE [master]
+DUMP TRANSACTION [DB_Samples] WITH NO_LOG
+BACKUP LOG [DB_Samples] WITH NO_LOG
+DBCC SHRINKDATABASE([DB_Samples])
+</pre></td></tr></table></figure>
+
+<p><a id="more"></a><br>    <figure class="highlight lang-sql"><figcaption><span>SQL2008</span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="code"><pre>USE [master]
+GO
+<span class="operator"><span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE <span class="keyword">WITH</span> NO_WAIT
+<span class="keyword">GO</span>
+<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE
+<span class="keyword">GO</span>
+ 
+USE [DB_Samples]
+<span class="keyword">GO</span>
+DBCC SHRINKFILE (N <span class="string">'DB_Samples_log'</span> , <span class="number">0</span>, TRUNCATEONLY)
+<span class="keyword">GO</span>
+ 
+USE [master]
+<span class="keyword">GO</span>
+<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span> <span class="keyword">WITH</span> NO_WAIT
+<span class="keyword">GO</span>
+<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span>
+<span class="keyword">GO</span>
+</pre></td></tr></table></figure></p>
+]]></content>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 2005 查看表的索引碎片状态]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-tables-index-fragment/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-tables-index-fragment/</id>
+    <published>2013-09-02T14:25:13.000Z</published>
+    <updated>2013-11-03T12:20:09.000Z</updated>
+    <content type="html"><![CDATA[<p>MSSQL 2005 提供了一个动态管理函数 sys.dm_db_index_physical_stats<br>通过调用这个函数，可以方便直观地查看到指定表或视图的数据和索引的大小和碎片信息。<br>下面这条语句，就可以查看当前数据库中所有索引的碎片情况</p>
+<pre><code><span class="operator"><span class="keyword">SELECT</span>
+ object_name(a.object_id) [TableName]
+ ,a.index_id
+ ,name [IndexName]
+ ,avg_fragmentation_in_percent
+<span class="keyword">FROM</span> sys.dm_db_index_physical_stats
+ (
+ DB_ID()
+ , <span class="keyword">NULL</span>
+ , <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>
+) <span class="keyword">AS</span> a
+<span class="keyword">JOIN</span> sys.indexes <span class="keyword">AS</span> b
+<span class="keyword">ON</span> a.object_id = b.object_id <span class="keyword">AND</span> a.index_id = b.index_id;</span></code></pre>
+<p><a id="more"></a><br>如果 avg_fragmentation_in_percent 一项的值在 10.0 – 30.0 建议使用 ALTER INDEX .. REORGANIZE 语句重新组织索引</p>
+<p>如果 &gt; 30.0 建议使用 ALTER INDEX .. REBUILD 语句重建索引</p>
+<p>SQL 2005 在 ALTER INDEX 语句中提供了一个重要的参数 ONLINE，如果想重建索引的时候，不会将表锁住，需要将该参数设置为 ON。<br>例如：</p>
+<pre><code><span class="operator"><span class="keyword">ALTER</span> INDEX <span class="keyword">ALL</span> <span class="keyword">ON</span> [dbo].[RecordTable]
+ REBUILD <span class="keyword">WITH</span> (
+ SORT_IN_TEMPDB = <span class="keyword">ON</span>
+ ,STATISTICS_NORECOMPUTE = <span class="keyword">ON</span>
+ ,ONLINE = <span class="keyword">ON</span>);</span></code></pre>
+<p><strong>ONLINE 参数说明如下：</strong></p>
+<p>ONLINE = { ON | OFF }</p>
+<p>指定在索引操作期间基础表和关联的索引是否可用于查询和数据修改操作。默认值为 OFF。</p>
+<p><strong>ON</strong></p>
+<p>在索引操作期间不持有长期表锁。在索引操作的主要阶段，源表上只使用意向共享 (IS) 锁。这使得能够继续对基础表和索引进行查询或更新。操作开始时，将对源对象保持极短时间的共享 (S) 锁。操作结束时，如果创建非聚集索引，将对源持有极短时间的 S 锁；当在线创建或删除聚集索引时，或者重新生成聚集或非聚集索引时，将获取 SCH-M（架构修改）锁。对本地临时表创建索引时，ONLINE 不能设置为 ON。</p>
+<p><strong>OFF</strong></p>
+<p>在索引操作期间应用表锁。创建、重新生成或删除聚集索引或者重新生成或删除非聚集索引的脱机索引操作将对表获取架构修改 (Sch-M) 锁。这样可以防止所有用户在操作期间访问基础表。创建非聚集索引的脱机索引操作将对表获取共享 (S) 锁。这样可以防止更新基础表，但允许读操作（如 SELECT 语句）。</p>
+<p>有关详细信息，请参阅联机索引操作的工作方式。有关锁的详细信息，请参阅锁模式。<br>索引（包括全局临时表中的索引）可以联机重新生成，但以下索引除外：</p>
+<ul>
+<li>禁用的索引</li>
+<li>XML 索引</li>
+<li>本地临时表中的索引</li>
+<li>分区索引</li>
+<li>聚集索引（如果基础表包含 LOB 数据类型）</li>
+<li>使用 LOB 数据类型列定义的非聚集索引</li>
+</ul>
+<p>如果表包含 LOB 数据类型，但这些列中没有任何列在索引定义中用作键列或非键列，则可以联机重新生成非聚集索引。</p>
+]]></content>
+    <category scheme="http://itman.cc/tags/碎片/" term="碎片"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 查找死锁脚本]]></title>
+    <link href="http://itman.cc/2013/09/02/sqlserver-find-deadlock-script/"/>
+    <id>http://itman.cc/2013/09/02/sqlserver-find-deadlock-script/</id>
+    <published>2013-09-02T14:10:17.000Z</published>
+    <updated>2013-11-03T12:19:13.000Z</updated>
+    <content type="html"><![CDATA[<figure class="highlight lang-脚本"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="code"><pre>use master
+goG
+declare @spid int,@bl int
+DECLARE s_cur CURSOR FOR
+<span class="operator"><span class="keyword">select</span> <span class="number">0</span> ,blocked
+<span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> sysprocesses <span class="keyword">where</span> blocked&gt;<span class="number">0</span> ) a
+<span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span>(<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> 	sysprocesses <span class="keyword">where</span> blocked&gt;<span class="number">0</span> ) b
+<span class="keyword">where</span> a.blocked=spid)
+<span class="keyword">union</span> <span class="keyword">select</span> spid,blocked <span class="keyword">from</span> sysprocesses <span class="keyword">where</span> blocked&gt;<span class="number">0</span>
+<span class="keyword">OPEN</span> s_cur
+<span class="keyword">FETCH</span> <span class="keyword">NEXT</span> <span class="keyword">FROM</span> s_cur <span class="keyword">INTO</span> @spid,@bl
+WHILE @@FETCH_STATUS = <span class="number">0</span>
+<span class="keyword">begin</span>
+if @spid =<span class="number">0</span>
+    	<span class="keyword">select</span> ‘引起数据库死锁的是: ‘+ <span class="keyword">CAST</span>(@bl <span class="keyword">AS</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>)) + ‘进程号,其执行的<span class="keyword">SQL</span>语法如下’
+<span class="keyword">else</span>
+    	<span class="keyword">select</span> ‘进程号SPID：’+ <span class="keyword">CAST</span>(@spid <span class="keyword">AS</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>))+ ‘被’ + ‘进程号SPID：’+ <span class="keyword">CAST</span>(@bl <span class="keyword">AS</span> <span class="keyword">VARCHAR</span>(<span class="number">10</span>)) +’阻塞,其当前    进程执行的<span class="keyword">SQL</span>语法如下’
+DBCC INPUTBUFFER (@bl )
+<span class="keyword">FETCH</span> <span class="keyword">NEXT</span> <span class="keyword">FROM</span> s_cur <span class="keyword">INTO</span> @spid,@bl
+<span class="keyword">end</span>
+<span class="keyword">CLOSE</span> s_cur
+<span class="keyword">DEALLOCATE</span> s_cur
+</pre></td></tr></table></figure>
+
+<h4>查看spid</h4>
+<pre><code><span class="title">exec</span> sp_who2</code></pre>
+]]></content>
+    <category scheme="http://itman.cc/tags/死锁/" term="死锁"/>
+    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Facebook 是如何管理代码的]]></title>
-    <link href="http://itman.cc/2013/10/31/facebook-is-how-to-manage-code/"/>
-    <id>http://itman.cc/2013/10/31/facebook-is-how-to-manage-code/</id>
-    <published>2013-10-31T12:27:39.000Z</published>
-    <updated>2013-10-31T13:19:42.000Z</updated>
+    <link href="http://itman.cc/2013/08/31/facebook-is-how-to-manage-code/"/>
+    <id>http://itman.cc/2013/08/31/facebook-is-how-to-manage-code/</id>
+    <published>2013-08-31T12:27:39.000Z</published>
+    <updated>2013-11-03T12:22:17.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2830/10590834376_851441e32e.jpg" alt=""><br>我对facebook的运转着迷。这是一个很独特的环境，不容易被复制（他们的体系并不适合所有的公司，即使他们努力尝试过）。下面是我和facebook的朋友们关于他们如何开发和管理项目的记录。</p>
 <p>现在距离我收集的这些信息又过去6个月了，我相信facebook肯定又对他们的项目开发实践进行了改进。所以这些记录可能会有点过时。同时facebook的工程师驱动文化也越来越为大众所知。非常感谢那些帮助我整理这篇文章的facebook的朋友们。</p>
 <a id="more"></a>
@@ -880,10 +962,10 @@ phpinfo();
   </entry>
   <entry>
     <title type="html"><![CDATA[看图学Python]]></title>
-    <link href="http://itman.cc/2013/10/31/figure-learn-python/"/>
-    <id>http://itman.cc/2013/10/31/figure-learn-python/</id>
-    <published>2013-10-31T12:17:31.000Z</published>
-    <updated>2013-11-01T01:30:21.000Z</updated>
+    <link href="http://itman.cc/2013/08/31/figure-learn-python/"/>
+    <id>http://itman.cc/2013/08/31/figure-learn-python/</id>
+    <published>2013-08-31T12:17:31.000Z</published>
+    <updated>2013-11-03T12:22:52.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2884/10590380855_cc7289432f_o.png" alt=""></p>
 ]]></content>
     <category scheme="http://itman.cc/tags/python/" term="python"/>
@@ -891,10 +973,10 @@ phpinfo();
   </entry>
   <entry>
     <title type="html"><![CDATA[搭建VMware Esxi虚拟化服务器]]></title>
-    <link href="http://itman.cc/2013/10/31/install-vmesxi-server/"/>
-    <id>http://itman.cc/2013/10/31/install-vmesxi-server/</id>
-    <published>2013-10-31T11:50:48.000Z</published>
-    <updated>2013-11-01T01:30:02.000Z</updated>
+    <link href="http://itman.cc/2013/08/31/install-vmesxi-server/"/>
+    <id>http://itman.cc/2013/08/31/install-vmesxi-server/</id>
+    <published>2013-08-31T11:50:48.000Z</published>
+    <updated>2013-11-03T12:23:13.000Z</updated>
     <content type="html"><![CDATA[<h4>1、安装VMware ESXi</h4>
 <p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
 <h4>2、安装VMware vSphere Client</h4>

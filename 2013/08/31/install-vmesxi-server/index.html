@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>搭建VMware Esxi虚拟化服务器 | ITman.cc</title>
+  <meta name="author" content="L.S">
+  
+  <meta name="description" content="1、安装VMware ESXi
+　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。
+2、安装VMware vSphere Client
+　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="搭建VMware Esxi虚拟化服务器"/>
+  <meta property="og:site_name" content="ITman.cc"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="ITman.cc" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ITman.cc</a></h1>
+  <h2><a href="/">关注互联网发展...</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-08-31T11:50:48.000Z"><a href="/2013/08/31/install-vmesxi-server/">Aug 31 2013</a></time>
+      
+      
+  
+    <h1 class="title">搭建VMware Esxi虚拟化服务器</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h4>1、安装VMware ESXi</h4>
+<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
+<h4>2、安装VMware vSphere Client</h4>
+<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
+<p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Virtaulization/">Virtaulization</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/vm esxi/">vm esxi</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+    
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:itman.cc">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/3C/">3C</a><small>3</small></li>
+  
+    <li><a href="/categories/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/categories/MsSQL/">MsSQL</a><small>7</small></li>
+  
+    <li><a href="/categories/News/">News</a><small>2</small></li>
+  
+    <li><a href="/categories/Oracle/">Oracle</a><small>1</small></li>
+  
+    <li><a href="/categories/Python/">Python</a><small>1</small></li>
+  
+    <li><a href="/categories/Virtaulization/">Virtaulization</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 20.00px;">小米</a><a href="/tags/死锁/" style="font-size: 10.00px;">死锁</a><a href="/tags/碎片/" style="font-size: 10.00px;">碎片</a><a href="/tags/镜像/" style="font-size: 10.00px;">镜像</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 L.S
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://itman.cc/2013/11/01/centos5-setup-l2tp/</loc>
-    <lastmod>2013-11-02T16:36:41.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/11/chrome-download/</loc>
+    <lastmod>2013-11-03T12:24:05.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/01/centos-php-5-2-connect-to-oracle/</loc>
-    <lastmod>2013-11-02T16:35:38.000Z</lastmod>
+    <loc>http://itman.cc/2013/08/31/install-vmesxi-server/</loc>
+    <lastmod>2013-11-03T12:23:13.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/google9a9205bb4f34a33c.html</loc>
-    <lastmod>2013-11-02T15:48:48.000Z</lastmod>
+    <loc>http://itman.cc/2013/08/31/figure-learn-python/</loc>
+    <lastmod>2013-11-03T12:22:52.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-64bit-configuration/</loc>
-    <lastmod>2013-11-02T15:45:42.000Z</lastmod>
+    <loc>http://itman.cc/2013/08/31/facebook-is-how-to-manage-code/</loc>
+    <lastmod>2013-11-03T12:22:17.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-2005-setup-mirror/</loc>
-    <lastmod>2013-11-02T15:11:26.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/04/centos5-setup-l2tp/</loc>
+    <lastmod>2013-11-03T12:21:50.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-change-users-login/</loc>
-    <lastmod>2013-11-02T14:55:09.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/03/centos-php-5-2-connect-to-oracle/</loc>
+    <lastmod>2013-11-03T12:21:25.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-current-connections/</loc>
-    <lastmod>2013-11-02T14:49:48.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-current-connections/</loc>
+    <lastmod>2013-11-03T12:20:20.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-shrink-database-log/</loc>
-    <lastmod>2013-11-02T14:43:32.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-tables-index-fragment/</loc>
+    <lastmod>2013-11-03T12:20:09.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-tables-index-fragment/</loc>
-    <lastmod>2013-11-02T14:30:41.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-change-users-login/</loc>
+    <lastmod>2013-11-03T12:19:57.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/11/02/sqlserver-find-deadlock-script/</loc>
-    <lastmod>2013-11-02T14:16:32.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-shrink-database-log/</loc>
+    <lastmod>2013-11-03T12:19:32.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/10/31/chrome-download/</loc>
-    <lastmod>2013-11-01T01:58:36.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-find-deadlock-script/</loc>
+    <lastmod>2013-11-03T12:19:13.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/10/31/figure-learn-python/</loc>
-    <lastmod>2013-11-01T01:30:21.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-2005-setup-mirror/</loc>
+    <lastmod>2013-11-03T12:19:03.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/10/31/install-vmesxi-server/</loc>
-    <lastmod>2013-11-01T01:30:02.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/02/sqlserver-64bit-configuration/</loc>
+    <lastmod>2013-11-03T12:18:49.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/10/31/facebook-is-how-to-manage-code/</loc>
-    <lastmod>2013-10-31T13:19:42.000Z</lastmod>
+    <loc>http://itman.cc/2013/09/25/apple-iphone5s/</loc>
+    <lastmod>2013-11-03T12:17:45.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://itman.cc/2013/09/30/xiaomi-box2/</loc>
+    <lastmod>2013-11-03T12:03:53.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://itman.cc/2013/10/08/xiaomi-hongmi/</loc>
+    <lastmod>2013-11-03T10:24:36.000Z</lastmod>
   </url>
 </urlset>

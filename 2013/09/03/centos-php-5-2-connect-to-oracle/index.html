@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CentOS PHP 5.2.x 链接Oracle数据库 | ITman.cc</title>
+  <meta name="author" content="L.S">
+  
+  <meta name="description" content="1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件
+①、打开以下网址（本文以32位版为例）：http://www.oracle.com/technetwork/topics/linuxsoft-082809.html
+②、下载">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CentOS PHP 5.2.x 链接Oracle数据库"/>
+  <meta property="og:site_name" content="ITman.cc"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="ITman.cc" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ITman.cc</a></h1>
+  <h2><a href="/">关注互联网发展...</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+    <li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-09-03T03:31:20.000Z"><a href="/2013/09/03/centos-php-5-2-connect-to-oracle/">Sep 3 2013</a></time>
+      
+      
+  
+    <h1 class="title">CentOS PHP 5.2.x 链接Oracle数据库</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
+<p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
+<p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
+<p>2、安装Oracle即时客户端程序包</p>
+<pre><code>rpm -ivh oracle-instantclient11<span class="number">.2</span>-basic-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-devel-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-sqlplus-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span>
+echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<span class="keyword">ld</span><span class="preprocessor">.so</span><span class="preprocessor">.conf</span><span class="preprocessor">.d</span>/oracle_client<span class="preprocessor">.conf</span>
+/sbin/ldconfig</code></pre>
+<p>3、安装OCI8 PHP扩展（使用PHP自带的OCI8，假设PHP程序安装在/usr/local/webserver/php/）</p>
+<pre><code><span class="title">yum</span> install libaio
+<span class="title">wget</span> http://pecl.php.net/get/oci8-<span class="number">1.4</span><span class="number">.4</span>.tgz
+<span class="title">cd</span> oci8-<span class="number">1.4</span><span class="number">.4</span>/
+/usr/local/webserver/php/bin/phpize <span class="type">CFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span> <span class="type">CXXFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span>
+./configure <span class="comment">--with-php-config=/usr/local/webserver/php/bin/php-config --with-oci8=/usr/lib/oracle/11.2/client/</span>
+<span class="title">make</span>
+<span class="title">make</span> install</code></pre>
+<p>make oci8出错的话，用这个编译试试</p>
+<pre><code>.<span class="regexp">/configure --with-php-config=/usr</span><span class="regexp">/local/webserver</span><span class="regexp">/php/bin</span><span class="regexp">/php-config --with-oci8=instantclient,/usr</span><span class="regexp">/lib/oracle</span><span class="regexp">/11.2/client</span><span class="regexp">/lib/</span></code></pre>
+<p>4、修改PHP配置文件（/usr/local/webserver/php/etc/php.ini）<br>在extension_dir = “/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/”后增加一行：</p>
+<pre><code><span class="setting">extension = <span class="value"><span class="string">"oci8.so"</span></span></span></code></pre>
+<p>5、重启PHP</p>
+<p>6、创建一个phpinfo.php文件（内容如下）并通过Web访问，如果有“oci8”这一项，则表明安装成功。</p>
+<pre><code><span class="preprocessor">&lt;?php</span>
+phpinfo();
+<span class="preprocessor">?&gt;</span></code></pre>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Oracle/">Oracle</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/oracle/">oracle</a>, <a href="/tags/centos/">centos</a>, <a href="/tags/php/">php</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+    
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:itman.cc">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/3C/">3C</a><small>3</small></li>
+  
+    <li><a href="/categories/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/categories/MsSQL/">MsSQL</a><small>7</small></li>
+  
+    <li><a href="/categories/News/">News</a><small>2</small></li>
+  
+    <li><a href="/categories/Oracle/">Oracle</a><small>1</small></li>
+  
+    <li><a href="/categories/Python/">Python</a><small>1</small></li>
+  
+    <li><a href="/categories/Virtaulization/">Virtaulization</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 20.00px;">小米</a><a href="/tags/死锁/" style="font-size: 10.00px;">死锁</a><a href="/tags/碎片/" style="font-size: 10.00px;">碎片</a><a href="/tags/镜像/" style="font-size: 10.00px;">镜像</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 L.S
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
