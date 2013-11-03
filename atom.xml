@@ -4,13 +4,45 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-03T12:24:08.327Z</updated>
+  <updated>2013-11-03T13:33:44.417Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[小米电视首发开箱]]></title>
+    <link href="http://itman.cc/2013/10/17/xiaomi-tv/"/>
+    <id>http://itman.cc/2013/10/17/xiaomi-tv/</id>
+    <published>2013-10-17T13:17:38.000Z</published>
+    <updated>2013-11-03T13:33:41.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2814/10645266626_cda43a57e8_z.jpg" alt=""></p>
+<p><a id="more"></a><br><img src="http://farm6.staticflickr.com/5511/10645095565_376a71111e_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3777/10645116264_48c000037c_z.jpg" alt=""><br><img src="http://farm4.staticflickr.com/3695/10645133696_387605a3e5_z.jpg" alt=""></p>
+<h3>开箱首批小米电视。</h3>
+<p>这次改用顺丰物流，客服说需要大概周日才派送，结果周四就到货，前后只用了三天，相比过往要等一个星期，实在是一个提升。</p>
+<ul>
+<li>第一感觉，47寸屏幕，大！（乐视S50在途，期待后面能对比体验）</li>
+<li>正面logo是触摸式电源开关</li>
+<li>能流畅播放本地网络高清电影，而且智能下载字幕（后补3D片体验）</li>
+<li>系统基本功能与小米盒子一致</li>
+<li>吐槽：前面板缝隙较大且不均。另外缺少摄像头，可扩展性也受限。</li>
+</ul>
+<p>总体而言，一台 47寸电视 + 小米盒子 = ￥2999，是相当有竞争力的。小米公司再次利用自身的核心价值（高性价比）搅局电视行业，期待传统电视厂商的反击！同时，我们也期待小米公司早日进入房地产行业 :)</p>
+<p><br /></p>
+<h4>配置：</h4>
+<ul>
+<li>LG屏（47英寸）与三星屏（48英寸）（1920×1080(1080P)）</li>
+<li>高通骁龙 600 MPQ8064(四核1.7GHz)</li>
+<li>2GB 双通道 DDR3；8GB eMMC高速闪存</li>
+<li>802.11a/b/g/n,支持2x2MIMO</li>
+<li>Bluetool 4.0</li>
+<li>偏振式3D成像</li>
+</ul>
+]]></content>
+    <category scheme="http://itman.cc/tags/小米/" term="小米"/>
+    <category scheme="http://itman.cc/categories/3C/" term="3C"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[红米初体验]]></title>
     <link href="http://itman.cc/2013/10/08/xiaomi-hongmi/"/>

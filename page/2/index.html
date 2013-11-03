@@ -50,6 +50,40 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-09-02T14:45:39.000Z"><a href="/2013/09/02/sqlserver-current-connections/">Sep 2 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/09/02/sqlserver-current-connections/">MsSQL 查看当前连接数</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h4>SQL:</h4>
+<pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
+<span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-09-02T14:32:04.000Z"><a href="/2013/09/02/sqlserver-shrink-database-log/">Sep 2 2013</a></time>
       
       
@@ -343,7 +377,7 @@ DBCC INPUTBUFFER (@bl )
   <h3 class="title">Categories</h3>
   <ul class="entry">
   
-    <li><a href="/categories/3C/">3C</a><small>3</small></li>
+    <li><a href="/categories/3C/">3C</a><small>4</small></li>
   
     <li><a href="/categories/Linux/">Linux</a><small>1</small></li>
   
