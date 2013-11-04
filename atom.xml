@@ -4,13 +4,29 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-03T15:50:22.294Z</updated>
+  <updated>2013-11-04T13:20:29.533Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[MySQL 导入数据方法]]></title>
+    <link href="http://itman.cc/2013/11/03/mysql-import-data/"/>
+    <id>http://itman.cc/2013/11/03/mysql-import-data/</id>
+    <published>2013-11-03T06:39:19.000Z</published>
+    <updated>2013-11-04T13:20:13.000Z</updated>
+    <content type="html"><![CDATA[<p>从MsSQL导入数据到MySQL，操作方法如下：<br>1、MsSQL导出成TXT（原编码为GBK），MySQL新表是UTF8，使用iconv命令转换编码</p>
+<pre><code><span class="title">iconv</span> -f <span class="type">GBK</span> -t <span class="type">UTF</span>-<span class="number">8</span> /<span class="type">Users</span>/itman/<span class="import"><span class="keyword">import</span>.txt &gt; import_utf8.txt</span></code></pre>
+<p>2、创建MySQL数据库的数据表<br>3、这里说明一下，import.txt 每列使用的是逗号分隔，导入命令如下：</p>
+<pre><code><span class="operator"><span class="keyword">load</span> data <span class="keyword">local</span> infile <span class="string">'/Users/itman/import_utf8.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> table_sample fields terminated <span class="keyword">by</span> <span class="string">','</span>;</span></code></pre>
+<p>（table_sample 改为实际导入的表名）</p>
+<p>— END —</p>
+]]></content>
+    <category scheme="http://itman.cc/tags/mysql/" term="mysql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[智能路由：第一代极路由]]></title>
     <link href="http://itman.cc/2013/10/28/hiwifi-hc6361/"/>

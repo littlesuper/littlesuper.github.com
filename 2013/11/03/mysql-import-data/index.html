@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MsSQL 查看当前连接数 | ITman.cc</title>
+  <title>MySQL 导入数据方法 | ITman.cc</title>
   <meta name="author" content="L.S">
   
-  <meta name="description" content="SQL:
-select hostname,count(*) hostconncount from master.dbo.sysprocesses
-group by hostname order by count(*) desc">
+  <meta name="description" content="从MsSQL导入数据到MySQL，操作方法如下：1、MsSQL导出成TXT（原编码为GBK），MySQL新表是UTF8，使用iconv命令转换编码
+iconv -f GBK -t UTF-8 /Users/itman/import.txt &gt; import_utf8.txt
+2、创建MySQL">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="MsSQL 查看当前连接数"/>
+  <meta property="og:title" content="MySQL 导入数据方法"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -53,19 +53,22 @@ group by hostname order by count(*) desc">
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-09-02T14:45:39.000Z"><a href="/2013/09/02/sqlserver-current-connections/">Sep 2 2013</a></time>
+        <time datetime="2013-11-03T06:39:19.000Z"><a href="/2013/11/03/mysql-import-data/">Nov 3 2013</a></time>
       
       
   
-    <h1 class="title">MsSQL 查看当前连接数</h1>
+    <h1 class="title">MySQL 导入数据方法</h1>
   
 
     </header>
     <div class="entry">
       
-        <h4>SQL:</h4>
-<pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
-<span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
+        <p>从MsSQL导入数据到MySQL，操作方法如下：<br>1、MsSQL导出成TXT（原编码为GBK），MySQL新表是UTF8，使用iconv命令转换编码</p>
+<pre><code><span class="title">iconv</span> -f <span class="type">GBK</span> -t <span class="type">UTF</span>-<span class="number">8</span> /<span class="type">Users</span>/itman/<span class="import"><span class="keyword">import</span>.txt &gt; import_utf8.txt</span></code></pre>
+<p>2、创建MySQL数据库的数据表<br>3、这里说明一下，import.txt 每列使用的是逗号分隔，导入命令如下：</p>
+<pre><code><span class="operator"><span class="keyword">load</span> data <span class="keyword">local</span> infile <span class="string">'/Users/itman/import_utf8.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> table_sample fields terminated <span class="keyword">by</span> <span class="string">','</span>;</span></code></pre>
+<p>（table_sample 改为实际导入的表名）</p>
+<p>— END —</p>
 
       
     </div>
@@ -74,10 +77,15 @@ group by hostname order by count(*) desc">
         
   
   <div class="categories">
-    <a href="/categories/MsSQL/">MsSQL</a>
+    <a href="/categories/Database/">Database</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/mysql/">mysql</a>
+  </div>
+
 
 <!-- Baidu Button BEGIN -->
 <div id="bdshare" class="bdshare_b" style="line-height: 12px;">

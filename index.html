@@ -50,6 +50,45 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-11-03T06:39:19.000Z"><a href="/2013/11/03/mysql-import-data/">Nov 3 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/11/03/mysql-import-data/">MySQL 导入数据方法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>从MsSQL导入数据到MySQL，操作方法如下：<br>1、MsSQL导出成TXT（原编码为GBK），MySQL新表是UTF8，使用iconv命令转换编码</p>
+<pre><code><span class="title">iconv</span> -f <span class="type">GBK</span> -t <span class="type">UTF</span>-<span class="number">8</span> /<span class="type">Users</span>/itman/<span class="import"><span class="keyword">import</span>.txt &gt; import_utf8.txt</span></code></pre>
+<p>2、创建MySQL数据库的数据表<br>3、这里说明一下，import.txt 每列使用的是逗号分隔，导入命令如下：</p>
+<pre><code><span class="operator"><span class="keyword">load</span> data <span class="keyword">local</span> infile <span class="string">'/Users/itman/import_utf8.txt'</span> <span class="keyword">into</span> <span class="keyword">table</span> table_sample fields terminated <span class="keyword">by</span> <span class="string">','</span>;</span></code></pre>
+<p>（table_sample 改为实际导入的表名）</p>
+<p>— END —</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-10-28T14:10:33.000Z"><a href="/2013/10/28/hiwifi-hc6361/">Oct 28 2013</a></time>
       
       
@@ -407,44 +446,6 @@ phpinfo();
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-09-02T15:12:46.000Z"><a href="/2013/09/02/sqlserver-64bit-configuration/">Sep 2 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/09/02/sqlserver-64bit-configuration/">MsSQL 64位配置方法</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
-<p>1、安装WINDOWS2003 64位 + SP</p>
-<p>2、安装MsSQL 2005 64位 + SP</p>
-<p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
-<p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -465,6 +466,8 @@ phpinfo();
 <div class="widget tag">
   <h3 class="title">Categories</h3>
   <ul class="entry">
+  
+    <li><a href="/categories/Database/">Database</a><small>1</small></li>
   
     <li><a href="/categories/Geek/">Geek</a><small>6</small></li>
   
@@ -488,7 +491,7 @@ phpinfo();
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 20.00px;">3c</a><a href="/tags/apple/" style="font-size: 13.33px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 16.67px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a><a href="/tags/死锁/" style="font-size: 10.00px;">死锁</a><a href="/tags/电视/" style="font-size: 10.00px;">电视</a><a href="/tags/碎片/" style="font-size: 10.00px;">碎片</a><a href="/tags/镜像/" style="font-size: 10.00px;">镜像</a>
+    <a href="/tags/3c/" style="font-size: 20.00px;">3c</a><a href="/tags/apple/" style="font-size: 13.33px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 16.67px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a><a href="/tags/死锁/" style="font-size: 10.00px;">死锁</a><a href="/tags/电视/" style="font-size: 10.00px;">电视</a><a href="/tags/碎片/" style="font-size: 10.00px;">碎片</a><a href="/tags/镜像/" style="font-size: 10.00px;">镜像</a>
   </div>
 </div>
 
