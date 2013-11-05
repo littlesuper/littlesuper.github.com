@@ -3,18 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MsSQL 64位配置方法 | ITman.cc</title>
+  <title>MsSQL 备份文件还原后引起的孤立用户解决方法 | ITman.cc</title>
   <meta name="author" content="L.S">
   
-  <meta name="description" content="新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。
-1、安装WINDOWS2003 64位 + SP
-2、安装MsSQL 2005 64位 + SP
-3、配置环境：1）新建SqlServer用户；2）">
+  <meta name="description" content="很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。
+exec sp_change_users_login 'update_o">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="MsSQL 64位配置方法"/>
+  <meta property="og:title" content="MsSQL 备份文件还原后引起的孤立用户解决方法"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -54,21 +52,23 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-09-02T15:12:46.000Z"><a href="/2013/09/02/sqlserver-64bit-configuration/">Sep 2 2013</a></time>
+        <time datetime="2013-09-02T14:52:03.000Z"><a href="/2013/09/02/mssql-change-users-login/">Sep 2 2013</a></time>
       
       
   
-    <h1 class="title">MsSQL 64位配置方法</h1>
+    <h1 class="title">MsSQL 备份文件还原后引起的孤立用户解决方法</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
-<p>1、安装WINDOWS2003 64位 + SP</p>
-<p>2、安装MsSQL 2005 64位 + SP</p>
-<p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
-<p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
+        <p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
+<pre><code><span class="title">exec</span> sp_change_users_login <span class="string">'update_one'</span>,<span class="string">'没有登陆名的数据库用户'</span>, <span class="string">'新的登陆名'</span></code></pre>
+<p>但由于SQL SERVER 2005采用了架构，所以在删除用户是会出现一些错误，因此在这里把我在强制还原后的一些处理方法介绍给大家以作参照。</p>
+<ul>
+<li>适用于远程服务器数据库备份后，下载到本地并在本地SQL服务器上还原引的狐立用户问题；</li>
+<li>仅适用于SQLSERVER 2005 或以上版本；</li>
+</ul>
 
       
     </div>
@@ -77,10 +77,15 @@
         
   
   <div class="categories">
-    <a href="/categories/MsSQL/">MsSQL</a>
+    <a href="/categories/Database/">Database</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/mssql/">mssql</a>
+  </div>
+
 
 <!-- Baidu Button BEGIN -->
 <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
@@ -138,13 +143,11 @@ var duoshuoQuery = {short_name:"itman"};
   <h3 class="title">Categories</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Database/">Database</a><small>1</small></li>
+    <li><a href="/categories/Database/">Database</a><small>8</small></li>
   
     <li><a href="/categories/Geek/">Geek</a><small>6</small></li>
   
     <li><a href="/categories/Linux/">Linux</a><small>1</small></li>
-  
-    <li><a href="/categories/MsSQL/">MsSQL</a><small>7</small></li>
   
     <li><a href="/categories/News/">News</a><small>2</small></li>
   
@@ -162,7 +165,7 @@ var duoshuoQuery = {short_name:"itman"};
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 20.00px;">3c</a><a href="/tags/apple/" style="font-size: 13.33px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 16.67px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a><a href="/tags/死锁/" style="font-size: 10.00px;">死锁</a><a href="/tags/电视/" style="font-size: 10.00px;">电视</a><a href="/tags/碎片/" style="font-size: 10.00px;">碎片</a><a href="/tags/镜像/" style="font-size: 10.00px;">镜像</a>
+    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a><a href="/tags/电视/" style="font-size: 10.00px;">电视</a>
   </div>
 </div>
 

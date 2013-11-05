@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-04T13:20:29.533Z</updated>
+  <updated>2013-11-05T00:02:03.720Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -684,24 +684,25 @@ phpinfo();
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 64位配置方法]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-64bit-configuration/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-64bit-configuration/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-64bit-configuration/"/>
+    <id>http://itman.cc/2013/09/02/mssql-64bit-configuration/</id>
     <published>2013-09-02T15:12:46.000Z</published>
-    <updated>2013-11-03T12:18:49.000Z</updated>
+    <updated>2013-11-05T00:00:32.000Z</updated>
     <content type="html"><![CDATA[<p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
 <p>1、安装WINDOWS2003 64位 + SP</p>
 <p>2、安装MsSQL 2005 64位 + SP</p>
 <p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
 <p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
 ]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 2005 数据库镜像的搭建与维护]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-2005-setup-mirror/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-2005-setup-mirror/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-2005-setup-mirror/"/>
+    <id>http://itman.cc/2013/09/02/mssql-2005-setup-mirror/</id>
     <published>2013-09-02T15:02:27.000Z</published>
-    <updated>2013-11-03T12:19:03.000Z</updated>
+    <updated>2013-11-04T23:58:13.000Z</updated>
     <content type="html"><![CDATA[<p>数据库镜像大大提高了可用性，并为故障转移群集或日志传送提供了一种易于管理的替代方案或补充方案。同步数据库镜像会话时，数据库镜像提供了热备用服务器，可支持在已提交事务不丢失数据的情况下进行快速故障转移。在一般的镜像会话期间，如果生产服务器出现故障，客户端应用程序可以通过重新连接到备用服务器来快速进行恢复。<br><a id="more"></a></p>
 <h3>一、准备工作</h3>
 <h4>(一) 安装三个实例,分别为:</h4>
@@ -812,15 +813,15 @@ go
 <p>然后在MIR-B上用下面的语句创建登录名tom</p>
 <pre><code><span class="title">sp_addlogin</span> <span class="variable">@loginame</span> = <span class="string">'tom'</span>, <span class="variable">@passwd</span> = <span class="string">'password'</span>, <span class="variable">@sid</span> = 0xD6AABCC8F83E3243A6C3C97F28A4CB55</code></pre>
 ]]></content>
-    <category scheme="http://itman.cc/tags/镜像/" term="镜像"/>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 备份文件还原后引起的孤立用户解决方法]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-change-users-login/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-change-users-login/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-change-users-login/"/>
+    <id>http://itman.cc/2013/09/02/mssql-change-users-login/</id>
     <published>2013-09-02T14:52:03.000Z</published>
-    <updated>2013-11-03T12:19:57.000Z</updated>
+    <updated>2013-11-05T00:00:47.000Z</updated>
     <content type="html"><![CDATA[<p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
 <pre><code><span class="title">exec</span> sp_change_users_login <span class="string">'update_one'</span>,<span class="string">'没有登陆名的数据库用户'</span>, <span class="string">'新的登陆名'</span></code></pre>
 <p>但由于SQL SERVER 2005采用了架构，所以在删除用户是会出现一些错误，因此在这里把我在强制还原后的一些处理方法介绍给大家以作参照。</p>
@@ -829,26 +830,28 @@ go
 <li>仅适用于SQLSERVER 2005 或以上版本；</li>
 </ul>
 ]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 查看当前连接数]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-current-connections/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-current-connections/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-current-connections/"/>
+    <id>http://itman.cc/2013/09/02/mssql-current-connections/</id>
     <published>2013-09-02T14:45:39.000Z</published>
-    <updated>2013-11-03T12:20:20.000Z</updated>
+    <updated>2013-11-05T00:01:01.000Z</updated>
     <content type="html"><![CDATA[<h4>SQL:</h4>
 <pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
 <span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
 ]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 收缩数据库日志]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-shrink-database-log/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-shrink-database-log/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-shrink-database-log/"/>
+    <id>http://itman.cc/2013/09/02/mssql-shrink-database-log/</id>
     <published>2013-09-02T14:32:04.000Z</published>
-    <updated>2013-11-03T12:19:32.000Z</updated>
+    <updated>2013-11-05T00:01:33.000Z</updated>
     <content type="html"><![CDATA[<figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
 2
 3
@@ -897,14 +900,15 @@ USE [master]
 <span class="keyword">GO</span>
 </pre></td></tr></table></figure></p>
 ]]></content>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 2005 查看表的索引碎片状态]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-tables-index-fragment/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-tables-index-fragment/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-tables-index-fragment/"/>
+    <id>http://itman.cc/2013/09/02/mssql-tables-index-fragment/</id>
     <published>2013-09-02T14:25:13.000Z</published>
-    <updated>2013-11-03T12:20:09.000Z</updated>
+    <updated>2013-11-05T00:01:48.000Z</updated>
     <content type="html"><![CDATA[<p>MSSQL 2005 提供了一个动态管理函数 sys.dm_db_index_physical_stats<br>通过调用这个函数，可以方便直观地查看到指定表或视图的数据和索引的大小和碎片信息。<br>下面这条语句，就可以查看当前数据库中所有索引的碎片情况</p>
 <pre><code><span class="operator"><span class="keyword">SELECT</span>
  object_name(a.object_id) [TableName]
@@ -945,15 +949,15 @@ USE [master]
 </ul>
 <p>如果表包含 LOB 数据类型，但这些列中没有任何列在索引定义中用作键列或非键列，则可以联机重新生成非聚集索引。</p>
 ]]></content>
-    <category scheme="http://itman.cc/tags/碎片/" term="碎片"/>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 查找死锁脚本]]></title>
-    <link href="http://itman.cc/2013/09/02/sqlserver-find-deadlock-script/"/>
-    <id>http://itman.cc/2013/09/02/sqlserver-find-deadlock-script/</id>
+    <link href="http://itman.cc/2013/09/02/mssql-find-deadlock-script/"/>
+    <id>http://itman.cc/2013/09/02/mssql-find-deadlock-script/</id>
     <published>2013-09-02T14:10:17.000Z</published>
-    <updated>2013-11-03T12:19:13.000Z</updated>
+    <updated>2013-11-05T00:01:17.000Z</updated>
     <content type="html"><![CDATA[<figure class="highlight lang-脚本"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -1003,8 +1007,8 @@ DBCC INPUTBUFFER (@bl )
 <h4>查看spid</h4>
 <pre><code><span class="title">exec</span> sp_who2</code></pre>
 ]]></content>
-    <category scheme="http://itman.cc/tags/死锁/" term="死锁"/>
-    <category scheme="http://itman.cc/categories/MsSQL/" term="MsSQL"/>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Facebook 是如何管理代码的]]></title>
