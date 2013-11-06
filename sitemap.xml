@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://itman.cc/2013/11/06/centos-install-git/</loc>
+    <lastmod>2013-11-06T05:09:05.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://itman.cc/2013/11/06/apple-cgo-compilation-for-mavericks/</loc>
+    <lastmod>2013-11-06T05:03:07.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://itman.cc/2013/09/03/centos-php-5-2-connect-to-oracle/</loc>
-    <lastmod>2013-11-05T01:37:26.000Z</lastmod>
+    <lastmod>2013-11-06T04:57:31.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://itman.cc/2013/09/04/centos5-setup-l2tp/</loc>
+    <lastmod>2013-11-06T04:57:19.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://itman.cc/2013/10/24/apple-free-mavericks-iwork-ilife/</loc>
+    <lastmod>2013-11-06T04:53:40.000Z</lastmod>
   </url>
   <url>
     <loc>http://itman.cc/2013/10/17/xiaomi-tv/</loc>
@@ -45,10 +61,6 @@
     <lastmod>2013-11-04T13:20:13.000Z</lastmod>
   </url>
   <url>
-    <loc>http://itman.cc/2013/10/24/apple-free-mavericks-iwork-ilife/</loc>
-    <lastmod>2013-11-03T15:33:11.000Z</lastmod>
-  </url>
-  <url>
     <loc>http://itman.cc/2013/10/28/hiwifi-hc6361/</loc>
     <lastmod>2013-11-03T15:09:59.000Z</lastmod>
   </url>
@@ -75,9 +87,5 @@
   <url>
     <loc>http://itman.cc/2013/08/31/facebook-is-how-to-manage-code/</loc>
     <lastmod>2013-11-03T12:22:17.000Z</lastmod>
-  </url>
-  <url>
-    <loc>http://itman.cc/2013/09/04/centos5-setup-l2tp/</loc>
-    <lastmod>2013-11-03T12:21:50.000Z</lastmod>
   </url>
 </urlset>

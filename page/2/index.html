@@ -62,6 +62,100 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-09-04T01:34:11.000Z"><a href="/2013/09/04/centos5-setup-l2tp/">Sep 4 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/09/04/centos5-setup-l2tp/">CentOS5 搭建L2TP VPN</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/09/04/centos5-setup-l2tp/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-09-03T03:31:20.000Z"><a href="/2013/09/03/centos-php-5-2-connect-to-oracle/">Sep 3 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/09/03/centos-php-5-2-connect-to-oracle/">CentOS PHP 5.2.x 链接Oracle数据库</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
+<p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
+<p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
+<p>2、安装Oracle即时客户端程序包</p>
+<pre><code>rpm -ivh oracle-instantclient11<span class="number">.2</span>-basic-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-devel-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span> oracle-instantclient11<span class="number">.2</span>-sqlplus-<span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span><span class="preprocessor">.i</span>386<span class="preprocessor">.rpm</span>
+echo <span class="string">"/usr/lib/oracle/11.1/client/lib/"</span> &gt; /etc/<span class="keyword">ld</span><span class="preprocessor">.so</span><span class="preprocessor">.conf</span><span class="preprocessor">.d</span>/oracle_client<span class="preprocessor">.conf</span>
+/sbin/ldconfig</code></pre>
+<p>3、安装OCI8 PHP扩展（使用PHP自带的OCI8，假设PHP程序安装在/usr/local/webserver/php/）</p>
+<pre><code><span class="title">yum</span> install libaio
+<span class="title">wget</span> http://pecl.php.net/get/oci8-<span class="number">1.4</span><span class="number">.4</span>.tgz
+<span class="title">cd</span> oci8-<span class="number">1.4</span><span class="number">.4</span>/
+/usr/local/webserver/php/bin/phpize <span class="type">CFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span> <span class="type">CXXFLAGS</span>=<span class="string">"-I/usr/include/oracle/11.2/client/"</span>
+./configure <span class="comment">--with-php-config=/usr/local/webserver/php/bin/php-config --with-oci8=/usr/lib/oracle/11.2/client/</span>
+<span class="title">make</span>
+<span class="title">make</span> install</code></pre>
+<p>make oci8出错的话，用这个编译试试</p>
+<pre><code>.<span class="regexp">/configure --with-php-config=/usr</span><span class="regexp">/local/webserver</span><span class="regexp">/php/bin</span><span class="regexp">/php-config --with-oci8=instantclient,/usr</span><span class="regexp">/lib/oracle</span><span class="regexp">/11.2/client</span><span class="regexp">/lib/</span></code></pre>
+<p>4、修改PHP配置文件（/usr/local/webserver/php/etc/php.ini）<br>在extension_dir = “/usr/local/webserver/php/lib/php/extensions/no-debug-non-zts-20060613/”后增加一行：</p>
+<pre><code><span class="setting">extension = <span class="value"><span class="string">"oci8.so"</span></span></span></code></pre>
+<p>5、重启PHP</p>
+<p>6、创建一个phpinfo.php文件（内容如下）并通过Web访问，如果有“oci8”这一项，则表明安装成功。</p>
+<pre><code><span class="preprocessor">&lt;?php</span>
+phpinfo();
+<span class="preprocessor">?&gt;</span></code></pre>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-09-02T15:12:46.000Z"><a href="/2013/09/02/mssql-64bit-configuration/">Sep 2 2013</a></time>
       
       
@@ -425,83 +519,13 @@ DBCC INPUTBUFFER (@bl )
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-08-31T12:17:31.000Z"><a href="/2013/08/31/figure-learn-python/">Aug 31 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/08/31/figure-learn-python/">看图学Python</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p><img src="http://farm3.staticflickr.com/2884/10590380855_cc7289432f_o.png" alt=""></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-08-31T11:50:48.000Z"><a href="/2013/08/31/install-vmesxi-server/">Aug 31 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/08/31/install-vmesxi-server/">搭建VMware Esxi虚拟化服务器</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h4>1、安装VMware ESXi</h4>
-<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
-<h4>2、安装VMware vSphere Client</h4>
-<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
-<p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
     <a href="/" class="alignleft prev">Prev</a>
   
+  
+    <a href="/page/3/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav></div></div>
@@ -524,9 +548,9 @@ DBCC INPUTBUFFER (@bl )
   
     <li><a href="/categories/Geek/">Geek</a><small>6</small></li>
   
-    <li><a href="/categories/Linux/">Linux</a><small>2</small></li>
-  
     <li><a href="/categories/News/">News</a><small>2</small></li>
+  
+    <li><a href="/categories/Unix/Linux/">Unix/Linux</a><small>4</small></li>
   
     <li><a href="/categories/Virtaulization/">Virtaulization</a><small>1</small></li>
   
@@ -538,7 +562,7 @@ DBCC INPUTBUFFER (@bl )
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
+    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mavericks/" style="font-size: 10.00px;">Mavericks</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
   </div>
 </div>
 

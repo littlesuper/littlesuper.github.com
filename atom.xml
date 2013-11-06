@@ -4,13 +4,65 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-05T01:37:30.777Z</updated>
+  <updated>2013-11-06T05:10:00.498Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[CentOS 下安装 Git]]></title>
+    <link href="http://itman.cc/2013/11/06/centos-install-git/"/>
+    <id>http://itman.cc/2013/11/06/centos-install-git/</id>
+    <published>2013-11-06T05:04:42.000Z</published>
+    <updated>2013-11-06T05:09:05.000Z</updated>
+    <content type="html"><![CDATA[<p>现在都流行Git分布式版本控制系统，但CentOS无法直接通过yum安装，一大遗憾。手工安装步骤如下：</p>
+<p>1、首先安装Git依赖的一些包.</p>
+<pre><code><span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">zlib</span>-<span class="comment">devel</span>
+<span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">openssl</span>-<span class="comment">devel</span>
+<span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">perl</span>
+<span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">cpio</span>
+<span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">expat</span>-<span class="comment">devel</span>
+<span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">gettext</span>-<span class="comment">devel</span>
+<span class="comment">yum</span> <span class="comment">install</span> <span class="literal">-</span><span class="comment">y</span> <span class="comment">curl</code></pre>
+<p>2、下载Git并安装它</p>
+<pre><code><span class="title">wget</span> http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz
+<span class="title">tar</span> xzvf git-latest.tar.gz
+<span class="title">cd</span> git-{date}
+<span class="title">autoconf</span>
+./configure <span class="comment">--with-curl</span>
+<span class="title">make</span>
+<span class="title">make</span> install</code></pre>
+]]></content>
+    <category scheme="http://itman.cc/tags/git/" term="git"/>
+    <category scheme="http://itman.cc/categories/Unix/Linux/" term="Unix/Linux"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[CGO Compilation for Mac OS X 10.9 Mavericks]]></title>
+    <link href="http://itman.cc/2013/11/06/apple-cgo-compilation-for-mavericks/"/>
+    <id>http://itman.cc/2013/11/06/apple-cgo-compilation-for-mavericks/</id>
+    <published>2013-11-06T04:54:43.000Z</published>
+    <updated>2013-11-06T05:03:07.000Z</updated>
+    <content type="html"><![CDATA[<p>After upgrade to Mac OSX 10.9 you Cgo package will not be compiled successfully if you use the default <strong>clang</strong> compiler. For example, if you install gozmq on Mavericks you’ll get following error:</p>
+<pre><code><span class="char">$ </span>go get -tags zmq_3_x github.com/alecthomas/gozmq
+
+<span class="method">clang:</span> <span class="method">error:</span> argument unused during <span class="method">compilation:</span> <span class="string">'-fno-eliminate-unused-debug-types'</span></code></pre>
+<p>I tried apple-gcc4.2 installed from homebrew but also failed:</p>
+<pre><code><span class="char">$ </span><span class="class">GCC</span>=gcc-<span class="number">4.2</span> go get -tags zmq_3_x github.com/alecthomas/gozmq
+
+<span class="method">clang:</span> <span class="method">warning:</span> argument unused during <span class="method">compilation:</span> <span class="string">'-pthread'</span>
+
+<span class="method">clang:</span> <span class="method">error:</span> no such file or <span class="method">directory:</span> <span class="string">'libgcc.a'</span></code></pre>
+<p>The solution is to download and install pre-built gcc package <a href="https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg" target="_blank">GCC-10.7-v2.pkg</a> from <a href="https://github.com/kennethreitz/osx-gcc-installer" target="_blank">osx-gcc-installer</a>. Then you can install the GO package as below:</p>
+<pre><code>$ GCC=gcc-<span class="number">4.2</span> go <span class="keyword">get</span> -tags zmq_3_x github.com/alecthomas/gozmq</code></pre>
+<p>It works for other Cgo package like goejdb as well.</p>
+<p>Good luck and have fun!</p>
+<p>转自：<a href="http://vitecho.com/" target="_blank">http://vitecho.com/</a></p>
+]]></content>
+    <category scheme="http://itman.cc/tags/Mavericks/" term="Mavericks"/>
+    <category scheme="http://itman.cc/categories/Unix/Linux/" term="Unix/Linux"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[MySQL 导入数据方法]]></title>
     <link href="http://itman.cc/2013/11/03/mysql-import-data/"/>
@@ -61,7 +113,7 @@
     <link href="http://itman.cc/2013/10/24/apple-free-mavericks-iwork-ilife/"/>
     <id>http://itman.cc/2013/10/24/apple-free-mavericks-iwork-ilife/</id>
     <published>2013-10-24T15:03:55.000Z</published>
-    <updated>2013-11-03T15:33:11.000Z</updated>
+    <updated>2013-11-06T04:53:40.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm4.staticflickr.com/3803/10647723563_1f2def4e0f_z.jpg" alt=""><br><a id="more"></a></p>
 <p><img src="http://farm6.staticflickr.com/5502/10647494214_aa9391be14_z.jpg" alt=""><br><img src="http://farm3.staticflickr.com/2886/10647722163_bbe09b6e9d_z.jpg" alt=""></p>
 <p>随着Mac OS X 10.9 Mavericks正式版的发布，将免费向用户提供。重拾旧路的原因也很简单：尽快普及，带动硬件销量的提升。伴随着一同免费到来的还有iWork &amp; iLife，日常个人办公软件。</p>
@@ -69,7 +121,7 @@
 <h3>Mavericks 亮点：</h3>
 <ul>
 <li>重写底层：降低对硬件的消耗以及提高效率，这也是促进我升级最重要的原因</li>
-<li>多屏显示的改进：之前的版本一直是鸡肋，比Windows差远了，这次总算扳回一局</li>
+<li>多屏显示的改进：多显一直是鸡肋，但这次打了个漂亮的翻身仗：（笔记本接外显）当合上笔记本盖子以后，机器并不会进入休眠模式，双屏的内容会自动融合到显示器上；当开启盖子后，自动切分还原。赞一个！</li>
 <li>加入苹果地图：以后外出之前，可以先在笔记本上规划好路径，并自动同步到iPhone上</li>
 <li>新的通知中心：系统在睡眠状态下也可以接收通知消息<br>……</li>
 </ul>
@@ -246,7 +298,7 @@
     <link href="http://itman.cc/2013/09/04/centos5-setup-l2tp/"/>
     <id>http://itman.cc/2013/09/04/centos5-setup-l2tp/</id>
     <published>2013-09-04T01:34:11.000Z</published>
-    <updated>2013-11-03T12:21:50.000Z</updated>
+    <updated>2013-11-06T04:57:19.000Z</updated>
     <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7332/10601376594_b2d087a729_q.jpg" alt=""><br><a id="more"></a></p>
 <figure class="highlight lang-shell"><figcaption><span>一键搭建L2TP脚本</span><a href="/upload/l2tp.sh">Download</a></figcaption><table><tr><td class="gutter"><pre>1
 2
@@ -643,14 +695,14 @@
 ]]></content>
     <category scheme="http://itman.cc/tags/l2tp/" term="l2tp"/>
     <category scheme="http://itman.cc/tags/vpn/" term="vpn"/>
-    <category scheme="http://itman.cc/categories/Linux/" term="Linux"/>
+    <category scheme="http://itman.cc/categories/Unix/Linux/" term="Unix/Linux"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[CentOS PHP 5.2.x 链接Oracle数据库]]></title>
     <link href="http://itman.cc/2013/09/03/centos-php-5-2-connect-to-oracle/"/>
     <id>http://itman.cc/2013/09/03/centos-php-5-2-connect-to-oracle/</id>
     <published>2013-09-03T03:31:20.000Z</published>
-    <updated>2013-11-05T01:37:26.000Z</updated>
+    <updated>2013-11-06T04:57:31.000Z</updated>
     <content type="html"><![CDATA[<p>1、下载Oracle即时客户端程序包 — Basic： 运行 OCI、OCCI 和 JDBC-OCI 应用程序所需的所有文件</p>
 <p>①、打开以下网址（本文以32位版为例）：<br><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
 <p>②、下载以下几个文件：<br>oracle-instantclient11.2-basic-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-devel-11.2.0.2.0.i386.rpm<br>oracle-instantclient11.2-sqlplus-11.2.0.2.0.i386.rpm</p>
@@ -679,7 +731,7 @@ phpinfo();
     <category scheme="http://itman.cc/tags/oracle/" term="oracle"/>
     <category scheme="http://itman.cc/tags/centos/" term="centos"/>
     <category scheme="http://itman.cc/tags/php/" term="php"/>
-    <category scheme="http://itman.cc/categories/Linux/" term="Linux"/>
+    <category scheme="http://itman.cc/categories/Unix/Linux/" term="Unix/Linux"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[MsSQL 64位配置方法]]></title>
@@ -1071,31 +1123,5 @@ DBCC INPUTBUFFER (@bl )
 ]]></content>
     <category scheme="http://itman.cc/tags/facebook/" term="facebook"/>
     <category scheme="http://itman.cc/categories/News/" term="News"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[看图学Python]]></title>
-    <link href="http://itman.cc/2013/08/31/figure-learn-python/"/>
-    <id>http://itman.cc/2013/08/31/figure-learn-python/</id>
-    <published>2013-08-31T12:17:31.000Z</published>
-    <updated>2013-11-05T00:30:48.000Z</updated>
-    <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2884/10590380855_cc7289432f_o.png" alt=""></p>
-]]></content>
-    <category scheme="http://itman.cc/tags/python/" term="python"/>
-    <category scheme="http://itman.cc/categories/Develop/" term="Develop"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[搭建VMware Esxi虚拟化服务器]]></title>
-    <link href="http://itman.cc/2013/08/31/install-vmesxi-server/"/>
-    <id>http://itman.cc/2013/08/31/install-vmesxi-server/</id>
-    <published>2013-08-31T11:50:48.000Z</published>
-    <updated>2013-11-03T12:23:13.000Z</updated>
-    <content type="html"><![CDATA[<h4>1、安装VMware ESXi</h4>
-<p>　　从VMware的官方网站下载ESXi的ISO镜像文件，并刻成光盘。用ESXi安装盘引导，安装过程非常简单，看清提示就可以了。</p>
-<h4>2、安装VMware vSphere Client</h4>
-<p>　　vSphere Client就是用来管理虚拟机的客户端，安装在管理主机上，ESXi大部分的操作是在vSphere Client之下完成的。在安装好ESXi之后，用浏览器连入安装好的ESXi，打开浏览器，在地址栏输入“<a href="http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere" target="_blank">http://xxx.xxx.xxx.xxx”(安装ESXi的服务器IP地址)，进入之后点击下载安装vSphere</a> Client。安装完后，双击桌面上的图标进入联机界面，这时问题出现，vSphere Client提示未评估版本，时间是60天，奇怪，不是说ESXi是完全免费的版本吗？怎么会是60天未评估版呢？原来ESXi虽然是免费的，但是vSphere Client却是收费的。从百度中查到了vSphere Client的许可证密钥（JC2R2-FJH90-088V1-493ZK-9GA7D）。如图：</p>
-<p><img src="http://farm6.staticflickr.com/5476/10589970086_a7b4ecf16b_o.jpg" alt=""></p>
-]]></content>
-    <category scheme="http://itman.cc/tags/vm esxi/" term="vm esxi"/>
-    <category scheme="http://itman.cc/categories/Virtaulization/" term="Virtaulization"/>
   </entry>
 </feed>
