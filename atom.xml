@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-09T15:20:59.008Z</updated>
+  <updated>2013-11-09T15:22:55.426Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -16,8 +16,8 @@
     <link href="http://itman.cc/2013/11/08/how-to-remove-youku-ad/"/>
     <id>http://itman.cc/2013/11/08/how-to-remove-youku-ad/</id>
     <published>2013-11-08T00:46:50.000Z</published>
-    <updated>2013-11-09T15:20:54.000Z</updated>
-    <content type="html"><![CDATA[<p>从道德上我一直认同去掉视频网站广告的做法，毕竟这是他们主要收入来源。但国内视频网站得广告质量真的不堪入目，真心希望他们学学Youtube，让用户欣赏你的广告，而不是被你广告所强奸。</p>
+    <updated>2013-11-09T15:22:49.000Z</updated>
+    <content type="html"><![CDATA[<p>从道德上我一直不认同去掉视频网站广告的做法，毕竟这是他们主要收入来源。但国内视频网站得广告质量真的不堪入目，真心希望他们学学Youtube，让用户欣赏你的广告，而不是被你广告所强奸。</p>
 <p>增加以下内容到hosts文件即可：</p>
 <pre><code><span class="preprocessor">#优酷 </span>
 <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> atm<span class="variable">.youku</span><span class="variable">.com</span> 
