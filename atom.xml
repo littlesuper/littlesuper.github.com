@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-12T14:50:17.367Z</updated>
+  <updated>2013-11-12T14:55:56.647Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -16,7 +16,7 @@
     <link href="http://itman.cc/2013/11/12/fixing-bazaar-for-mac-os-x/"/>
     <id>http://itman.cc/2013/11/12/fixing-bazaar-for-mac-os-x/</id>
     <published>2013-11-12T14:43:21.000Z</published>
-    <updated>2013-11-12T14:48:46.000Z</updated>
+    <updated>2013-11-12T14:55:45.000Z</updated>
     <content type="html"><![CDATA[<p>When upgrading to Lion, if you try to run bzr, you’ll get an error:</p>
 <pre><code>$ bzr whoami
 bzr: ERROR: Couldn't import bzrlib <span class="keyword">and</span> dependencies.
@@ -36,7 +36,7 @@ ImportError: No module named bzrlib</code></pre>
 Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&gt;</span></code></pre>
 ]]></content>
     <category scheme="http://itman.cc/tags/Mac OS X/" term="Mac OS X"/>
-    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
+    <category scheme="http://itman.cc/categories/Unix/Linux/" term="Unix/Linux"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[如何去掉优酷广告]]></title>
@@ -97,7 +97,7 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
     <link href="http://itman.cc/2013/11/06/cgo-compilation-for-mavericks/"/>
     <id>http://itman.cc/2013/11/06/cgo-compilation-for-mavericks/</id>
     <published>2013-11-06T04:54:43.000Z</published>
-    <updated>2013-11-12T14:50:11.000Z</updated>
+    <updated>2013-11-12T14:55:52.000Z</updated>
     <content type="html"><![CDATA[<p>After upgrade to Mac OSX 10.9 you Cgo package will not be compiled successfully if you use the default <strong>clang</strong> compiler. For example, if you install gozmq on Mavericks you’ll get following error:</p>
 <pre><code><span class="char">$ </span>go get -tags zmq_3_x github.com/alecthomas/gozmq
 
