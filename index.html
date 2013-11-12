@@ -62,6 +62,56 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-11-12T14:43:21.000Z"><a href="/2013/11/12/fixing-bazaar-for-mac-os-x/">Nov 12 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/11/12/fixing-bazaar-for-mac-os-x/">Fixing Bazaar for Mac OS X</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>When upgrading to Lion, if you try to run bzr, you’ll get an error:</p>
+<pre><code>$ bzr whoami
+bzr: ERROR: Couldn't import bzrlib <span class="keyword">and</span> dependencies.
+Please check <span class="keyword">the</span> directory containing bzrlib <span class="keyword">is</span> <span class="function_start"><span class="keyword">on</span> <span class="title">your</span></span> PYTHONPATH.
+
+Traceback (most recent call <span class="keyword">last</span>):
+  File <span class="string">"/usr/local/bin/bzr"</span>, line <span class="number">102</span>, <span class="keyword">in</span> &lt;module&gt;
+  import bzrlib
+ImportError: No module named bzrlib</code></pre>
+<p>It seems to be caused by Lion’s switch to python 2.7 as default, while bazaar installs on python 2.6.</p>
+<p>Edit the file <code>/usr/local/bin/bzr</code> (with <code>sudo</code>) and complete the first line:</p>
+<pre><code><span class="shebang">#!/usr/bin/python</span></code></pre>
+<p>to</p>
+<pre><code><span class="shebang">#!/usr/bin/python2.6</span></code></pre>
+<p>and save, that should do the trick.</p>
+<pre><code>$ bzr whoami
+Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&gt;</span></code></pre>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-11-08T00:46:50.000Z"><a href="/2013/11/08/how-to-remove-youku-ad/">Nov 8 2013</a></time>
       
       
@@ -163,11 +213,11 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-11-06T04:54:43.000Z"><a href="/2013/11/06/apple-cgo-compilation-for-mavericks/">Nov 6 2013</a></time>
+        <time datetime="2013-11-06T04:54:43.000Z"><a href="/2013/11/06/cgo-compilation-for-mavericks/">Nov 6 2013</a></time>
       
       
   
-    <h1 class="title"><a href="/2013/11/06/apple-cgo-compilation-for-mavericks/">CGO Compilation for Mac OS X 10.9 Mavericks</a></h1>
+    <h1 class="title"><a href="/2013/11/06/cgo-compilation-for-mavericks/">CGO Compilation for Mac OS X 10.9 Mavericks</a></h1>
   
 
     </header>
@@ -430,43 +480,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-09-25T12:05:51.000Z"><a href="/2013/09/25/apple-iphone5s/">Sep 25 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/09/25/apple-iphone5s/">Apple iPhone5s 初体验</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p><img src="http://farm6.staticflickr.com/5544/10644285865_abc2edddf0_z.jpg" alt=""><br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/09/25/apple-iphone5s/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -492,7 +505,7 @@
   
     <li><a href="/categories/Develop/">Develop</a><small>1</small></li>
   
-    <li><a href="/categories/Geek/">Geek</a><small>7</small></li>
+    <li><a href="/categories/Geek/">Geek</a><small>8</small></li>
   
     <li><a href="/categories/News/">News</a><small>2</small></li>
   
@@ -508,7 +521,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mavericks/" style="font-size: 10.00px;">Mavericks</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
+    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
   </div>
 </div>
 

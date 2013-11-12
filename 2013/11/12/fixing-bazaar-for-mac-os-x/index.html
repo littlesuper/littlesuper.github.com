@@ -3,22 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MsSQL 收缩数据库日志 | ITman.cc</title>
+  <title>Fixing Bazaar for Mac OS X | ITman.cc</title>
   <meta name="author" content="L.S">
   
-  <meta name="description" content="SQL20051
-2
-3
-4
-USE [master]
-DUMP TRANSACTION [DB_Samples] WITH NO_LOG
-BACKUP LOG [DB_Samples] WITH NO_LOG
-DBCC SHRINKDATABASE([DB_Samples])">
+  <meta name="description" content="When upgrading to Lion, if you try to run bzr, you’ll get an error:
+$ bzr whoami
+bzr: ERROR: Couldn't import bzrlib and dependencies.
+Please check the">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="MsSQL 收缩数据库日志"/>
+  <meta property="og:title" content="Fixing Bazaar for Mac OS X"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -70,63 +66,33 @@ DBCC SHRINKDATABASE([DB_Samples])">
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-09-02T14:32:04.000Z"><a href="/2013/09/02/mssql-shrink-database-log/">Sep 2 2013</a></time>
+        <time datetime="2013-11-12T14:43:21.000Z"><a href="/2013/11/12/fixing-bazaar-for-mac-os-x/">Nov 12 2013</a></time>
       
       
   
-    <h1 class="title">MsSQL 收缩数据库日志</h1>
+    <h1 class="title">Fixing Bazaar for Mac OS X</h1>
   
 
     </header>
     <div class="entry">
       
-        <figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre>USE [master]
-DUMP TRANSACTION [DB_Samples] WITH NO_LOG
-BACKUP LOG [DB_Samples] WITH NO_LOG
-DBCC SHRINKDATABASE([DB_Samples])
-</pre></td></tr></table></figure>
+        <p>When upgrading to Lion, if you try to run bzr, you’ll get an error:</p>
+<pre><code>$ bzr whoami
+bzr: ERROR: Couldn't import bzrlib <span class="keyword">and</span> dependencies.
+Please check <span class="keyword">the</span> directory containing bzrlib <span class="keyword">is</span> <span class="function_start"><span class="keyword">on</span> <span class="title">your</span></span> PYTHONPATH.
 
-<p><a id="more"></a><br>    <figure class="highlight lang-sql"><figcaption><span>SQL2008</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="code"><pre>USE [master]
-GO
-<span class="operator"><span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE <span class="keyword">WITH</span> NO_WAIT
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE
-<span class="keyword">GO</span>
- 
-USE [DB_Samples]
-<span class="keyword">GO</span>
-DBCC SHRINKFILE (N <span class="string">'DB_Samples_log'</span> , <span class="number">0</span>, TRUNCATEONLY)
-<span class="keyword">GO</span>
- 
-USE [master]
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span> <span class="keyword">WITH</span> NO_WAIT
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span>
-<span class="keyword">GO</span>
-</pre></td></tr></table></figure></p>
+Traceback (most recent call <span class="keyword">last</span>):
+  File <span class="string">"/usr/local/bin/bzr"</span>, line <span class="number">102</span>, <span class="keyword">in</span> &lt;module&gt;
+  import bzrlib
+ImportError: No module named bzrlib</code></pre>
+<p>It seems to be caused by Lion’s switch to python 2.7 as default, while bazaar installs on python 2.6.</p>
+<p>Edit the file <code>/usr/local/bin/bzr</code> (with <code>sudo</code>) and complete the first line:</p>
+<pre><code><span class="shebang">#!/usr/bin/python</span></code></pre>
+<p>to</p>
+<pre><code><span class="shebang">#!/usr/bin/python2.6</span></code></pre>
+<p>and save, that should do the trick.</p>
+<pre><code>$ bzr whoami
+Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&gt;</span></code></pre>
 
       
     </div>
@@ -135,13 +101,13 @@ USE [master]
         
   
   <div class="categories">
-    <a href="/categories/Database/">Database</a>
+    <a href="/categories/Geek/">Geek</a>
   </div>
 
         
   
   <div class="tags">
-    <a href="/tags/mssql/">mssql</a>
+    <a href="/tags/Mac OS X/">Mac OS X</a>
   </div>
 
 
