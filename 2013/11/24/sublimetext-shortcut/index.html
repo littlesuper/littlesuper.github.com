@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>CGO Compilation for Mac OS X 10.9 Mavericks | ITman.cc</title>
+  <title>Sublime Text 快捷键 | ITman.cc</title>
   <meta name="author" content="L.S">
   
-  <meta name="description" content="After upgrade to Mac OSX 10.9 you Cgo package will not be compiled successfully if you use the default clang compiler. For example, if you install goz">
+  <meta name="description" content="如果说Notepad++是一款不错Code神器，那么Sublime Text应当称得上是神器滴哥。Sublime Text最大的优点就是跨平台，Mac和Windows均可完美使用；其次是强大的插件支持，几乎无所不能。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="CGO Compilation for Mac OS X 10.9 Mavericks"/>
+  <meta property="og:title" content="Sublime Text 快捷键"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -63,31 +63,65 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-11-06T04:54:43.000Z"><a href="/2013/11/06/cgo-compilation-for-mavericks/">Nov 6 2013</a></time>
+        <time datetime="2013-11-23T16:00:49.000Z"><a href="/2013/11/24/sublimetext-shortcut/">Nov 24 2013</a></time>
       
       
   
-    <h1 class="title">CGO Compilation for Mac OS X 10.9 Mavericks</h1>
+    <h1 class="title">Sublime Text 快捷键</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>After upgrade to Mac OSX 10.9 you Cgo package will not be compiled successfully if you use the default <strong>clang</strong> compiler. For example, if you install gozmq on Mavericks you’ll get following error:</p>
-<pre><code><span class="char">$ </span>go get -tags zmq_3_x github.com/alecthomas/gozmq
-
-<span class="method">clang:</span> <span class="method">error:</span> argument unused during <span class="method">compilation:</span> <span class="string">'-fno-eliminate-unused-debug-types'</span></code></pre>
-<p>I tried apple-gcc4.2 installed from homebrew but also failed:</p>
-<pre><code><span class="char">$ </span><span class="class">GCC</span>=gcc-<span class="number">4.2</span> go get -tags zmq_3_x github.com/alecthomas/gozmq
-
-<span class="method">clang:</span> <span class="method">warning:</span> argument unused during <span class="method">compilation:</span> <span class="string">'-pthread'</span>
-
-<span class="method">clang:</span> <span class="method">error:</span> no such file or <span class="method">directory:</span> <span class="string">'libgcc.a'</span></code></pre>
-<p>The solution is to download and install pre-built gcc package <a href="https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg" target="_blank">GCC-10.7-v2.pkg</a> from <a href="https://github.com/kennethreitz/osx-gcc-installer" target="_blank">osx-gcc-installer</a>. Then you can install the GO package as below:</p>
-<pre><code>$ GCC=gcc-<span class="number">4.2</span> go <span class="keyword">get</span> -tags zmq_3_x github.com/alecthomas/gozmq</code></pre>
-<p>It works for other Cgo package like goejdb as well.</p>
-<p>Good luck and have fun!</p>
-<p>转自：<a href="http://vitecho.com/" target="_blank">http://vitecho.com/</a></p>
+        <p><img src="http://farm3.staticflickr.com/2893/11011210035_060597c5e8_o.png" alt=""></p>
+<p>如果说Notepad++是一款不错Code神器，那么Sublime Text应当称得上是神器滴哥。Sublime Text最大的优点就是跨平台，Mac和Windows均可完美使用；其次是强大的插件支持，几乎无所不能。<br><a id="more"></a></p>
+<p><img src="http://farm8.staticflickr.com/7428/11011388073_ef0bd5be2a_z.jpg" alt=""></p>
+<p>Sublime Text快捷键：</p>
+<ul>
+<li>Ctrl+Shift+P：打开命令面板</li>
+<li>Ctrl+P：搜索项目中的文件</li>
+<li>Ctrl+G：跳转到第几行</li>
+<li>Ctrl+W：关闭当前打开文件</li>
+<li>Ctrl+Shift+W：关闭所有打开文件</li>
+<li>Ctrl+Shift+V：粘贴并格式化</li>
+<li>Ctrl+D：选择单词，重复可增加选择下一个相同的单词</li>
+<li>Ctrl+L：选择行，重复可依次增加选择下一行</li>
+<li>Ctrl+Shift+L：选择多行</li>
+<li>Ctrl+Shift+Enter：在当前行前插入新行</li>
+<li>Ctrl+X：删除当前行</li>
+<li>Ctrl+M：跳转到对应括号</li>
+<li>Ctrl+U：软撤销，撤销光标位置</li>
+<li>Ctrl+J：选择标签内容</li>
+<li>Ctrl+F：查找内容</li>
+<li>Ctrl+Shift+F：查找并替换</li>
+<li>Ctrl+H：替换</li>
+<li>Ctrl+R：前往 method</li>
+<li>Ctrl+N：新建窗口</li>
+<li>Ctrl+K+B：开关侧栏</li>
+<li>Ctrl+Shift+M：选中当前括号内容，重复可选着括号本身</li>
+<li>Ctrl+F2：设置/删除标记</li>
+<li>Ctrl+/：注释当前行</li>
+<li>Ctrl+Shift+/：当前位置插入注释</li>
+<li>Ctrl+Alt+/：块注释，并Focus到首行，写注释说明用的</li>
+<li>Ctrl+Shift+A：选择当前标签前后，修改标签用的</li>
+<li>F11：全屏</li>
+<li>Shift+F11：全屏免打扰模式，只编辑当前文件</li>
+<li>Alt+F3：选择所有相同的词</li>
+<li>Alt+.：闭合标签</li>
+<li>Alt+Shift+数字：分屏显示</li>
+<li>Alt+数字：切换打开第N个文件</li>
+<li>Shift+右键拖动：光标多不，用来更改或插入列内容</li>
+<li>鼠标的前进后退键可切换Tab文件</li>
+<li>按Ctrl，依次点击或选取，可需要编辑的多个位置</li>
+<li>按Ctrl+Shift+上下键，可替换行</li>
+</ul>
+<p>相关阅读：</p>
+<ul>
+<li><p><a href="http://www.daqianduan.com/4314.html" target="_blank">大前端推荐使用的前端开发工具</a></p>
+</li>
+<li><p><a href="http://www.daqianduan.com/4820.html" target="_blank">Sublime Text 使用介绍、全套快捷键及插件推荐</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -96,13 +130,13 @@
         
   
   <div class="categories">
-    <a href="/categories/Unix/Linux/">Unix/Linux</a>
+    <a href="/categories/Geek/">Geek</a>
   </div>
 
         
   
   <div class="tags">
-    <a href="/tags/Mac OS X/">Mac OS X</a>
+    <a href="/tags/sublime text/">sublime text</a>
   </div>
 
 

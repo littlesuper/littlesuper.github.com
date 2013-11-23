@@ -4,13 +4,72 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-12T14:55:56.647Z</updated>
+  <updated>2013-11-23T16:02:13.834Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 快捷键]]></title>
+    <link href="http://itman.cc/2013/11/24/sublimetext-shortcut/"/>
+    <id>http://itman.cc/2013/11/24/sublimetext-shortcut/</id>
+    <published>2013-11-23T16:00:49.000Z</published>
+    <updated>2013-11-23T16:02:11.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm3.staticflickr.com/2893/11011210035_060597c5e8_o.png" alt=""></p>
+<p>如果说Notepad++是一款不错Code神器，那么Sublime Text应当称得上是神器滴哥。Sublime Text最大的优点就是跨平台，Mac和Windows均可完美使用；其次是强大的插件支持，几乎无所不能。<br><a id="more"></a></p>
+<p><img src="http://farm8.staticflickr.com/7428/11011388073_ef0bd5be2a_z.jpg" alt=""></p>
+<p>Sublime Text快捷键：</p>
+<ul>
+<li>Ctrl+Shift+P：打开命令面板</li>
+<li>Ctrl+P：搜索项目中的文件</li>
+<li>Ctrl+G：跳转到第几行</li>
+<li>Ctrl+W：关闭当前打开文件</li>
+<li>Ctrl+Shift+W：关闭所有打开文件</li>
+<li>Ctrl+Shift+V：粘贴并格式化</li>
+<li>Ctrl+D：选择单词，重复可增加选择下一个相同的单词</li>
+<li>Ctrl+L：选择行，重复可依次增加选择下一行</li>
+<li>Ctrl+Shift+L：选择多行</li>
+<li>Ctrl+Shift+Enter：在当前行前插入新行</li>
+<li>Ctrl+X：删除当前行</li>
+<li>Ctrl+M：跳转到对应括号</li>
+<li>Ctrl+U：软撤销，撤销光标位置</li>
+<li>Ctrl+J：选择标签内容</li>
+<li>Ctrl+F：查找内容</li>
+<li>Ctrl+Shift+F：查找并替换</li>
+<li>Ctrl+H：替换</li>
+<li>Ctrl+R：前往 method</li>
+<li>Ctrl+N：新建窗口</li>
+<li>Ctrl+K+B：开关侧栏</li>
+<li>Ctrl+Shift+M：选中当前括号内容，重复可选着括号本身</li>
+<li>Ctrl+F2：设置/删除标记</li>
+<li>Ctrl+/：注释当前行</li>
+<li>Ctrl+Shift+/：当前位置插入注释</li>
+<li>Ctrl+Alt+/：块注释，并Focus到首行，写注释说明用的</li>
+<li>Ctrl+Shift+A：选择当前标签前后，修改标签用的</li>
+<li>F11：全屏</li>
+<li>Shift+F11：全屏免打扰模式，只编辑当前文件</li>
+<li>Alt+F3：选择所有相同的词</li>
+<li>Alt+.：闭合标签</li>
+<li>Alt+Shift+数字：分屏显示</li>
+<li>Alt+数字：切换打开第N个文件</li>
+<li>Shift+右键拖动：光标多不，用来更改或插入列内容</li>
+<li>鼠标的前进后退键可切换Tab文件</li>
+<li>按Ctrl，依次点击或选取，可需要编辑的多个位置</li>
+<li>按Ctrl+Shift+上下键，可替换行</li>
+</ul>
+<p>相关阅读：</p>
+<ul>
+<li><p><a href="http://www.daqianduan.com/4314.html" target="_blank">大前端推荐使用的前端开发工具</a></p>
+</li>
+<li><p><a href="http://www.daqianduan.com/4820.html" target="_blank">Sublime Text 使用介绍、全套快捷键及插件推荐</a></p>
+</li>
+</ul>
+]]></content>
+    <category scheme="http://itman.cc/tags/sublime text/" term="sublime text"/>
+    <category scheme="http://itman.cc/categories/Geek/" term="Geek"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[Fixing Bazaar for Mac OS X]]></title>
     <link href="http://itman.cc/2013/11/12/fixing-bazaar-for-mac-os-x/"/>
@@ -1004,55 +1063,6 @@ USE [master]
 <span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span>
 <span class="keyword">GO</span>
 </pre></td></tr></table></figure></p>
-]]></content>
-    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
-    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 2005 查看表的索引碎片状态]]></title>
-    <link href="http://itman.cc/2013/09/02/mssql-tables-index-fragment/"/>
-    <id>http://itman.cc/2013/09/02/mssql-tables-index-fragment/</id>
-    <published>2013-09-02T14:25:13.000Z</published>
-    <updated>2013-11-05T00:01:48.000Z</updated>
-    <content type="html"><![CDATA[<p>MSSQL 2005 提供了一个动态管理函数 sys.dm_db_index_physical_stats<br>通过调用这个函数，可以方便直观地查看到指定表或视图的数据和索引的大小和碎片信息。<br>下面这条语句，就可以查看当前数据库中所有索引的碎片情况</p>
-<pre><code><span class="operator"><span class="keyword">SELECT</span>
- object_name(a.object_id) [TableName]
- ,a.index_id
- ,name [IndexName]
- ,avg_fragmentation_in_percent
-<span class="keyword">FROM</span> sys.dm_db_index_physical_stats
- (
- DB_ID()
- , <span class="keyword">NULL</span>
- , <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>
-) <span class="keyword">AS</span> a
-<span class="keyword">JOIN</span> sys.indexes <span class="keyword">AS</span> b
-<span class="keyword">ON</span> a.object_id = b.object_id <span class="keyword">AND</span> a.index_id = b.index_id;</span></code></pre>
-<p><a id="more"></a><br>如果 avg_fragmentation_in_percent 一项的值在 10.0 – 30.0 建议使用 ALTER INDEX .. REORGANIZE 语句重新组织索引</p>
-<p>如果 &gt; 30.0 建议使用 ALTER INDEX .. REBUILD 语句重建索引</p>
-<p>SQL 2005 在 ALTER INDEX 语句中提供了一个重要的参数 ONLINE，如果想重建索引的时候，不会将表锁住，需要将该参数设置为 ON。<br>例如：</p>
-<pre><code><span class="operator"><span class="keyword">ALTER</span> INDEX <span class="keyword">ALL</span> <span class="keyword">ON</span> [dbo].[RecordTable]
- REBUILD <span class="keyword">WITH</span> (
- SORT_IN_TEMPDB = <span class="keyword">ON</span>
- ,STATISTICS_NORECOMPUTE = <span class="keyword">ON</span>
- ,ONLINE = <span class="keyword">ON</span>);</span></code></pre>
-<p><strong>ONLINE 参数说明如下：</strong></p>
-<p>ONLINE = { ON | OFF }</p>
-<p>指定在索引操作期间基础表和关联的索引是否可用于查询和数据修改操作。默认值为 OFF。</p>
-<p><strong>ON</strong></p>
-<p>在索引操作期间不持有长期表锁。在索引操作的主要阶段，源表上只使用意向共享 (IS) 锁。这使得能够继续对基础表和索引进行查询或更新。操作开始时，将对源对象保持极短时间的共享 (S) 锁。操作结束时，如果创建非聚集索引，将对源持有极短时间的 S 锁；当在线创建或删除聚集索引时，或者重新生成聚集或非聚集索引时，将获取 SCH-M（架构修改）锁。对本地临时表创建索引时，ONLINE 不能设置为 ON。</p>
-<p><strong>OFF</strong></p>
-<p>在索引操作期间应用表锁。创建、重新生成或删除聚集索引或者重新生成或删除非聚集索引的脱机索引操作将对表获取架构修改 (Sch-M) 锁。这样可以防止所有用户在操作期间访问基础表。创建非聚集索引的脱机索引操作将对表获取共享 (S) 锁。这样可以防止更新基础表，但允许读操作（如 SELECT 语句）。</p>
-<p>有关详细信息，请参阅联机索引操作的工作方式。有关锁的详细信息，请参阅锁模式。<br>索引（包括全局临时表中的索引）可以联机重新生成，但以下索引除外：</p>
-<ul>
-<li>禁用的索引</li>
-<li>XML 索引</li>
-<li>本地临时表中的索引</li>
-<li>分区索引</li>
-<li>聚集索引（如果基础表包含 LOB 数据类型）</li>
-<li>使用 LOB 数据类型列定义的非聚集索引</li>
-</ul>
-<p>如果表包含 LOB 数据类型，但这些列中没有任何列在索引定义中用作键列或非键列，则可以联机重新生成非聚集索引。</p>
 ]]></content>
     <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
     <category scheme="http://itman.cc/categories/Database/" term="Database"/>

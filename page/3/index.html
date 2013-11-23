@@ -62,6 +62,57 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-09-02T14:25:13.000Z"><a href="/2013/09/02/mssql-tables-index-fragment/">Sep 2 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/09/02/mssql-tables-index-fragment/">MsSQL 2005 查看表的索引碎片状态</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>MSSQL 2005 提供了一个动态管理函数 sys.dm_db_index_physical_stats<br>通过调用这个函数，可以方便直观地查看到指定表或视图的数据和索引的大小和碎片信息。<br>下面这条语句，就可以查看当前数据库中所有索引的碎片情况</p>
+<pre><code><span class="operator"><span class="keyword">SELECT</span>
+ object_name(a.object_id) [TableName]
+ ,a.index_id
+ ,name [IndexName]
+ ,avg_fragmentation_in_percent
+<span class="keyword">FROM</span> sys.dm_db_index_physical_stats
+ (
+ DB_ID()
+ , <span class="keyword">NULL</span>
+ , <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>
+) <span class="keyword">AS</span> a
+<span class="keyword">JOIN</span> sys.indexes <span class="keyword">AS</span> b
+<span class="keyword">ON</span> a.object_id = b.object_id <span class="keyword">AND</span> a.index_id = b.index_id;</span></code></pre>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/09/02/mssql-tables-index-fragment/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-09-02T14:10:17.000Z"><a href="/2013/09/02/mssql-find-deadlock-script/">Sep 2 2013</a></time>
       
       
@@ -273,7 +324,7 @@ DBCC INPUTBUFFER (@bl )
   
     <li><a href="/categories/Develop/">Develop</a><small>1</small></li>
   
-    <li><a href="/categories/Geek/">Geek</a><small>7</small></li>
+    <li><a href="/categories/Geek/">Geek</a><small>8</small></li>
   
     <li><a href="/categories/News/">News</a><small>2</small></li>
   
@@ -289,7 +340,7 @@ DBCC INPUTBUFFER (@bl )
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
+    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 10.00px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/sublime text/" style="font-size: 10.00px;">sublime text</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
   </div>
 </div>
 

@@ -3,15 +3,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>CGO Compilation for Mac OS X 10.9 Mavericks | ITman.cc</title>
+  <title>sublime text | ITman.cc</title>
   <meta name="author" content="L.S">
-  
-  <meta name="description" content="After upgrade to Mac OSX 10.9 you Cgo package will not be compiled successfully if you use the default clang compiler. For example, if you install goz">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="CGO Compilation for Mac OS X 10.9 Mavericks"/>
+  
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -57,97 +55,25 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-11-06T04:54:43.000Z"><a href="/2013/11/06/cgo-compilation-for-mavericks/">Nov 6 2013</a></time>
-      
-      
-  
-    <h1 class="title">CGO Compilation for Mac OS X 10.9 Mavericks</h1>
-  
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">sublime text</h2>
 
-    </header>
-    <div class="entry">
-      
-        <p>After upgrade to Mac OSX 10.9 you Cgo package will not be compiled successfully if you use the default <strong>clang</strong> compiler. For example, if you install gozmq on Mavericks you’ll get following error:</p>
-<pre><code><span class="char">$ </span>go get -tags zmq_3_x github.com/alecthomas/gozmq
 
-<span class="method">clang:</span> <span class="method">error:</span> argument unused during <span class="method">compilation:</span> <span class="string">'-fno-eliminate-unused-debug-types'</span></code></pre>
-<p>I tried apple-gcc4.2 installed from homebrew but also failed:</p>
-<pre><code><span class="char">$ </span><span class="class">GCC</span>=gcc-<span class="number">4.2</span> go get -tags zmq_3_x github.com/alecthomas/gozmq
-
-<span class="method">clang:</span> <span class="method">warning:</span> argument unused during <span class="method">compilation:</span> <span class="string">'-pthread'</span>
-
-<span class="method">clang:</span> <span class="method">error:</span> no such file or <span class="method">directory:</span> <span class="string">'libgcc.a'</span></code></pre>
-<p>The solution is to download and install pre-built gcc package <a href="https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg" target="_blank">GCC-10.7-v2.pkg</a> from <a href="https://github.com/kennethreitz/osx-gcc-installer" target="_blank">osx-gcc-installer</a>. Then you can install the GO package as below:</p>
-<pre><code>$ GCC=gcc-<span class="number">4.2</span> go <span class="keyword">get</span> -tags zmq_3_x github.com/alecthomas/gozmq</code></pre>
-<p>It works for other Cgo package like goejdb as well.</p>
-<p>Good luck and have fun!</p>
-<p>转自：<a href="http://vitecho.com/" target="_blank">http://vitecho.com/</a></p>
-
-      
-    </div>
-    <footer>
-      
-        
-  
-  <div class="categories">
-    <a href="/categories/Unix/Linux/">Unix/Linux</a>
+  <div class="archive">
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            <div class="icon"></div>
+            <time datetime="2013-11-23T16:00:49.000Z"><a href="/2013/11/24/sublimetext-shortcut/">Nov 24 2013</a></time>
+            
+              <h1 class="title"><a href="/2013/11/24/sublimetext-shortcut/">Sublime Text 快捷键</a></h1>
+            
+          </header>
+        </div>
+      </article>
+    
   </div>
-
-        
-  
-  <div class="tags">
-    <a href="/tags/Mac OS X/">Mac OS X</a>
-  </div>
-
-
-<!-- Baidu Button BEGIN -->
-<div id="bdshare" class="bdshare_b" style="line-height: 12px;">
-<img src="http://bdimg.share.baidu.com/static/images/type-button-2.jpg?cdnversion=20120831" />
-</div>
-<script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6855542" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">
-document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
-</script>
-<!-- Baidu Button END -->
-
-
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-<section id="comment">
- <h1 class="title">Comments</h1>
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"itman"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
-
-  <h1 class="title">Comments</h1>
-
-  
-</section>
-
-
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
