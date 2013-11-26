@@ -4,13 +4,34 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-23T16:02:13.834Z</updated>
+  <updated>2013-11-26T05:55:21.390Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[Oracle 12c 结构图]]></title>
+    <link href="http://itman.cc/2013/11/26/oracle-12c-architecture/"/>
+    <id>http://itman.cc/2013/11/26/oracle-12c-architecture/</id>
+    <published>2013-11-26T05:42:32.000Z</published>
+    <updated>2013-11-26T05:55:16.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://farm8.staticflickr.com/7427/11062104135_4371d6a282_z.jpg" alt=""><br><a id="more"></a></p>
+<h3>Windows</h3>
+<p><a href="http://farm6.staticflickr.com/5498/11062113575_9e17a99946_o.jpg" target="_blank">1280*800</a></p>
+<p><a href="http://farm3.staticflickr.com/2820/11062204836_3b7ea9e1b2_o.jpg" target="_blank">1366*768</a></p>
+<p><a href="http://farm8.staticflickr.com/7397/11062099825_11978b58cc_o.jpg" target="_blank">1920*1060</a></p>
+<p><a href="http://farm6.staticflickr.com/5536/11062213154_93e48bc25b_o.jpg" target="_blank">2560*1600</a></p>
+<h3>Mac</h3>
+<p><a href="http://farm3.staticflickr.com/2873/11062227424_c3e530a7a3_o.jpg" target="_blank">1280*800</a></p>
+<p><a href="http://farm6.staticflickr.com/5491/11062108395_da43726154_o.jpg" target="_blank">1366*768</a></p>
+<p><a href="http://farm6.staticflickr.com/5474/11062106795_f83e319642_o.jpg" target="_blank">1920*1080</a></p>
+<p><a href="http://farm8.staticflickr.com/7427/11062104135_a999e880f9_o.jpg" target="_blank">2560*1600</a></p>
+]]></content>
+    <category scheme="http://itman.cc/tags/oracle/" term="oracle"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[Sublime Text 快捷键]]></title>
     <link href="http://itman.cc/2013/11/24/sublimetext-shortcut/"/>
@@ -1006,63 +1027,6 @@ go
     <content type="html"><![CDATA[<h4>SQL:</h4>
 <pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
 <span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
-]]></content>
-    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
-    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 收缩数据库日志]]></title>
-    <link href="http://itman.cc/2013/09/02/mssql-shrink-database-log/"/>
-    <id>http://itman.cc/2013/09/02/mssql-shrink-database-log/</id>
-    <published>2013-09-02T14:32:04.000Z</published>
-    <updated>2013-11-05T00:01:33.000Z</updated>
-    <content type="html"><![CDATA[<figure class="highlight lang-sql"><figcaption><span>SQL2005</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre>USE [master]
-DUMP TRANSACTION [DB_Samples] WITH NO_LOG
-BACKUP LOG [DB_Samples] WITH NO_LOG
-DBCC SHRINKDATABASE([DB_Samples])
-</pre></td></tr></table></figure>
-
-<p><a id="more"></a><br>    <figure class="highlight lang-sql"><figcaption><span>SQL2008</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="code"><pre>USE [master]
-GO
-<span class="operator"><span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE <span class="keyword">WITH</span> NO_WAIT
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY SIMPLE
-<span class="keyword">GO</span>
- 
-USE [DB_Samples]
-<span class="keyword">GO</span>
-DBCC SHRINKFILE (N <span class="string">'DB_Samples_log'</span> , <span class="number">0</span>, TRUNCATEONLY)
-<span class="keyword">GO</span>
- 
-USE [master]
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span> <span class="keyword">WITH</span> NO_WAIT
-<span class="keyword">GO</span>
-<span class="keyword">ALTER</span> DATABASE [DB_Samples] <span class="keyword">SET</span> RECOVERY <span class="keyword">FULL</span>
-<span class="keyword">GO</span>
-</pre></td></tr></table></figure></p>
 ]]></content>
     <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
     <category scheme="http://itman.cc/categories/Database/" term="Database"/>
