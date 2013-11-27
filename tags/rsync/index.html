@@ -3,18 +3,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MsSQL 64位配置方法 | ITman.cc</title>
+  <title>rsync | ITman.cc</title>
   <meta name="author" content="L.S">
-  
-  <meta name="description" content="新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。
-1、安装WINDOWS2003 64位 + SP
-2、安装MsSQL 2005 64位 + SP
-3、配置环境：1）新建SqlServer用户；2）">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="MsSQL 64位配置方法"/>
+  
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -60,87 +55,25 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-09-02T15:12:46.000Z"><a href="/2013/09/02/mssql-64bit-configuration/">Sep 2 2013</a></time>
-      
-      
-  
-    <h1 class="title">MsSQL 64位配置方法</h1>
-  
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">rsync</h2>
 
-    </header>
-    <div class="entry">
-      
-        <p>新搭建一台R710，CPU XEON 5520再搭配16G内存，使用起来应该还蛮爽的说~~~以为装起来应该很顺利，但发现每次系统总是N多东西需要配置。</p>
-<p>1、安装WINDOWS2003 64位 + SP</p>
-<p>2、安装MsSQL 2005 64位 + SP</p>
-<p>3、配置环境：<br>1）新建SqlServer用户；<br>2）使用SqlServer运行SqlServer以及SqlAgent服务；<br>3）至此，以为系统就已经配置成功了，但SqlAgent老是无法启动，提示错误如下：</p>
-<p>SQLServerAgent could not be started (reason: SQLServerAgent 必须能够以 SysAdmin 身份连接到 SQLServer，但“(未知)”不是 SysAdmin 角色的成员)。<br>SQL Server 阻止了对组件 ‘Agent XPs’ 的 过程’dbo.sp_sqlagent_get_startup_info’ 的访问，因为此组件已作为此服务器安全配置的一部分而被关闭。系统管理员可以通过使用 sp_configure 启用 ‘Agent XPs’。有关启用 ‘Agent XPs’ 的详细信息，请参阅 SQL Server 联机丛书中的 “外围应用配置器”。<br>原来漏掉了内存分配权限，如图：<br><img src="http://farm8.staticflickr.com/7430/10627448863_767c77bfb3_o.jpg" alt=""></p>
 
-      
-    </div>
-    <footer>
-      
-        
-  
-  <div class="categories">
-    <a href="/categories/Database/">Database</a>
+  <div class="archive">
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            <div class="icon"></div>
+            <time datetime="2013-11-27T10:05:55.000Z"><a href="/2013/11/27/rsync/">Nov 27 2013</a></time>
+            
+              <h1 class="title"><a href="/2013/11/27/rsync/">Rsync 的配置与使用</a></h1>
+            
+          </header>
+        </div>
+      </article>
+    
   </div>
-
-        
-  
-  <div class="tags">
-    <a href="/tags/mssql/">mssql</a>
-  </div>
-
-
-<!-- Baidu Button BEGIN -->
-<div id="bdshare" class="bdshare_b" style="line-height: 12px;">
-<img src="http://bdimg.share.baidu.com/static/images/type-button-2.jpg?cdnversion=20120831" />
-</div>
-<script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6855542" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">
-document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
-</script>
-<!-- Baidu Button END -->
-
-
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-<section id="comment">
- <h1 class="title">Comments</h1>
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"itman"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
-
-  <h1 class="title">Comments</h1>
-
-  
-</section>
-
-
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

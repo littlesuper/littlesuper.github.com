@@ -4,13 +4,99 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-26T05:55:21.390Z</updated>
+  <updated>2013-11-27T14:36:13.454Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[Rsync 的配置与使用]]></title>
+    <link href="http://itman.cc/2013/11/27/rsync/"/>
+    <id>http://itman.cc/2013/11/27/rsync/</id>
+    <published>2013-11-27T10:05:55.000Z</published>
+    <updated>2013-11-27T14:36:08.000Z</updated>
+    <content type="html"><![CDATA[<h3><strong>一、简介</strong></h3>
+<p>Rsync 是一个远程数据同步工具，可通过 LAN/WAN 快速同步多台主机间的文件。 Rsync 本来是用以取代 rcp 的一个工具，它当前由  rsync.samba.org 维护。 Rsync 使用所谓的“ Rsync 演算法 ”来使本地和远程两个主机之间的文件达到同步，这个算法只传送两个文件的不同部分，而不是每次都整份传送，因此速度相当快。运行 Rsync server 的机器也叫 backup server ，一个 Rsync server 可同时备份多个 client 的数据；也可以多个 Rsync server 备份一个 client 的数据。</p>
+<p>Rsync 可以搭配 rsh 或 ssh 甚至使用 daemon 模式。 Rsync server 会打开一个 873 的服务通道 (port) ，等待对方 Rsync 连接。连接时， Rsync server 会检查口令是否相符，若通过口令查核，则可以开始进行文件传输。第一次连通完成时，会把整份文件传输一次，下一次就只传送二个文件之间不同的部份。</p>
+<p>Rsync 支持大多数的类 Unix 系统，无论是 Linux 、 Solaris 还是 BSD 上都经过了良好的测试。此外，它在 windows 平台下也有相应的版本，比较知名的有 cwRsync 和 Sync2NAS 。</p>
+<a id="more"></a>
+
+<h4><strong>Rsync 的基本特点如下：</strong></h4>
+<ul>
+<li>可以镜像保存整个目录树和文件系统</li>
+<li>可以很容易做到保持原来文件的权限、时间、软硬链接等</li>
+<li>无须特殊权限即可安装</li>
+<li>优化的流程，文件传输效率高</li>
+<li>可以使用rcp 、 ssh等方式来传输文件，当然也可以通过直接的socket 连接</li>
+<li>支持匿名传输</li>
+</ul>
+<h4><strong>核心算法介绍：</strong></h4>
+<p>假定在名为α和β的两台计算机之间同步相似的文件A与B，其中α对文件A拥有访问权，β对文件B拥有访问权。并且假定主机α与β之间的网络带宽很小。那么rsync算法将通过下面的五个步骤来完成：</p>
+<ul>
+<li><p>β将文件B分割成一组不重叠的固定大小为S字节的数据块。最后一块可能会比S小。</p>
+</li>
+<li><p>β对每一个分割好的数据块执行两种校验：一种是32位的滚动弱校验，另一种是128位的MD4强校验。</p>
+</li>
+<li><p>β将这些校验结果发给α。</p>
+</li>
+<li><p>α通过搜索文件A的所有大小为S的数据块 ( 偏移量可以任选，不一定非要是S的倍数) ，来寻找与文件B的某一块有着相同的弱校验码和强校验码的数据块。这项工作可以借助滚动校验的特性很快完成。</p>
+</li>
+<li><p>α发给β一串指令来生成文件A在β上的备份。这里的每一条指令要么是对文件B经拥有某一个数据块而不须重传的证明，要么是一个数据块，这个数据块肯定是没有与文件B的任何一个数据块匹配上的。</p>
+</li>
+</ul>
+<h4><strong>命令：</strong></h4>
+<p>rsync 的命令格式可以为以下六种：</p>
+<pre><code>rsync [OPTION]<span class="keyword">...</span> SRC DEST
+rsync [OPTION]<span class="keyword">...</span> SRC [USER@]HOST:DEST
+rsync [OPTION]<span class="keyword">...</span> [USER@]HOST:SRC DEST
+rsync [OPTION]<span class="keyword">...</span> [USER@]HOST::SRC DEST
+rsync [OPTION]<span class="keyword">...</span> SRC [USER@]HOST::DEST
+rsync [OPTION]<span class="keyword">...</span> rsync://[USER@]HOST[:PORT]/SRC [DEST]</code></pre>
+<p>对应于以上六种命令格式， rsync 有六种不同的工作模式：</p>
+<ol>
+<li><p>拷贝本地文件。当 SRC 和 DES 路径信息都不包含有单个冒号 “:” 分隔符时就启动这种工作模式。</p>
+</li>
+<li><p>使用一个远程 shell 程序 ( 如 rsh 、 ssh) 来实现将本地机器的内容拷贝到远程机器。当 DST 路径地址包含单个冒号 “:” 分隔符时启动该模式。</p>
+</li>
+<li><p>使用一个远程 shell 程序 ( 如 rsh 、 ssh) 来实现将远程机器的内容拷贝到本地机器。当 SRC 地址路径包含单个冒号 “:” 分隔符时启动该模式。</p>
+</li>
+<li><p>从远程 rsync 服务器中拷贝文件到本地机。当 SRC 路径信息包含 “::” 分隔符时启动该模式。</p>
+</li>
+<li><p>从本地机器拷贝文件到远程 rsync 服务器中。当 DST 路径信息包含 “::” 分隔符时启动该模式。</p>
+</li>
+<li><p>列远程机的文件列表。这类似于 rsync 传输，不过只要在命令中省略掉本地机信息即可。</p>
+</li>
+</ol>
+<h3>二、配置</h3>
+<p>配置/etc/rsyncd.conf，一般情况下安装了rsync不会自动创建rsyncd.conf，配置如下</p>
+<pre><code><span class="comment"># Rsync configuration file</span>
+secrets <span class="type">file</span> = /etc/rsyncd.secrets <span class="comment">#认证用户名和密码文件的名称和位置</span>
+motd <span class="type">file</span> = /etc/rsyncd.motd <span class="comment">#欢迎文件，可自己编辑</span>
+<span class="command">read</span>&gt;<span class="type">list</span> = yes
+uid = root
+gid = root
+use chroot = no
+max connections = <span class="number">5</span>
+<span class="command">log</span> <span class="type">file</span> = /var/<span class="command">log</span>/rsyncd.<span class="command">log</span>
+pid <span class="type">file</span> = /var/<span class="command">run</span>/rsyncd.pid
+lock <span class="type">file</span> = /var/<span class="command">run</span>/rsync.lock
+<span class="comment"># Remote sync configuration module</span>
+[testsync]
+comment = testsync directory
+path = /root
+auth users = rsync</code></pre>
+<p>生成密码文件</p>
+<pre><code><span class="title">echo</span> <span class="string">"rsync:password"</span> &gt;&gt; /etc/rsyncd.secrets
+<span class="title">chmod</span> <span class="number">600</span> /etc/rsyncd.secrets </code></pre>
+<p>启动rsync<br>rsync —daemon</p>
+<p>从客户端同步文件<br>rsync -vzrtopg —progress rsync@192.168.190.1::testsync /root<br>rsync -vzrtopg —delete —progress rsync@192.168.190.1::testsync /root</p>
+<p>增加—delete参数会把原有chjq目录下的文件删除以保持客户端和服务器端文件系统完全一致，慎用!</p>
+]]></content>
+    <category scheme="http://itman.cc/tags/rsync/" term="rsync"/>
+    <category scheme="http://itman.cc/categories/Unix/Linux/" term="Unix/Linux"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[Oracle 12c 结构图]]></title>
     <link href="http://itman.cc/2013/11/26/oracle-12c-architecture/"/>
@@ -1014,19 +1100,6 @@ go
 <li>适用于远程服务器数据库备份后，下载到本地并在本地SQL服务器上还原引的狐立用户问题；</li>
 <li>仅适用于SQLSERVER 2005 或以上版本；</li>
 </ul>
-]]></content>
-    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
-    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[MsSQL 查看当前连接数]]></title>
-    <link href="http://itman.cc/2013/09/02/mssql-current-connections/"/>
-    <id>http://itman.cc/2013/09/02/mssql-current-connections/</id>
-    <published>2013-09-02T14:45:39.000Z</published>
-    <updated>2013-11-05T00:01:01.000Z</updated>
-    <content type="html"><![CDATA[<h4>SQL:</h4>
-<pre><code><span class="operator"><span class="keyword">select</span> hostname,<span class="aggregate">count</span>(*) hostconncount <span class="keyword">from</span> master.dbo.sysprocesses
-<span class="keyword">group</span> <span class="keyword">by</span> hostname <span class="keyword">order</span> <span class="keyword">by</span> <span class="aggregate">count</span>(*) <span class="keyword">desc</span></code></pre>
 ]]></content>
     <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
     <category scheme="http://itman.cc/categories/Database/" term="Database"/>

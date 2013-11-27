@@ -62,6 +62,47 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-11-27T10:05:55.000Z"><a href="/2013/11/27/rsync/">Nov 27 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/11/27/rsync/">Rsync 的配置与使用</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3><strong>一、简介</strong></h3>
+<p>Rsync 是一个远程数据同步工具，可通过 LAN/WAN 快速同步多台主机间的文件。 Rsync 本来是用以取代 rcp 的一个工具，它当前由  rsync.samba.org 维护。 Rsync 使用所谓的“ Rsync 演算法 ”来使本地和远程两个主机之间的文件达到同步，这个算法只传送两个文件的不同部分，而不是每次都整份传送，因此速度相当快。运行 Rsync server 的机器也叫 backup server ，一个 Rsync server 可同时备份多个 client 的数据；也可以多个 Rsync server 备份一个 client 的数据。</p>
+<p>Rsync 可以搭配 rsh 或 ssh 甚至使用 daemon 模式。 Rsync server 会打开一个 873 的服务通道 (port) ，等待对方 Rsync 连接。连接时， Rsync server 会检查口令是否相符，若通过口令查核，则可以开始进行文件传输。第一次连通完成时，会把整份文件传输一次，下一次就只传送二个文件之间不同的部份。</p>
+<p>Rsync 支持大多数的类 Unix 系统，无论是 Linux 、 Solaris 还是 BSD 上都经过了良好的测试。此外，它在 windows 平台下也有相应的版本，比较知名的有 cwRsync 和 Sync2NAS 。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/11/27/rsync/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-11-26T05:42:32.000Z"><a href="/2013/11/26/oracle-12c-architecture/">Nov 26 2013</a></time>
       
       
@@ -443,44 +484,6 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-10-17T13:17:38.000Z"><a href="/2013/10/17/xiaomi-tv/">Oct 17 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/10/17/xiaomi-tv/">小米电视首发开箱</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p><img src="http://farm3.staticflickr.com/2814/10645266626_cda43a57e8_z.jpg" alt=""></p>
-<p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/10/17/xiaomi-tv/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -510,7 +513,7 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
   
     <li><a href="/categories/News/">News</a><small>2</small></li>
   
-    <li><a href="/categories/Unix/Linux/">Unix/Linux</a><small>5</small></li>
+    <li><a href="/categories/Unix/Linux/">Unix/Linux</a><small>6</small></li>
   
     <li><a href="/categories/Virtaulization/">Virtaulization</a><small>1</small></li>
   
@@ -522,7 +525,7 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 12.50px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/sublime text/" style="font-size: 10.00px;">sublime text</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
+    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 12.50px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/rsync/" style="font-size: 10.00px;">rsync</a><a href="/tags/sublime text/" style="font-size: 10.00px;">sublime text</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
   </div>
 </div>
 
