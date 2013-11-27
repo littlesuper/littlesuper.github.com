@@ -130,27 +130,28 @@ rsync [OPTION]<span class="keyword">...</span> rsync://[USER@]HOST[:PORT]/SRC [D
 </ol>
 <h3>二、配置</h3>
 <p>配置/etc/rsyncd.conf，一般情况下安装了rsync不会自动创建rsyncd.conf，配置如下</p>
-<pre><code><span class="comment"># Rsync configuration file</span>
-secrets <span class="type">file</span> = /etc/rsyncd.secrets <span class="comment">#认证用户名和密码文件的名称和位置</span>
-motd <span class="type">file</span> = /etc/rsyncd.motd <span class="comment">#欢迎文件，可自己编辑</span>
-<span class="command">read</span>&gt;<span class="type">list</span> = yes
-uid = root
-gid = root
-use chroot = no
-max connections = <span class="number">5</span>
-<span class="command">log</span> <span class="type">file</span> = /var/<span class="command">log</span>/rsyncd.<span class="command">log</span>
+<pre><code>use chroot = no
+<span class="comment">#hosts allow = 0.0.0.0/0</span>
+<span class="comment">#hosts deny = 10.0.0.1/8</span>
+<span class="type">list</span> = no
 pid <span class="type">file</span> = /var/<span class="command">run</span>/rsyncd.pid
 lock <span class="type">file</span> = /var/<span class="command">run</span>/rsync.lock
-<span class="comment"># Remote sync configuration module</span>
-[testsync]
-comment = testsync directory
-path = /root
-auth users = rsync</code></pre>
+<span class="command">log</span> <span class="type">file</span> = /var/<span class="command">log</span>/rsyncd.<span class="command">log</span>
+secrets <span class="type">file</span> = /etc/rsyncd.secrets
+
+[www]
+path=/www/
+<span class="comment">#uid=www</span>
+<span class="comment">#gid=www</span>
+<span class="command">read</span> only= no
+auth users = rsync
+secrets <span class="type">file</span> = /etc/rsyncd.secrets    </code></pre>
 <p>生成密码文件</p>
 <pre><code><span class="title">echo</span> <span class="string">"rsync:password"</span> &gt;&gt; /etc/rsyncd.secrets
 <span class="title">chmod</span> <span class="number">600</span> /etc/rsyncd.secrets </code></pre>
-<p>启动rsync<br>rsync —daemon</p>
-<p>从客户端同步文件<br>rsync -vzrtopg —progress rsync@192.168.190.1::testsync /root<br>rsync -vzrtopg —delete —progress rsync@192.168.190.1::testsync /root</p>
+<p>“#”为非强制要求选项。</p>
+<p>启动rsync<br>rsync —daemon —config=/etc/rsyncd.conf</p>
+<p>从客户端同步文件<br>rsync -vzrtopg —progress rsync@192.168.190.1::www /root<br>rsync -vzrtopg —delete —progress rsync@192.168.190.1::www /root</p>
 <p>增加—delete参数会把原有chjq目录下的文件删除以保持客户端和服务器端文件系统完全一致，慎用!</p>
 
       
