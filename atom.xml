@@ -4,7 +4,7 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2013-11-27T15:04:45.655Z</updated>
+  <updated>2013-11-27T15:23:37.864Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
@@ -16,7 +16,7 @@
     <link href="http://itman.cc/2013/11/27/rsync/"/>
     <id>http://itman.cc/2013/11/27/rsync/</id>
     <published>2013-11-27T10:05:55.000Z</published>
-    <updated>2013-11-27T15:04:43.000Z</updated>
+    <updated>2013-11-27T15:23:29.000Z</updated>
     <content type="html"><![CDATA[<h3><strong>一、简介</strong></h3>
 <p>Rsync 是一个远程数据同步工具，可通过 LAN/WAN 快速同步多台主机间的文件。 Rsync 本来是用以取代 rcp 的一个工具，它当前由  rsync.samba.org 维护。 Rsync 使用所谓的“ Rsync 演算法 ”来使本地和远程两个主机之间的文件达到同步，这个算法只传送两个文件的不同部分，而不是每次都整份传送，因此速度相当快。运行 Rsync server 的机器也叫 backup server ，一个 Rsync server 可同时备份多个 client 的数据；也可以多个 Rsync server 备份一个 client 的数据。</p>
 <p>Rsync 可以搭配 rsh 或 ssh 甚至使用 daemon 模式。 Rsync server 会打开一个 873 的服务通道 (port) ，等待对方 Rsync 连接。连接时， Rsync server 会检查口令是否相符，若通过口令查核，则可以开始进行文件传输。第一次连通完成时，会把整份文件传输一次，下一次就只传送二个文件之间不同的部份。</p>
@@ -90,8 +90,11 @@ secrets <span class="type">file</span> = /etc/rsyncd.secrets    </code></pre>
 <p>“#”为非强制要求选项。<br>生成密码文件</p>
 <pre><code><span class="title">echo</span> <span class="string">"rsync:password"</span> &gt;&gt; /etc/rsyncd.secrets
 <span class="title">chmod</span> <span class="number">600</span> /etc/rsyncd.secrets </code></pre>
-<p>启动rsync<br>    rsync —daemon —config=/etc/rsyncd.conf</p>
-<p>从客户端同步文件<br>    rsync -vzrtopg —progress rsync@192.168.190.1::www /root<br>    rsync -vzrtopg —delete —progress rsync@192.168.190.1::www /root</p>
+<p>启动rsync</p>
+<pre><code><span class="comment">rsync</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">daemon</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">config=/etc/rsyncd</span>.<span class="comment">conf</code></pre>
+<p>从客户端同步文件</p>
+<pre><code><span class="comment">rsync</span> <span class="literal">-</span><span class="comment">vzrtopg</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">progress</span> <span class="comment">rsync@192</span>.<span class="comment">168</span>.<span class="comment">190</span>.<span class="comment">1::www</span> <span class="comment">/root</span>
+<span class="comment">rsync</span> <span class="literal">-</span><span class="comment">vzrtopg</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">delete</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">progress</span> <span class="comment">rsync@192</span>.<span class="comment">168</span>.<span class="comment">190</span>.<span class="comment">1::www</span> <span class="comment">/root</code></pre>
 <p>增加—delete参数会把原有chjq目录下的文件删除以保持客户端和服务器端文件系统完全一致，慎用!</p>
 ]]></content>
     <category scheme="http://itman.cc/tags/rsync/" term="rsync"/>
