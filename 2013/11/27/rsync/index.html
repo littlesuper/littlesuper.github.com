@@ -146,12 +146,11 @@ path=/www/
 <span class="command">read</span> only= no
 auth users = rsync
 secrets <span class="type">file</span> = /etc/rsyncd.secrets    </code></pre>
-<p>生成密码文件</p>
+<p>“#”为非强制要求选项。<br>生成密码文件</p>
 <pre><code><span class="title">echo</span> <span class="string">"rsync:password"</span> &gt;&gt; /etc/rsyncd.secrets
 <span class="title">chmod</span> <span class="number">600</span> /etc/rsyncd.secrets </code></pre>
-<p>“#”为非强制要求选项。</p>
-<p>启动rsync<br>rsync —daemon —config=/etc/rsyncd.conf</p>
-<p>从客户端同步文件<br>rsync -vzrtopg —progress rsync@192.168.190.1::www /root<br>rsync -vzrtopg —delete —progress rsync@192.168.190.1::www /root</p>
+<p>启动rsync<br>    rsync —daemon —config=/etc/rsyncd.conf</p>
+<p>从客户端同步文件<br>    rsync -vzrtopg —progress rsync@192.168.190.1::www /root<br>    rsync -vzrtopg —delete —progress rsync@192.168.190.1::www /root</p>
 <p>增加—delete参数会把原有chjq目录下的文件删除以保持客户端和服务器端文件系统完全一致，慎用!</p>
 
       
