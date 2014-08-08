@@ -4,21 +4,13 @@
   <subtitle><![CDATA[关注互联网发展...]]></subtitle>
   <link href="http://itman.cc/atom.xml" rel="self"/>
   <link href="http://itman.cc"/>
-  <updated>2014-08-08T16:52:00.342Z</updated>
+  <updated>2014-08-08T16:53:41.539Z</updated>
   <id>http://itman.cc/</id>
   <author>
     <name><![CDATA[L.S]]></name>
     <email><![CDATA[littlesuper@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
-  <entry>
-    <title type="html"><![CDATA[test]]></title>
-    <link href="http://itman.cc/2014/08/09/test/"/>
-    <id>http://itman.cc/2014/08/09/test/</id>
-    <published>2014-08-08T16:51:40.000Z</published>
-    <updated>2014-08-08T16:51:40.000Z</updated>
-    <content type="html"><![CDATA[]]></content>
-  </entry>
   <entry>
     <title type="html"><![CDATA[Rsync 的配置与使用]]></title>
     <link href="http://itman.cc/2013/11/27/rsync/"/>
@@ -1083,6 +1075,23 @@ go
 <p>—————————————————–<br>tom 0xD6AABCC8F83E3243A6C3C97F28A4CB55</p>
 <p>然后在MIR-B上用下面的语句创建登录名tom</p>
 <pre><code><span class="title">sp_addlogin</span> <span class="variable">@loginame</span> = <span class="string">'tom'</span>, <span class="variable">@passwd</span> = <span class="string">'password'</span>, <span class="variable">@sid</span> = 0xD6AABCC8F83E3243A6C3C97F28A4CB55</code></pre>
+]]></content>
+    <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
+    <category scheme="http://itman.cc/categories/Database/" term="Database"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[MsSQL 备份文件还原后引起的孤立用户解决方法]]></title>
+    <link href="http://itman.cc/2013/09/02/mssql-change-users-login/"/>
+    <id>http://itman.cc/2013/09/02/mssql-change-users-login/</id>
+    <published>2013-09-02T14:52:03.000Z</published>
+    <updated>2013-11-05T00:00:47.000Z</updated>
+    <content type="html"><![CDATA[<p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
+<pre><code><span class="title">exec</span> sp_change_users_login <span class="string">'update_one'</span>,<span class="string">'没有登陆名的数据库用户'</span>, <span class="string">'新的登陆名'</span></code></pre>
+<p>但由于SQL SERVER 2005采用了架构，所以在删除用户是会出现一些错误，因此在这里把我在强制还原后的一些处理方法介绍给大家以作参照。</p>
+<ul>
+<li>适用于远程服务器数据库备份后，下载到本地并在本地SQL服务器上还原引的狐立用户问题；</li>
+<li>仅适用于SQLSERVER 2005 或以上版本；</li>
+</ul>
 ]]></content>
     <category scheme="http://itman.cc/tags/mssql/" term="mssql"/>
     <category scheme="http://itman.cc/categories/Database/" term="Database"/>

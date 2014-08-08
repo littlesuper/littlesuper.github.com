@@ -62,43 +62,6 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-10-24T15:03:55.000Z"><a href="/2013/10/24/apple-free-mavericks-iwork-ilife/">Oct 24 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/10/24/apple-free-mavericks-iwork-ilife/">Apple 免费大餐来了： Mavericks + iWork + iLife</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p><img src="http://farm4.staticflickr.com/3803/10647723563_1f2def4e0f_z.jpg" alt=""><br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/10/24/apple-free-mavericks-iwork-ilife/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2013-10-17T13:17:38.000Z"><a href="/2013/10/17/xiaomi-tv/">Oct 17 2013</a></time>
       
       
@@ -445,6 +408,46 @@ phpinfo();
           <div class="alignleft">
             <a href="/2013/09/02/mssql-2005-setup-mirror/#more" class="more-link">Read More</a>
           </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-09-02T14:52:03.000Z"><a href="/2013/09/02/mssql-change-users-login/">Sep 2 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/09/02/mssql-change-users-login/">MsSQL 备份文件还原后引起的孤立用户解决方法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>很多用户使用的是远程的SQL服务器，数据库备份后都备份在远程服务器中，如果要将数据转存到本地SQL服务器的话，就会使用到强制还原。这样就会产生孤立用户，对于SQL SERVER2000中需要在数据库中执行以下查询，就可以删除。</p>
+<pre><code><span class="title">exec</span> sp_change_users_login <span class="string">'update_one'</span>,<span class="string">'没有登陆名的数据库用户'</span>, <span class="string">'新的登陆名'</span></code></pre>
+<p>但由于SQL SERVER 2005采用了架构，所以在删除用户是会出现一些错误，因此在这里把我在强制还原后的一些处理方法介绍给大家以作参照。</p>
+<ul>
+<li>适用于远程服务器数据库备份后，下载到本地并在本地SQL服务器上还原引的狐立用户问题；</li>
+<li>仅适用于SQLSERVER 2005 或以上版本；</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
         
         
       
