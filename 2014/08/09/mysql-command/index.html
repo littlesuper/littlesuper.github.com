@@ -3,13 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Unix/Linux | ITman.cc</title>
+  <title>MySQL日常管理命令 | ITman.cc</title>
   <meta name="author" content="L.S">
+  
+  <meta name="description" content="用户 &amp; 权限
+
+「增加用户并授权」
+
+1）远程用户
+    grant select,insert,update,delete,create on table.* to user@% Identified by &quot;password&quot;;
+2）本地用户
+    grant select,ins">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="MySQL日常管理命令"/>
   <meta property="og:site_name" content="ITman.cc"/>
 
   
@@ -55,85 +64,94 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title category">Unix/Linux</h2>
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-09T04:29:30.000Z"><a href="/2014/08/09/mysql-command/">Aug 9 2014</a></time>
+      
+      
+  
+    <h1 class="title">MySQL日常管理命令</h1>
+  
 
+    </header>
+    <div class="entry">
+      
+        <h1>用户 &amp; 权限</h1>
 
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-27T10:05:55.000Z"><a href="/2013/11/27/rsync/">Nov 27 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/27/rsync/">Rsync 的配置与使用</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-12T14:43:21.000Z"><a href="/2013/11/12/fixing-bazaar-for-mac-os-x/">Nov 12 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/12/fixing-bazaar-for-mac-os-x/">Fixing Bazaar for Mac OS X</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-06T05:04:42.000Z"><a href="/2013/11/06/centos-install-git/">Nov 6 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/06/centos-install-git/">CentOS 下安装 Git</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-11-06T04:54:43.000Z"><a href="/2013/11/06/cgo-compilation-for-mavericks/">Nov 6 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/11/06/cgo-compilation-for-mavericks/">CGO Compilation for Mac OS X 10.9 Mavericks</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-09-04T01:34:11.000Z"><a href="/2013/09/04/centos5-setup-l2tp/">Sep 4 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/09/04/centos5-setup-l2tp/">CentOS5 搭建L2TP VPN</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2013-09-03T03:31:20.000Z"><a href="/2013/09/03/centos-php-5-2-connect-to-oracle/">Sep 3 2013</a></time>
-            
-              <h1 class="title"><a href="/2013/09/03/centos-php-5-2-connect-to-oracle/">CentOS PHP 5.2.x 链接Oracle数据库</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+<h3>「增加用户并授权」</h3>
+
+<p>1）远程用户</p>
+<pre><code>    <span class="operator"><span class="keyword">grant</span> <span class="keyword">select</span>,<span class="keyword">insert</span>,<span class="keyword">update</span>,<span class="keyword">delete</span>,<span class="keyword">create</span> <span class="keyword">on</span> <span class="keyword">table</span>.* <span class="keyword">to</span> <span class="keyword">user</span>@% Identified <span class="keyword">by</span> <span class="string">"password"</span>;</span></code></pre>
+<p>2）本地用户</p>
+<pre><code>    <span class="operator"><span class="keyword">grant</span> <span class="keyword">select</span>,<span class="keyword">insert</span>,<span class="keyword">update</span>,<span class="keyword">delete</span>,<span class="keyword">create</span> <span class="keyword">on</span> <span class="keyword">table</span>.* <span class="keyword">to</span> <span class="keyword">user</span>@localhost Identified <span class="keyword">by</span> <span class="string">"password"</span>;</span></code></pre>
+<p><br /></p>
+<h3>「重载权限」</h3>
+
+<pre><code>    <span class="title">flush</span> privilages;</code></pre>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Database/">Database</a>
   </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/mysql/">mysql</a>
+  </div>
+
+
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+<img src="http://bdimg.share.baidu.com/static/images/type-button-2.jpg?cdnversion=20120831" />
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6855542" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->
+
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+ <h1 class="title">Comments</h1>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"itman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+  <h1 class="title">Comments</h1>
+
+  
+</section>
+
+
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

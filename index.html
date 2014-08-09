@@ -62,6 +62,51 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-08-09T04:29:30.000Z"><a href="/2014/08/09/mysql-command/">Aug 9 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/09/mysql-command/">MySQL日常管理命令</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1>用户 &amp; 权限</h1>
+
+<h3>「增加用户并授权」</h3>
+
+<p>1）远程用户</p>
+<pre><code>    <span class="operator"><span class="keyword">grant</span> <span class="keyword">select</span>,<span class="keyword">insert</span>,<span class="keyword">update</span>,<span class="keyword">delete</span>,<span class="keyword">create</span> <span class="keyword">on</span> <span class="keyword">table</span>.* <span class="keyword">to</span> <span class="keyword">user</span>@% Identified <span class="keyword">by</span> <span class="string">"password"</span>;</span></code></pre>
+<p>2）本地用户</p>
+<pre><code>    <span class="operator"><span class="keyword">grant</span> <span class="keyword">select</span>,<span class="keyword">insert</span>,<span class="keyword">update</span>,<span class="keyword">delete</span>,<span class="keyword">create</span> <span class="keyword">on</span> <span class="keyword">table</span>.* <span class="keyword">to</span> <span class="keyword">user</span>@localhost Identified <span class="keyword">by</span> <span class="string">"password"</span>;</span></code></pre>
+<p><br /></p>
+<h3>「重载权限」</h3>
+
+<pre><code>    <span class="title">flush</span> privilages;</code></pre>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-11-27T10:05:55.000Z"><a href="/2013/11/27/rsync/">Nov 27 2013</a></time>
       
       
@@ -447,43 +492,6 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-10-24T15:03:55.000Z"><a href="/2013/10/24/apple-free-mavericks-iwork-ilife/">Oct 24 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/10/24/apple-free-mavericks-iwork-ilife/">Apple 免费大餐来了： Mavericks + iWork + iLife</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p><img src="http://farm4.staticflickr.com/3803/10647723563_1f2def4e0f_z.jpg" alt=""><br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/10/24/apple-free-mavericks-iwork-ilife/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -505,7 +513,7 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
   <h3 class="title">Categories</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Database/">Database</a><small>9</small></li>
+    <li><a href="/categories/Database/">Database</a><small>10</small></li>
   
     <li><a href="/categories/Develop/">Develop</a><small>1</small></li>
   
@@ -525,7 +533,7 @@ Name Surname <span class="tag">&lt;<span class="title">name@example.com</span>&g
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 10.00px;">mysql</a><a href="/tags/oracle/" style="font-size: 12.50px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/rsync/" style="font-size: 10.00px;">rsync</a><a href="/tags/sublime text/" style="font-size: 10.00px;">sublime text</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
+    <a href="/tags/3c/" style="font-size: 17.50px;">3c</a><a href="/tags/Mac OS X/" style="font-size: 12.50px;">Mac OS X</a><a href="/tags/apple/" style="font-size: 12.50px;">apple</a><a href="/tags/centos/" style="font-size: 10.00px;">centos</a><a href="/tags/chrome/" style="font-size: 10.00px;">chrome</a><a href="/tags/facebook/" style="font-size: 10.00px;">facebook</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/hiwifi/" style="font-size: 10.00px;">hiwifi</a><a href="/tags/iPhone/" style="font-size: 10.00px;">iPhone</a><a href="/tags/l2tp/" style="font-size: 10.00px;">l2tp</a><a href="/tags/mavericks/" style="font-size: 10.00px;">mavericks</a><a href="/tags/mssql/" style="font-size: 20.00px;">mssql</a><a href="/tags/mysql/" style="font-size: 12.50px;">mysql</a><a href="/tags/oracle/" style="font-size: 12.50px;">oracle</a><a href="/tags/php/" style="font-size: 10.00px;">php</a><a href="/tags/python/" style="font-size: 10.00px;">python</a><a href="/tags/rsync/" style="font-size: 10.00px;">rsync</a><a href="/tags/sublime text/" style="font-size: 10.00px;">sublime text</a><a href="/tags/vm esxi/" style="font-size: 10.00px;">vm esxi</a><a href="/tags/vpn/" style="font-size: 10.00px;">vpn</a><a href="/tags/小米/" style="font-size: 15.00px;">小米</a><a href="/tags/极路由/" style="font-size: 10.00px;">极路由</a>
   </div>
 </div>
 
